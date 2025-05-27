@@ -1,0 +1,7 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/!/UI/HudStyle.uss?fileID=7433441132597879392&amp;guid=2f2a4629da41dd44db7a769753405117&amp;type=3#HudStyle" />
+    <ui:VisualElement style="flex-grow: 1;">
+        <ui:Button text="&lt;" name="MoveLeft" class="navigationButton" style="opacity: 0.7; align-self: flex-start; height: 1080px; width: 5%; top: auto; bottom: auto; -unity-font-style: bold; font-size: 80px; position: absolute;" />
+        <ui:Button text="&gt;" name="MoveRight" class="navigationButton" style="opacity: 0.7; align-self: flex-end; height: 100%; width: 5%; top: auto; bottom: auto; -unity-font-style: bold; font-size: 80px; align-items: auto; position: absolute;" />
+    </ui:VisualElement>
+</ui:UXML>

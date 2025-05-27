@@ -1,6 +1,7 @@
 using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class CameraController : MonoBehaviour
 {
@@ -10,8 +11,9 @@ public class CameraController : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Camera playerCamera;
-    [SerializeField] private GameObject moveLeftButton;
-    [SerializeField] private GameObject moveRightButton;
+    [SerializeField] private UIDocument hud;
+    [SerializeField] private Button moveLeftButton;
+    [SerializeField] private Button moveRightButton;
     [SerializeField] private PlayerControls playerControls;
     
     [Header("Settings")]
@@ -25,6 +27,54 @@ public class CameraController : MonoBehaviour
 
     Vector3 onClickPos;
 
+    private void Start()
+    {
+        SetupOnScreenControls();
+    }
+
+    private void SetupOnScreenControls()
+    {
+        // configures the on screen buttons
+
+        VisualElement root = hud.rootVisualElement;
+        moveLeftButton = root.Q<Button>("MoveLeft");
+        moveRightButton = root.Q<Button>("MoveRight");
+
+        moveLeftButton.RegisterCallback<PointerDownEvent>(MoveLeftClicked, TrickleDown.TrickleDown);
+        moveLeftButton.RegisterCallback<PointerUpEvent>(MoveLeftReleased, TrickleDown.TrickleDown);
+
+        moveRightButton.RegisterCallback<PointerDownEvent>(MoveRightClicked, TrickleDown.TrickleDown);
+        moveRightButton.RegisterCallback<PointerUpEvent>(MoveRightReleased, TrickleDown.TrickleDown);
+    }
+
+    private void MoveLeftClicked(PointerDownEvent evt)
+    {
+        // on screen control button click callback event
+        direction = -1f;
+    }
+    private void MoveLeftReleased(PointerUpEvent evt)
+    {
+        // on screen control button click callback event
+        direction = 0f;
+    }
+
+    private void MoveRightClicked(PointerDownEvent evt)
+    {
+        // on screen control button click callback event
+        direction = 1f;
+    }
+    private void MoveRightReleased(PointerUpEvent evt)
+    {
+        // on screen control button click callback event
+        direction = 0f;
+    }
+
+    private void OnMove(InputValue inputValue)
+    {
+        // get the movement direction from the Input System
+
+        direction = inputValue.Get<float>();
+    }
     private void Update()
     {
         MoveCamera();
@@ -50,16 +100,10 @@ public class CameraController : MonoBehaviour
         // limits the camera movement to the bounds defined by the designer
 
         canMoveLeft = playerCamera.transform.position.x > leftSideLimitX;
-        moveLeftButton.SetActive(canMoveLeft);
+        moveLeftButton.SetEnabled(canMoveLeft);
 
         canMoveRight = playerCamera.transform.position.x < rightSideLimitX;
-        moveRightButton.SetActive(canMoveRight);
+        moveRightButton.SetEnabled(canMoveRight);
     }
 
-    private void OnMove(InputValue inputValue)
-    {
-        // get the movement direction from the Input System
-
-        direction = inputValue.Get<float>();
-    }
 }
