@@ -11,8 +11,9 @@ public class PatrolPoint : MonoBehaviour
 
     private void Awake()
     {
-        // hides the markers
         workerManager = FindFirstObjectByType<WorkerManager>();
+
+        // hides the markers
         GetComponent<MeshRenderer>().enabled = workerManager.debugMode;
     }
 

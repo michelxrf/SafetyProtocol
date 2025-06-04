@@ -2,6 +2,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.LightTransport;
 
 public class WorkerManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class WorkerManager : MonoBehaviour
 
     public bool debugMode = true;
     [SerializeField] private bool generateRandomPatrolPoints;
+    [Range(0f, 1f)]
+    [SerializeField] private float idleChance;
 
     private List<PatrolPoint> patrolPoints = new();
     private List<Worker> workers = new();
@@ -38,8 +41,18 @@ public class WorkerManager : MonoBehaviour
         if (manuallySetPatrolPoints.Length > 0)
         {
             // add all designer made patrol points
-
-            patrolPoints.AddRange(manuallySetPatrolPoints);
+            
+            foreach(PatrolPoint patrolPoint in manuallySetPatrolPoints)
+            {
+                if (patrolPoint.GetComponent<Workstation>() != null)
+                {
+                    workstations.Add(patrolPoint.GetComponent<Workstation>());
+                }
+                else
+                {
+                    patrolPoints.Add(patrolPoint);
+                }
+            }
         }
 
         if (generateRandomPatrolPoints)
@@ -57,6 +70,44 @@ public class WorkerManager : MonoBehaviour
         if (workers.Count > patrolPoints.Count + 1)
         {
             Debug.LogWarning("Not enough patrol points for the level's worker population!");
+        }
+
+        Debug.Log($"Scene has {patrolPoints.Count} patrol points, and {workstations.Count} workstations.");
+    }
+    public PatrolPoint GetRandomWorkstation()
+    {
+        // return the Patrol Point of a random workstation
+
+        List<Workstation> freeWorkstation = workstations.FindAll(n => n.assossiatedPatrolPoint.isFree);
+
+        if (freeWorkstation.Count > 0)
+        {
+            List<PatrolPoint> assossiatedPatrols = new List<PatrolPoint>();
+
+            foreach (Workstation workstation in freeWorkstation)
+            {
+                assossiatedPatrols.Add(workstation.assossiatedPatrolPoint);
+            }
+
+            return assossiatedPatrols[Random.Range(0, freeWorkstation.Count)];
+        }
+
+        else
+        {
+            Debug.LogError("No freeworkstation");
+            return null;
+        }
+    }
+
+    public PatrolPoint GetRandomPoint()
+    {
+        if (idleChance <= Random.Range(0f, 1f))
+        {
+            return GetRandomPatrolPoint();
+        }
+        else
+        {
+            return GetRandomWorkstation();
         }
     }
 

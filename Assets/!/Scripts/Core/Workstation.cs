@@ -1,17 +1,25 @@
 using UnityEngine;
 
+[RequireComponent(typeof(PatrolPoint))]
 public class Workstation : MonoBehaviour
 {
-    // manages the workstation, where a worker will go to work and die (?)
-    // TODO: make it derived from Patrol Point, since many funcionalities are the same
+    // component attached to some patrol points to expand them to work as workstations
+    // TODO: define Accident Type
+    // TODO: add station's anim controls
 
-    [Header("Ref")]
-    [SerializeField] private WorkerManager workerManager;
-    [SerializeField] private GameObject workspot;
-    [HideInInspector] public bool isOccupied = false;
+    public GameObject workerLookAt;
+    [HideInInspector] public bool isWorkerPresent = false;
+    [HideInInspector] public PatrolPoint assossiatedPatrolPoint;
+    public string workAnimation = "Work";
+    public string assossiatedAccident = "Accident";
 
-    public Vector3 GetWorkspotPoint()
+    private void Awake()
     {
-        return workspot.transform.position;
+        assossiatedPatrolPoint = GetComponent<PatrolPoint>();
+
+        if (workerLookAt == null )
+        {
+            workerLookAt = GetComponentInChildren<MeshRenderer>().gameObject;
+        }
     }
 }
