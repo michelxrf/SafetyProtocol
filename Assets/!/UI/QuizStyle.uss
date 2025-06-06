@@ -1,0 +1,14 @@
+:root {
+}
+
+.answers {
+    flex-direction: row-reverse;
+    font-size: 75px;
+    -unity-text-align: upper-left;
+    justify-content: center;
+    align-self: auto;
+    align-content: auto;
+    align-items: center;
+    margin-right: 10%;
+    margin-left: 10%;
+}

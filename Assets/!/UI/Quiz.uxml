@@ -1,0 +1,17 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/!/UI/QuizStyle.uss?fileID=7433441132597879392&amp;guid=2fea6905a37fb094abafcca64d333662&amp;type=3#QuizStyle" />
+    <ui:VisualElement name="QuestionContainer" style="flex-grow: 1;">
+        <ui:Label text="Lorem Ipsum Dolorem?" name="Question" style="height: auto; align-content: auto; -unity-text-align: upper-left; font-size: 100px;" />
+        <ui:Label text="Responda!" name="Instruction" style="font-size: 50px;" />
+    </ui:VisualElement>
+    <ui:VisualElement name="AnswersContainer" style="flex-grow: 1; align-content: auto; justify-content: center;">
+        <ui:Toggle label="Lorem" name="Answer1" class="Answers answers" />
+        <ui:Toggle label="Ipsum" name="Answer2" class="Answers answers" style="flex-direction: row-reverse;" />
+        <ui:Toggle label="Dolorem" name="Answer3" class="Answers answers" style="flex-direction: row-reverse;" />
+        <ui:RadioButton label="Radio Button" class="Answers answers" />
+        <ui:RadioButton label="Radio Button" class="Answers answers" />
+    </ui:VisualElement>
+    <ui:VisualElement name="SubmitContainer" style="flex-grow: 1;">
+        <ui:Button text="Submit" name="SubmitButton" style="margin-right: 5%; margin-left: 70%;" />
+    </ui:VisualElement>
+</ui:UXML>

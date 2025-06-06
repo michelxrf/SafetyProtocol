@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
+[RequireComponent(typeof(PlayerInput))]
 public class CameraController : MonoBehaviour
 {
     // controls the camera movement
