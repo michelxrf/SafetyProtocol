@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem.LowLevel;
 
 public class InventorySystem : MonoBehaviour
 {
@@ -10,6 +11,17 @@ public class InventorySystem : MonoBehaviour
     {
         foreach (WorkerEquipment equipment in equipmentList)
         {
+            equipment.model.SetActive(equipment.isEquipped);
+        }
+    }
+
+    public void ReverseEquipment()
+    {
+        // unequip all that's equiped and equip all that's not
+
+        foreach (WorkerEquipment equipment in equipmentList)
+        {
+            equipment.isEquipped = !equipment.isEquipped;
             equipment.model.SetActive(equipment.isEquipped);
         }
     }

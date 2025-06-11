@@ -144,7 +144,6 @@ public class Worker : MonoBehaviour
         if (nextTarget != null)
         {
             MoveToPoint(nextTarget);
-            //Debug.Log($"{gameObject.name} is moving to {nextTarget.gameObject.name}");
         }
         else
         {
@@ -156,6 +155,7 @@ public class Worker : MonoBehaviour
     {
         // as the name sugests
 
+        assignedPoint.FreePoint();
         Destroy(gameObject);
     }
 
@@ -164,7 +164,7 @@ public class Worker : MonoBehaviour
         // considers the worker as solved
         // TODO: update GameManager and UI
 
-        GetComponent<InventorySystem>().FullyEquip(true);
+        GetComponent<InventorySystem>().ReverseEquipment();
         Destroy(GetComponent<Clickable>());
     }
 
