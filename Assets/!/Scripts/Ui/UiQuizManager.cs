@@ -33,10 +33,6 @@ public class UiQuizManager : MonoBehaviour
     private bool VerifyAnswers()
     {
         // verify if the player answered correctly
-        // BUGGED AS FUCK
-
-        //foreach
-        Debug.Log(answerButtons);
 
         foreach(VisualElement answer in answerButtons.Keys)
         {
@@ -45,8 +41,6 @@ public class UiQuizManager : MonoBehaviour
             {
                 case Toggle toggle:
                     playerAnswer = toggle.value;
-
-                    Debug.Log($"{answerButtons[answer]} / {playerAnswer}");
 
                     if (answerButtons[answer] != playerAnswer)
                     {
@@ -58,11 +52,8 @@ public class UiQuizManager : MonoBehaviour
                 case RadioButton radio:
                     playerAnswer = radio.value;
 
-                    Debug.Log($"{answerButtons[answer]} / {playerAnswer}");
-
                     if (answerButtons[answer] != playerAnswer)
                     {
-
                         return false;
                     }
 
@@ -80,6 +71,7 @@ public class UiQuizManager : MonoBehaviour
     {
         // the questions and answers according to qeustion data
         transform.gameObject.SetActive(true);
+        answerButtons.Clear();
 
         quizUi.rootVisualElement.Q<Label>("Question").text = questionToShow.question;
         quizUi.rootVisualElement.Q<VisualElement>("AnswersContainer").Clear();
