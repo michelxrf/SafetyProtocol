@@ -24,9 +24,9 @@ public class UiManager : MonoBehaviour
         hud.transform.gameObject.SetActive(true);
     }
 
-    public void ShowQuiz(QuizQuestion questionToShow)
+    public void ShowQuiz(QuizQuestion questionToShow, Worker worker)
     {
         hud.transform.gameObject.SetActive(false);
-        quiz.ShowQuiz(questionToShow);
+        quiz.ShowQuiz(questionToShow, worker);
     }
 }

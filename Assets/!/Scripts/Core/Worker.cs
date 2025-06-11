@@ -151,4 +151,34 @@ public class Worker : MonoBehaviour
             MoveToRandomPoint();
         }
     }
+
+    private void KillWorker()
+    {
+        // as the name sugests
+
+        Destroy(gameObject);
+    }
+
+    private void Solve()
+    {
+        // considers the worker as solved
+        // TODO: update GameManager and UI
+
+        GetComponent<InventorySystem>().FullyEquip(true);
+        Destroy(GetComponent<Clickable>());
+    }
+
+    public void OnQuizEnd(bool answeredCorrectly)
+    {
+        // callback from the quiz being answered
+
+        if (answeredCorrectly)
+        {
+            Solve();
+        }
+        else
+        {
+            KillWorker();
+        }
+    }
 }

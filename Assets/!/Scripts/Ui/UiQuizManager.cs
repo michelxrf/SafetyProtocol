@@ -6,8 +6,9 @@ using UnityEngine.UIElements;
 
 public class UiQuizManager : MonoBehaviour
 {
-    // TODO: shuffle answers order
+    // Controls the pop screen for the quiz
 
+    private Worker associatedWorker;
     private UiManager uiManager;
     private UIDocument quizUi;
 
@@ -26,8 +27,9 @@ public class UiQuizManager : MonoBehaviour
         // callback when quiz's submit button gets clicked
 
         bool isCorrect = VerifyAnswers();
-        Debug.Log($"Quiz answered correctly? {isCorrect}");
         uiManager.ShowHud();
+        associatedWorker.OnQuizEnd(isCorrect);
+        associatedWorker = null;
     }
 
     private bool VerifyAnswers()
@@ -67,11 +69,13 @@ public class UiQuizManager : MonoBehaviour
         return true;
     }
 
-    public void ShowQuiz(QuizQuestion questionToShow)
+    public void ShowQuiz(QuizQuestion questionToShow, Worker worker)
     {
         // the questions and answers according to qeustion data
         transform.gameObject.SetActive(true);
         answerButtons.Clear();
+
+        associatedWorker = worker;
 
         quizUi.rootVisualElement.Q<Label>("Question").text = questionToShow.question;
         quizUi.rootVisualElement.Q<VisualElement>("AnswersContainer").Clear();
