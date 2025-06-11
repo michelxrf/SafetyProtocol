@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7117267817278149914}
   - component: {fileID: 2647684243356272276}
+  - component: {fileID: 8282113808652612101}
   m_Layer: 5
   m_Name: HUD
   m_TagString: Untagged
@@ -51,3 +52,15 @@ MonoBehaviour:
   m_WorldSpaceSizeMode: 1
   m_WorldSpaceWidth: 1920
   m_WorldSpaceHeight: 1080
+--- !u!114 &8282113808652612101
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4891600141053330003}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb1818aeaa1317c48b960a16c6ba0ad3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

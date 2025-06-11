@@ -201,7 +201,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 2731232689652139377}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
@@ -917,7 +917,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 0}
-  quizUi: {fileID: 102192623}
+  quiz: {fileID: 1702311039}
   hud: {fileID: 1608275194}
 --- !u!4 &1052773084
 Transform:
@@ -1427,7 +1427,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 6489062550246512868}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
@@ -1494,6 +1494,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50f517e667164e348b978e65ae4d8d71, type: 3}
+--- !u!114 &1702311039 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6764027268771863937, guid: 024934d285bf9b040ade10e03476f2f9, type: 3}
+  m_PrefabInstance: {fileID: 2731232689652139377}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f4dbd988ece300458b13a3fcecaeb01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1848640001
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1554,6 +1565,10 @@ PrefabInstance:
       propertyPath: QuizUi
       value: 
       objectReference: {fileID: 102192623}
+    - target: {fileID: 3387374593447051408, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
+      propertyPath: questionData
+      value: 
+      objectReference: {fileID: 11400000, guid: a5a193c1b7e982b4e901a7944aec16b8, type: 2}
     - target: {fileID: 5831327300163219856, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
       propertyPath: m_Name
       value: Pedro
@@ -1594,7 +1609,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1812863859770035779, guid: 024934d285bf9b040ade10e03476f2f9, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8017234814830804226, guid: 024934d285bf9b040ade10e03476f2f9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1639,10 +1654,6 @@ PrefabInstance:
     - target: {fileID: 8882236182431749408, guid: 024934d285bf9b040ade10e03476f2f9, type: 3}
       propertyPath: m_Name
       value: QuizUI
-      objectReference: {fileID: 0}
-    - target: {fileID: 8882236182431749408, guid: 024934d285bf9b040ade10e03476f2f9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1920,6 +1931,14 @@ PrefabInstance:
       propertyPath: questionData
       value: 
       objectReference: {fileID: 11400000, guid: 551821e8bd0e50c4a833230288b1767b, type: 2}
+    - target: {fileID: 5605520129886752076, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
+      propertyPath: m_Carve
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5605520129886752076, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
+      propertyPath: m_CarveOnlyStationary
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5831327300163219856, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
       propertyPath: m_Name
       value: Jao
@@ -1937,17 +1956,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1052773084}
     m_Modifications:
-    - target: {fileID: 2647684243356272276, guid: 6743e31a82af6a44fbb25bbc9c108419, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4891600141053330003, guid: 6743e31a82af6a44fbb25bbc9c108419, type: 3}
       propertyPath: m_Name
       value: HUD
-      objectReference: {fileID: 0}
-    - target: {fileID: 4891600141053330003, guid: 6743e31a82af6a44fbb25bbc9c108419, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7117267817278149914, guid: 6743e31a82af6a44fbb25bbc9c108419, type: 3}
       propertyPath: m_LocalPosition.x

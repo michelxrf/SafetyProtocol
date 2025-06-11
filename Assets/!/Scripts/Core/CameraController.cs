@@ -33,7 +33,7 @@ public class CameraController : MonoBehaviour
         SetupOnScreenControls();
     }
 
-    private void SetupOnScreenControls()
+    public void SetupOnScreenControls()
     {
         // configures the on screen buttons
 

@@ -144,7 +144,7 @@ public class Worker : MonoBehaviour
         if (nextTarget != null)
         {
             MoveToPoint(nextTarget);
-            Debug.Log($"{gameObject.name} is moving to {nextTarget.gameObject.name}");
+            //Debug.Log($"{gameObject.name} is moving to {nextTarget.gameObject.name}");
         }
         else
         {
