@@ -5,6 +5,8 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(Camera))]
 public class ClickHandler : MonoBehaviour
 {
+    // cast clicks to clickable objects in the game world
+
     private Camera mainCamera;
     private PlayerControls controls;
 

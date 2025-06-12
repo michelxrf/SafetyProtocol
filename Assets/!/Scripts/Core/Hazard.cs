@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Hazard : InteractableObject
 {
+    // control specific behavior to ambiental hazards
+
     protected override void AnswereWrong()
     {
         base.AnswereWrong();
