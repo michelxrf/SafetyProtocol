@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
 
-public class Worker : MonoBehaviour
+public class Worker : InteractableObject
 {
     // controls the worker
 
@@ -159,26 +159,10 @@ public class Worker : MonoBehaviour
         Destroy(gameObject);
     }
 
-    private void Solve()
+
+    protected override void AnswereWrong()
     {
-        // considers the worker as solved
-        // TODO: update GameManager and UI
-
-        GetComponent<InventorySystem>().ReverseEquipment();
-        Destroy(GetComponent<Clickable>());
-    }
-
-    public void OnQuizEnd(bool answeredCorrectly)
-    {
-        // callback from the quiz being answered
-
-        if (answeredCorrectly)
-        {
-            Solve();
-        }
-        else
-        {
-            KillWorker();
-        }
+        base.AnswereWrong();
+        KillWorker();
     }
 }

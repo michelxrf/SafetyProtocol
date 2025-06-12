@@ -19,7 +19,7 @@ public class Clickable : MonoBehaviour
     {
         if ( questionData != null )
         {
-            uiManager.ShowQuiz(questionData, GetComponent<Worker>());
+            uiManager.ShowQuiz(questionData, GetComponent<InteractableObject>());
         }
     }
 }

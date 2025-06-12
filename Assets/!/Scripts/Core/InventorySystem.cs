@@ -5,13 +5,13 @@ using UnityEngine.InputSystem.LowLevel;
 
 public class InventorySystem : MonoBehaviour
 {
-    [SerializeField] private List<WorkerEquipment> equipmentList = new();
+    [SerializeField] private List<Item> itemList = new();
 
     private void Awake()
     {
-        foreach (WorkerEquipment equipment in equipmentList)
+        foreach (Item item in itemList)
         {
-            equipment.model.SetActive(equipment.isEquipped);
+            item.model.SetActive(item.isEquipped);
         }
     }
 
@@ -19,7 +19,7 @@ public class InventorySystem : MonoBehaviour
     {
         // unequip all that's equiped and equip all that's not
 
-        foreach (WorkerEquipment equipment in equipmentList)
+        foreach (Item equipment in itemList)
         {
             equipment.isEquipped = !equipment.isEquipped;
             equipment.model.SetActive(equipment.isEquipped);
@@ -30,7 +30,7 @@ public class InventorySystem : MonoBehaviour
     {
         // used to fully equip a worker
 
-        foreach (WorkerEquipment equipment in equipmentList)
+        foreach (Item equipment in itemList)
         {
             equipment.isEquipped = newState;
             equipment.model.SetActive(newState);
@@ -41,18 +41,12 @@ public class InventorySystem : MonoBehaviour
     {
         // used to equip an item to the worker and update the model's visibility
 
-        WorkerEquipment foundEquipment = equipmentList.Find(e => e.equipmentName == itemName);
+        Item foundEquipment = itemList.Find(e => e.equipmentName == itemName);
 
         if (foundEquipment != null)
         {
             Debug.LogError($"trying to equip a {itemName} failed, verify if the name is correct.");
             return;
-        }
-
-        Worker workerScript = GetComponent<Worker>();
-        if (foundEquipment.assossiatedJob != workerScript.workerType)
-        {
-            Debug.LogWarning($"{itemName} just equiped to {workerScript.gameObject.name} and it doesn't match it's job.");
         }
 
         foundEquipment.isEquipped = newState;
@@ -61,10 +55,9 @@ public class InventorySystem : MonoBehaviour
 }
 
 [Serializable]
-public class WorkerEquipment
+public class Item
 {
     public string equipmentName;
     public GameObject model;
     public bool isEquipped;
-    public Worker.JOB_TYPE assossiatedJob;
 }

@@ -95,7 +95,7 @@ public class WorkerManager : MonoBehaviour
 
         else
         {
-            Debug.LogError("No freeworkstation");
+            Debug.LogWarning("No freeworkstation");
             return null;
         }
     }

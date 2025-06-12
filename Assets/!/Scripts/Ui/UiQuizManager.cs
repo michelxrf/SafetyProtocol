@@ -8,7 +8,7 @@ public class UiQuizManager : MonoBehaviour
 {
     // Controls the pop screen for the quiz
 
-    private Worker associatedWorker;
+    public InteractableObject associatedObject;
     private UiManager uiManager;
     private UIDocument quizUi;
 
@@ -28,8 +28,8 @@ public class UiQuizManager : MonoBehaviour
 
         bool isCorrect = VerifyAnswers();
         uiManager.ShowHud();
-        associatedWorker.OnQuizEnd(isCorrect);
-        associatedWorker = null;
+        associatedObject.OnQuizEnd(isCorrect);
+        associatedObject = null;
     }
 
     private bool VerifyAnswers()
@@ -69,13 +69,13 @@ public class UiQuizManager : MonoBehaviour
         return true;
     }
 
-    public void ShowQuiz(QuizQuestion questionToShow, Worker worker)
+    public void ShowQuiz(QuizQuestion questionToShow, InteractableObject interactedObject)
     {
         // the questions and answers according to qeustion data
         transform.gameObject.SetActive(true);
         answerButtons.Clear();
 
-        associatedWorker = worker;
+        associatedObject = interactedObject;
 
         quizUi.rootVisualElement.Q<Label>("Question").text = questionToShow.question;
         quizUi.rootVisualElement.Q<VisualElement>("AnswersContainer").Clear();
