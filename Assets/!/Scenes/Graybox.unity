@@ -319,6 +319,57 @@ Transform:
   - {fileID: 1581813454}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &352648776
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 352648778}
+  - component: {fileID: 352648777}
+  m_Layer: 5
+  m_Name: UIDocument
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &352648777
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352648776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: 607b822b45932e9479f087f002766ff1, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: e23a4c2b0d4a2684e8cd31434e1a579b, type: 3}
+  m_SortingOrder: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
+--- !u!4 &352648778
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 352648776}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &375117484 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2094146736535265194, guid: 5916a5cac85358644addf3cd28874b81, type: 3}
@@ -1559,6 +1610,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: QuizUI
       objectReference: {fileID: 0}
+    - target: {fileID: 8882236182431749408, guid: 024934d285bf9b040ade10e03476f2f9, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1688,28 +1743,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5346104961415736114, guid: 75065e802a347554c86c6deaeb6c2c82, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3442715571995118696}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75065e802a347554c86c6deaeb6c2c82, type: 3}
---- !u!1 &3442715571995118695 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5346104961415736114, guid: 75065e802a347554c86c6deaeb6c2c82, type: 3}
-  m_PrefabInstance: {fileID: 3442715571995118694}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3442715571995118696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3442715571995118695}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f659a99621e28b04c987a4b851a8cc22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4671136511455928646
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2058,3 +2093,4 @@ SceneRoots:
   - {fileID: 245361502}
   - {fileID: 1052773084}
   - {fileID: 2870159953583130895}
+  - {fileID: 352648778}

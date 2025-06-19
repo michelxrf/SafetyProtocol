@@ -1,10 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Data.SqlTypes;
 using System.Linq;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 public class UiQuizManager : MonoBehaviour
@@ -27,13 +23,14 @@ public class UiQuizManager : MonoBehaviour
         }
         uiManager = transform.parent.GetComponent<UiManager>();
         quizUi = GetComponent<UIDocument>();
-        transform.gameObject.SetActive(false);
+        quizUi.rootVisualElement.style.display = DisplayStyle.None;
+
+        quizUi.rootVisualElement.Q<Button>("SubmitButton").clicked += OnSubmitClick;
     }
 
     private void OnSubmitClick()
     {
         // callback when quiz's submit button gets clicked
-
         bool isCorrect = VerifyAnswers();
         uiManager.ShowHud();
         associatedObject.OnQuizEnd(isCorrect);
@@ -80,9 +77,8 @@ public class UiQuizManager : MonoBehaviour
     public void ShowQuiz(QuizQuestion questionToShow, InteractableObject interactedObject)
     {
         // the questions and answers according to qeustion data
-        clickHandler.enabled = false;
+        quizUi.rootVisualElement.style.display = DisplayStyle.Flex;
 
-        transform.gameObject.SetActive(true);
         answerButtons.Clear();
 
         associatedObject = interactedObject;
@@ -119,9 +115,6 @@ public class UiQuizManager : MonoBehaviour
         }
 
         ShuffleAnswers(quizUi.rootVisualElement.Q<VisualElement>("AnswersContainer"));
-
-        quizUi.rootVisualElement.Q<Button>("SubmitButton").clicked += OnSubmitClick;
-
     }
 
     private void AddRadioButton(string text, bool desiredAnswer)
@@ -133,7 +126,6 @@ public class UiQuizManager : MonoBehaviour
         newButton.value = false;
         newButton.AddToClassList("answers");
         answersList.Add(newButton);
-        
         answerButtons.Add(newButton, desiredAnswer);
     }
 
@@ -142,11 +134,11 @@ public class UiQuizManager : MonoBehaviour
         VisualElement answersList = quizUi.rootVisualElement.Q<VisualElement>("AnswersContainer");
 
         Toggle newButton = new Toggle();
+        newButton.AddToClassList("answers");
         newButton.text = text;
         newButton.value = false;
-        newButton.AddToClassList("answers");
+        newButton.Children();
         answersList.Add(newButton);
-
         answerButtons.Add(newButton, desiredAnswer);
     }
 
@@ -173,9 +165,7 @@ public class UiQuizManager : MonoBehaviour
 
     public void HideQuiz()
     {
-        clickHandler.enabled = true;
-        quizUi.rootVisualElement.Q<Button>("SubmitButton").clicked -= OnSubmitClick;
-        transform.gameObject.SetActive(false);
+        clickHandler.canClick = true;
+        quizUi.rootVisualElement.style.display = DisplayStyle.None;
     }
-
 }

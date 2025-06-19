@@ -12,8 +12,6 @@
             <ui:RadioButton label="Radio Button" class="Answers answers" />
             <ui:RadioButton label="Radio Button" class="Answers answers" />
         </ui:VisualElement>
-        <ui:VisualElement name="SubmitContainer" style="flex-grow: 1;">
-            <ui:Button text="Submit" name="SubmitButton" style="margin-right: 5%; margin-left: 70%;" />
-        </ui:VisualElement>
+        <ui:Button text="Submit" name="SubmitButton" style="margin-right: 5%; margin-left: 70%; flex-shrink: 1; flex-grow: 1; margin-bottom: 2%;" />
     </ui:VisualElement>
 </ui:UXML>

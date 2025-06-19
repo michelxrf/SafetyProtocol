@@ -6,7 +6,6 @@ using UnityEngine.UIElements;
 public class UiManager : MonoBehaviour
 {
     // handles switching UI elements as game changes state
-    // TODO move quiz and inventory screen manager into their own scrpits and use this one as an interface for them
 
     [SerializeField] private UIDocument pauseMenu;
     [SerializeField] private UiQuizManager quiz;

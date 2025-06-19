@@ -20,6 +20,12 @@ public class Clickable : MonoBehaviour
         if ( questionData != null )
         {
             uiManager.ShowQuiz(questionData, GetComponent<InteractableObject>());
+            //Invoke(nameof(Test), 0.1f);
         }
+    }
+
+    private void Test()
+    {
+        uiManager.ShowQuiz(questionData, GetComponent<InteractableObject>());
     }
 }

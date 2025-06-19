@@ -9,6 +9,7 @@ public class ClickHandler : MonoBehaviour
 
     private Camera mainCamera;
     private PlayerControls controls;
+    public bool canClick = true;
 
     private void Awake()
     {
@@ -19,12 +20,15 @@ public class ClickHandler : MonoBehaviour
     private void OnEnable()
     {
         controls.Enable();
-        controls.InGame.Click.performed += OnClickPerformed;
+
+        // WARNING: needs testing if "canceled" will work on mobile touch
+        controls.InGame.Click.canceled += OnClickPerformed;
     }
 
     private void OnDisable()
     {
-        controls.InGame.Click.performed -= OnClickPerformed;
+        // WARNING: needs testing if "canceled" will work on mobile touch
+        controls.InGame.Click.canceled -= OnClickPerformed;
         controls.Disable();
     }
 
@@ -49,8 +53,9 @@ public class ClickHandler : MonoBehaviour
         Ray ray = mainCamera.ScreenPointToRay(screenPosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
-            if (hit.collider.TryGetComponent(out Clickable clickable))
+            if (hit.collider.TryGetComponent(out Clickable clickable) && canClick)
             {
+                canClick = false;
                 clickable.OnClick();
             }
         }
