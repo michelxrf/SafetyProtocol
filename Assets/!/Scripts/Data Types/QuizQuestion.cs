@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NewQuestion", menuName = "Game Data/New Quiz Question")]
+[CreateAssetMenu(fileName = "NewQuestion", menuName = "Scriptable Objects/New Quiz Question")]
 public class QuizQuestion : ScriptableObject
 {
     public string question = "Lorem Ipsum?";

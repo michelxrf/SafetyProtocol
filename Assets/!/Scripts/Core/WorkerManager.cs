@@ -6,10 +6,16 @@ public class WorkerManager : MonoBehaviour
 {
     // Directs the workers on a level, sending them to random patrols, workstations and accident events
 
+    [Header("Settings")]
     public bool debugMode = true;
     [SerializeField] private bool generateRandomPatrolPoints;
+
+    [Header("Worker Behavior")]
     [Range(0f, 1f)]
     [SerializeField] private float idleChance;
+
+    [Header("Accidents")]
+    [SerializeField] public List<AccidentEvent> accidentEvents;
 
     private List<PatrolPoint> patrolPoints = new();
     private List<Worker> workers = new();
@@ -126,5 +132,14 @@ public class WorkerManager : MonoBehaviour
         }
 
     }
+}
+
+[System.Serializable]
+public class AccidentEvent
+{
+    public AccidentData accidentData;
+    public Worker worker;
+    public Workstation workstation;
+    public int score;
 }
 
