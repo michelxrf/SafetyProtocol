@@ -55,8 +55,12 @@ public class ClickHandler : MonoBehaviour
         {
             if (hit.collider.TryGetComponent(out Clickable clickable) && canClick)
             {
-                canClick = false;
-                clickable.OnClick();
+                if(clickable.isEnabled)
+                {
+                    Debug.Log("Beep");
+                    canClick = false;
+                    clickable.OnClick();
+                }
             }
         }
     }

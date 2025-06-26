@@ -21,6 +21,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float speed = 10f;
     [SerializeField] private int leftSideLimitX;
     [SerializeField] private int rightSideLimitX;
+    [HideInInspector] public bool isMovementAllowed = true;
 
     private bool canMoveLeft = false;
     private bool canMoveRight = false;
@@ -79,10 +80,14 @@ public class CameraController : MonoBehaviour
         MoveCamera();
     }
 
+    /// <summary>
+    /// does the actual camera movement if allowed
+    /// </summary>
     private void MoveCamera()
     {
-        // does the actual camera movement if allowed
-
+        if (!isMovementAllowed) // prevents camera movement during events
+            return;
+        
         if (direction == 0f) // skip if not trying to move
             return;
 
@@ -104,5 +109,6 @@ public class CameraController : MonoBehaviour
         canMoveRight = playerCamera.transform.position.x < rightSideLimitX;
         moveRightButton.SetEnabled(canMoveRight);
     }
+
 
 }

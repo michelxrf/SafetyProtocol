@@ -3,10 +3,12 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+
+/// <summary>
+/// handles switching of UI screens as game changes state
+/// </summary>
 public class UiManager : MonoBehaviour
 {
-    // handles switching UI elements as game changes state
-
     [SerializeField] private UIDocument pauseMenu;
     [SerializeField] private UiQuizManager quiz;
     [SerializeField] private UIDocument hud;
@@ -14,6 +16,7 @@ public class UiManager : MonoBehaviour
     private void Awake()
     {
         //pauseMenu.enabled = false;
+        
         hud.transform.gameObject.SetActive(true);
     }
 

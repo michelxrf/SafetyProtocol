@@ -3,10 +3,12 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+/// <summary>
+/// Controls the pop up screen for the quiz
+/// </summary>
 public class UiQuizManager : MonoBehaviour
 {
-    // Controls the pop screen for the quiz
-
+    [SerializeField] private WorkerManager workerManager;
     [SerializeField] ClickHandler clickHandler;
     private InteractableObject associatedObject;
     private UiManager uiManager;
@@ -17,6 +19,8 @@ public class UiQuizManager : MonoBehaviour
 
     private void Awake()
     {
+        workerManager = FindFirstObjectByType<WorkerManager>();
+
         if (clickHandler == null)
         {
             clickHandler = FindAnyObjectByType<ClickHandler>();
@@ -74,7 +78,6 @@ public class UiQuizManager : MonoBehaviour
     /// </summary>
     private bool VerifyAnswers()
     {
-
         foreach(VisualElement answer in answerButtons.Keys)
         {
             bool playerAnswer;
@@ -154,6 +157,7 @@ public class UiQuizManager : MonoBehaviour
 
         // disables the submit answer by default until an answer is selected
         quizUi.rootVisualElement.Q<Button>("SubmitButton").SetEnabled(false);
+        workerManager.PauseGame();
     }
 
     private void AddRadioButton(string text, bool desiredAnswer)
@@ -210,5 +214,6 @@ public class UiQuizManager : MonoBehaviour
     {
         clickHandler.canClick = true;
         quizUi.rootVisualElement.style.display = DisplayStyle.None;
+        workerManager.UnpauseGame();
     }
 }

@@ -8,9 +8,12 @@ using System.Drawing;
 /// </summary>
 public class WorkerManager : MonoBehaviour
 {
+    [SerializeField] CameraController playerCamera;
+
     [Header("Settings")]
     public bool debugMode = true;
     [SerializeField] private bool generateRandomPatrolPoints;
+    private bool isGamePaused = false;
 
     [Header("Worker Behavior")]
     [Range(0f, 1f)]
@@ -24,10 +27,12 @@ public class WorkerManager : MonoBehaviour
     [HideInInspector] public bool isCountingDown = false;
     private Worker workerInAccidentEvent;
     private AccidentData currentAccidentData;
-    private enum ACCIDENTORDER {RANDOM, SEQUENCE};
+    public int solvedAccidents = 0;
+    public int totalAccidents = 0;
+    private enum ACCIDENTORDER { RANDOM, SEQUENCE };
 
     private List<PatrolPoint> patrolPoints = new();
-    private List<Worker> workers = new();
+    [HideInInspector] public List<Worker> workers = new();
     private List<Workstation> workstations = new();
 
 
@@ -35,6 +40,13 @@ public class WorkerManager : MonoBehaviour
     {
         GetAllWorkersInScene();
         GetAllPatrolPointsInScene();
+
+        totalAccidents = accidentEventsList.Count;
+
+        if (playerCamera == null)
+        {
+            playerCamera = FindFirstObjectByType<CameraController>();
+        }
     }
 
     /// <summary>
@@ -94,6 +106,7 @@ public class WorkerManager : MonoBehaviour
 
     private void Start()
     {
+        InitAllWorkersMovement();
         CallNextAccident();
     }
 
@@ -103,18 +116,30 @@ public class WorkerManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Called in the level start to order all workers to move around randomly.
+    /// </summary>
+    private void InitAllWorkersMovement()
+    {
+        foreach(Worker worker in workers)
+        {
+            worker.MoveToRandomPoint();
+        }
+    }
+
+    /// <summary>
     /// Activate the next accident on the list
     /// </summary>
-    private void CallNextAccident()
+    public void CallNextAccident()
     {
-        if(!(accidentEventsList.Count > 0))
+        if (!(accidentEventsList.Count > 0))
         {
             Debug.LogError("Accidents list is empty. Level cleared?");
+            Debug.Log($"{solvedAccidents}/{totalAccidents} accidents solved");
             return;
         }
 
         AccidentEvent nextAccident = new AccidentEvent();
-        switch(accidentOrder)
+        switch (accidentOrder)
         {
             case ACCIDENTORDER.RANDOM:
                 int randIndex = Random.Range(0, accidentEventsList.Count);
@@ -207,7 +232,7 @@ public class WorkerManager : MonoBehaviour
     public void SendWorkerToAccident(Worker worker, PatrolPoint accidentLocation)
     {
         // frees the assossiated point from other worker
-        if (accidentLocation.assignedWorker != null)
+        if ((accidentLocation.assignedWorker != null) && (accidentLocation.assignedWorker != worker))
         {
             accidentLocation.assignedWorker.MoveToRandomPoint();
         }
@@ -231,9 +256,9 @@ public class WorkerManager : MonoBehaviour
     /// </summary>
     private void CountdownToAccident()
     {
-        if (!isCountingDown)
+        if (!isCountingDown || isGamePaused)
             return;
-        
+
         accidentRemainingTime -= Time.deltaTime;
         Debug.Log($"time remaining to solve accident: {accidentRemainingTime.ToString("#0.0")}");
 
@@ -244,7 +269,34 @@ public class WorkerManager : MonoBehaviour
             workerInAccidentEvent = null;
             CallNextAccident();
         }
+    }
 
+    /// <summary>
+    /// Stops any time related process like accident countdown, prevent camera movement and freezes animations.
+    /// </summary>
+    public void PauseGame()
+    {
+        isGamePaused = true;
+        playerCamera.isMovementAllowed = false;
+
+        foreach(Worker worker in workers)
+        {
+            worker.FreezeAnimation();
+        }
+    }
+
+    /// <summary>
+    /// Resumes time related processes like accident countdown, prevent camera movement and freezes animations.
+    /// </summary>
+    public void UnpauseGame()
+    {
+        isGamePaused = false;
+        playerCamera.isMovementAllowed = true;
+
+        foreach (Worker worker in workers)
+        {
+            worker.ResumeAnimation();
+        }
     }
 }
 

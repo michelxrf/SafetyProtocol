@@ -3,10 +3,12 @@ using UnityEngine;
 using UnityEngine.AI;
 using static UnityEngine.GraphicsBuffer;
 
+
+/// <summary>
+/// Controls the workers in the game level.
+/// </summary>
 public class Worker : InteractableObject
 {
-    // controls the worker
-
     [Header("References")]
     [SerializeField] private WorkerManager workerManager;
     private AgentDestinationReachedNotifier destinationReachedNotifier;
@@ -14,6 +16,7 @@ public class Worker : InteractableObject
 
     [Header("Navigation")]
     private NavMeshAgent navMeshAgent;
+    private float navMeshAgentSpeed;
     [SerializeField] private float minIdleTime = 5f;
     [SerializeField] private float maxIdleTime = 20f;
 
@@ -30,14 +33,17 @@ public class Worker : InteractableObject
 
     private void Awake()
     {
+        // disables worker quiz till it gets called to accident
+        GetComponent<Clickable>().isEnabled = false;
+        GetComponent<Clickable>().questionData = null;
+
+        // gets references
         animator = GetComponentInChildren<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         destinationReachedNotifier = GetComponent<AgentDestinationReachedNotifier>();
-    }
 
-    private void Start()
-    {
-        MoveToRandomPoint();
+        // saves navMeshAgent speed for pausing and resuming worker movement
+        navMeshAgentSpeed = navMeshAgent.speed;
     }
 
     /// <summary>
@@ -81,10 +87,12 @@ public class Worker : InteractableObject
         }
     }
 
+    /// <summary>
+    /// rotates the worker so it looks at the workstation they just arrived.
+    /// </summary>
+    /// <param name="target">The game object that the worker will look at.</param>
     private void RotateTo(GameObject target)
     {
-        // rotates the worker so it looks at the workstation
-
         navMeshAgent.updateRotation = false;
 
         Vector3 direction = target.transform.position - transform.position;
@@ -94,10 +102,14 @@ public class Worker : InteractableObject
         transform.rotation = targetRotation;
     }
 
+    /// <summary>
+    /// Wait for a random range amount of time, used for idling workers.
+    /// </summary>
+    /// <param name="minSeconds">Min time range.</param>
+    /// <param name="maxSeconds">Max time range.</param>
+    /// <returns></returns>
     private IEnumerator WaitForSeconds(float minSeconds, float maxSeconds)
     {
-        // wait for a range of time
-
         yield return new WaitForSeconds(Random.Range(minSeconds, maxSeconds));
         MoveToRandomPoint();
     }
@@ -113,10 +125,13 @@ public class Worker : InteractableObject
         // de-register the action call so it won't crash by calling a disabled script
         destinationReachedNotifier.OnDestinationReached -= ReachDestination;
     }
-
+    /// <summary>
+    /// sends the worker to a specific patrol point on the level
+    /// </summary>
+    /// <param name="patrolPoint">The Patrol Point the worker will move to.</param>
     public void MoveToPoint(PatrolPoint patrolPoint)
     {
-        // sends the worker to a patrol point on the level
+        StopAllCoroutines();
 
         FreeAssignedPoint();
         assignedPoint = patrolPoint;
@@ -141,10 +156,12 @@ public class Worker : InteractableObject
         assignedPoint = null;
     }
 
+
+    /// <summary>
+    /// sends the worker to a random patrol point
+    /// </summary>
     public void MoveToRandomPoint()
     {
-        // sends the worker to a random patrol point
-
         PatrolPoint nextTarget = workerManager.GetAnyRandomPoint();
                 
         if (nextTarget != null)
@@ -163,6 +180,7 @@ public class Worker : InteractableObject
     private void KillWorker()
     {
         assignedPoint.FreePoint();
+        workerManager.workers.Remove(this);
         Destroy(gameObject);
     }
 
@@ -184,9 +202,45 @@ public class Worker : InteractableObject
         GetComponent<Clickable>().questionData = newQuestionData;
     }
 
+    /// <summary>
+    /// Called when quiz is answered correctly
+    /// </summary>
+    protected override void Solve()
+    {
+        base.Solve();
+
+        workerManager.solvedAccidents += 1;
+        workerManager.isCountingDown = false;
+        workerManager.CallNextAccident();
+    }
+
+    /// <summary>
+    /// Treats a wrong call to the quiz.
+    /// </summary>
     protected override void AnswereWrong()
     {
         base.AnswereWrong();
+        workerManager.isCountingDown = false;
+        workerManager.CallNextAccident();
         KillWorker();
+    }
+
+
+    /// <summary>
+    /// Makes worker animations
+    /// </summary>
+    public void FreezeAnimation()
+    {
+        animator.speed = 0f;
+        navMeshAgent.speed = 0f;
+    }
+
+    /// <summary>
+    /// Resumes freezed animation
+    /// </summary>
+    public void ResumeAnimation()
+    {
+        animator.speed = 1f;
+        navMeshAgent.speed = navMeshAgentSpeed;
     }
 }

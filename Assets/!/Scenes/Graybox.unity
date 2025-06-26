@@ -988,7 +988,7 @@ PrefabInstance:
     - target: {fileID: 3387374593447051408, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
       propertyPath: questionData
       value: 
-      objectReference: {fileID: 11400000, guid: 58591bebd696b864fbeeefc4c334a819, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5831327300163219856, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
       propertyPath: m_Name
       value: Zeh
@@ -1528,7 +1528,7 @@ PrefabInstance:
     - target: {fileID: 3387374593447051408, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
       propertyPath: questionData
       value: 
-      objectReference: {fileID: 11400000, guid: a5a193c1b7e982b4e901a7944aec16b8, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5831327300163219856, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
       propertyPath: m_Name
       value: Pedro
@@ -2076,7 +2076,7 @@ PrefabInstance:
     - target: {fileID: 3387374593447051408, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
       propertyPath: questionData
       value: 
-      objectReference: {fileID: 11400000, guid: 551821e8bd0e50c4a833230288b1767b, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5605520129886752076, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
       propertyPath: m_Carve
       value: 0
