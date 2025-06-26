@@ -7,8 +7,9 @@ public class Clickable : MonoBehaviour
     // makes the object reacts to a click
     // IDEAS: make the object play a sfx once clicked
 
-    [SerializeField] private QuizQuestion questionData;
+    public QuizQuestion questionData;
     private UiManager uiManager;
+    [HideInInspector] public bool isEnabled = true;
 
     private void Awake()
     {
@@ -17,7 +18,10 @@ public class Clickable : MonoBehaviour
 
     public void OnClick()
     {
-        if ( questionData != null )
+        if (!isEnabled)
+            return;
+
+        if (questionData != null)
         {
             uiManager.ShowQuiz(questionData, GetComponent<InteractableObject>());
         }

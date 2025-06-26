@@ -1,12 +1,12 @@
 using UnityEngine;
 
+/// <summary>
+/// Patrol points are the map locations that workers will move to and from on the level
+/// </summary>
 public class PatrolPoint : MonoBehaviour
 {
-    // Patrol points are the map locations that workers will move to and from on the level
-
     [SerializeField] private WorkerManager workerManager;
     [HideInInspector] public Worker assignedWorker;
-    [HideInInspector] public bool isFree = true;
     [HideInInspector] public bool isWorkerHere = false;
 
     private void Awake()
@@ -17,17 +17,25 @@ public class PatrolPoint : MonoBehaviour
         GetComponent<MeshRenderer>().enabled = workerManager.debugMode;
     }
 
+
+    /// <summary>
+    /// Assign a worker to this point
+    /// </summary>
+    /// <param name="worker">The worker that will be assinged</param>
     public void AssignWorker(Worker worker)
     {
-        // used together with FreePoint to limit one worker per patrol point at a time
-        isFree = false;
         assignedWorker = worker;
     }
 
+    /// <summary>
+    /// Clears references to assigned worker
+    /// </summary>
     public void FreePoint()
     {
-        // used together with AssignWorker to limit one worker per patrol point at a time
-        isFree = true;
+        if (assignedWorker == null)
+            return;
+
+        assignedWorker.assignedPoint = null;
         assignedWorker = null;
     }
 }

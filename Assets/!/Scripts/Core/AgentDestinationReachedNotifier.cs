@@ -30,7 +30,6 @@ public class AgentDestinationReachedNotifier : MonoBehaviour
                     {
                         hasArrived = true;
                         OnDestinationReached?.Invoke();
-                        //Debug.Log("Destination reached!");
                     }
                 }
             }

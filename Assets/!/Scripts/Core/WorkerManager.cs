@@ -1,11 +1,13 @@
 using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Drawing;
 
+/// <summary>
+/// Directs the workers on a level, sending them to random patrols, workstations and accident events.
+/// </summary>
 public class WorkerManager : MonoBehaviour
 {
-    // Directs the workers on a level, sending them to random patrols, workstations and accident events
-
     [Header("Settings")]
     public bool debugMode = true;
     [SerializeField] private bool generateRandomPatrolPoints;
@@ -15,18 +17,29 @@ public class WorkerManager : MonoBehaviour
     [SerializeField] private float idleChance;
 
     [Header("Accidents")]
-    [SerializeField] public List<AccidentEvent> accidentEvents;
+    [SerializeField] private ACCIDENTORDER accidentOrder = ACCIDENTORDER.RANDOM;
+    public float accidentCountdownTime = 5f;
+    [SerializeField] public List<AccidentEvent> accidentEventsList;
+    [HideInInspector] public float accidentRemainingTime;
+    [HideInInspector] public bool isCountingDown = false;
+    private Worker workerInAccidentEvent;
+    private AccidentData currentAccidentData;
+    private enum ACCIDENTORDER {RANDOM, SEQUENCE};
 
     private List<PatrolPoint> patrolPoints = new();
     private List<Worker> workers = new();
     private List<Workstation> workstations = new();
-    
+
 
     private void Awake()
     {
         GetAllWorkersInScene();
         GetAllPatrolPointsInScene();
     }
+
+    /// <summary>
+    /// Finds all Workers in the level and saves them in a list.
+    /// </summary>
     private void GetAllWorkersInScene()
     {
         // as the name suggests, list all workers
@@ -35,18 +48,18 @@ public class WorkerManager : MonoBehaviour
         workers = (FindObjectsByType<Worker>(FindObjectsSortMode.None)).ToList<Worker>();
     }
 
+    /// <summary>
+    /// Collects all Patrol Points present in the level in a list.
+    /// </summary>
     private void GetAllPatrolPointsInScene()
     {
-        // as the name sugest, list all patrol points in scecne
-        // TODO: experiment with patrol point self registering
-
         PatrolPoint[] manuallySetPatrolPoints = FindObjectsByType<PatrolPoint>(FindObjectsSortMode.None);
-        
+
         if (manuallySetPatrolPoints.Length > 0)
         {
-            // add all designer made patrol points
-            
-            foreach(PatrolPoint patrolPoint in manuallySetPatrolPoints)
+            // adds all designer made patrol points
+
+            foreach (PatrolPoint patrolPoint in manuallySetPatrolPoints)
             {
                 if (patrolPoint.GetComponent<Workstation>() != null)
                 {
@@ -78,11 +91,57 @@ public class WorkerManager : MonoBehaviour
 
         Debug.Log($"Scene has {patrolPoints.Count} patrol points, and {workstations.Count} workstations.");
     }
+
+    private void Start()
+    {
+        CallNextAccident();
+    }
+
+    private void Update()
+    {
+        CountdownToAccident();
+    }
+
+    /// <summary>
+    /// Activate the next accident on the list
+    /// </summary>
+    private void CallNextAccident()
+    {
+        if(!(accidentEventsList.Count > 0))
+        {
+            Debug.LogError("Accidents list is empty. Level cleared?");
+            return;
+        }
+
+        AccidentEvent nextAccident = new AccidentEvent();
+        switch(accidentOrder)
+        {
+            case ACCIDENTORDER.RANDOM:
+                int randIndex = Random.Range(0, accidentEventsList.Count);
+                nextAccident = accidentEventsList[randIndex];
+                accidentEventsList.RemoveAt(randIndex);
+                break;
+
+            case ACCIDENTORDER.SEQUENCE:
+                nextAccident = accidentEventsList[0];
+                accidentEventsList.RemoveAt(0);
+                break;
+
+            default:
+                break;
+        }
+
+        currentAccidentData = nextAccident.accidentData;
+        nextAccident.worker.SetQuizData(nextAccident.quizQuestion);
+        SendWorkerToAccident(nextAccident.worker, nextAccident.patrolPoint);
+    }
+
+    /// <summary>
+    /// returns the Patrol Point of a random free workstation
+    /// </summary>
     public PatrolPoint GetRandomWorkstation()
     {
-        // return the Patrol Point of a random workstation
-
-        List<Workstation> freeWorkstation = workstations.FindAll(n => n.assossiatedPatrolPoint.isFree);
+        List<Workstation> freeWorkstation = workstations.FindAll(n => n.assossiatedPatrolPoint == null);
 
         if (freeWorkstation.Count > 0)
         {
@@ -103,7 +162,11 @@ public class WorkerManager : MonoBehaviour
         }
     }
 
-    public PatrolPoint GetRandomPoint()
+    /// <summary>
+    /// Returns a random free patrol point, either a workstation or simple patrol point.
+    /// Worsktation chance is defined by idleChance variable.
+    /// </summary>
+    public PatrolPoint GetAnyRandomPoint()
     {
         if (idleChance <= Random.Range(0f, 1f))
         {
@@ -115,11 +178,14 @@ public class WorkerManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Returns a free simple patrol point.
+    /// </summary>
     public PatrolPoint GetRandomPatrolPoint()
     {
         // returns a free patrol point, used to send workers wandering around
 
-        List<PatrolPoint> freePatrolPoints = patrolPoints.FindAll(n => n.isFree);
+        List<PatrolPoint> freePatrolPoints = patrolPoints.FindAll(n => n.assignedWorker == null);
 
         if (freePatrolPoints.Count > 0)
         {
@@ -132,14 +198,66 @@ public class WorkerManager : MonoBehaviour
         }
 
     }
+
+    /// <summary>
+    /// Order the worker to go to the accident spot and prepares them to respond when arrive there
+    /// </summary>
+    /// <param name="worker">The worker who will be ordered</param>
+    /// <param name="accidentLocation">The patrol point where the accident will happen</param>
+    public void SendWorkerToAccident(Worker worker, PatrolPoint accidentLocation)
+    {
+        // frees the assossiated point from other worker
+        if (accidentLocation.assignedWorker != null)
+        {
+            accidentLocation.assignedWorker.MoveToRandomPoint();
+        }
+
+        worker.isAccidentTarget = true;
+        workerInAccidentEvent = worker;
+        worker.MoveToPoint(accidentLocation);
+    }
+
+    /// <summary>
+    /// Shows the UI alert with the countdown to solution
+    /// </summary>
+    public void StartAccidentCountdown()
+    {
+        isCountingDown = true;
+        accidentRemainingTime = accidentCountdownTime;
+    }
+
+    /// <summary>
+    /// Decreases countdown to accident event
+    /// </summary>
+    private void CountdownToAccident()
+    {
+        if (!isCountingDown)
+            return;
+        
+        accidentRemainingTime -= Time.deltaTime;
+        Debug.Log($"time remaining to solve accident: {accidentRemainingTime.ToString("#0.0")}");
+
+        if (accidentRemainingTime < 0)
+        {
+            isCountingDown = false;
+            workerInAccidentEvent.AccidentTimeOver();
+            workerInAccidentEvent = null;
+            CallNextAccident();
+        }
+
+    }
 }
 
+
+/// <summary>
+/// Used to allow the level designer to assossiate accident objects to workers and patrol points or workstations
+/// </summary>
 [System.Serializable]
 public class AccidentEvent
 {
     public AccidentData accidentData;
     public Worker worker;
-    public Workstation workstation;
-    public int score;
+    public PatrolPoint patrolPoint;
+    public QuizQuestion quizQuestion;
 }
 

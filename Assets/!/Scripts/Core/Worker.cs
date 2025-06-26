@@ -24,8 +24,8 @@ public class Worker : InteractableObject
     [HideInInspector] public STATE currentState;
     public enum STATE { IDLING, MOVING, WORKING };
     public enum JOB_TYPE { CONSTRUCTION, ELECTRICAL, HEIGHT };
-    private PatrolPoint assignedPoint;
-    public bool hasAccident = false;
+    [HideInInspector] public PatrolPoint assignedPoint;
+    public bool isAccidentTarget = false;
 
 
     private void Awake()
@@ -40,17 +40,20 @@ public class Worker : InteractableObject
         MoveToRandomPoint();
     }
 
+    /// <summary>
+    /// controls what the worker does when they arrive at their destination
+    /// if simply roaming just go into idle
+    /// if is the accident target, start accident countdown
+    /// </summary>
     private void ReachDestination()
     {
-        // controls what the worker does based on where they arrived
+        // makes the worker clickable and starts countdown to solution
+        animator.SetBool("isWalking", false);
 
-        if (hasAccident /*TODO: and is at accident spot*/)
+        if (isAccidentTarget)
         {
-            // TODO: special case where the accident event is activated and this worker is sent to it
-
-            currentState = STATE.WORKING;
-            animator.SetBool("isWorking", true);
-            return;
+            workerManager.StartAccidentCountdown();
+            GetComponent<Clickable>().isEnabled = true;
         }
 
         bool isDestinationAWorkstation = assignedPoint.GetComponent<Workstation>() != null ? true : false;
@@ -63,7 +66,8 @@ public class Worker : InteractableObject
 
             RotateTo(assignedPoint.GetComponent<Workstation>().workerLookAt);
 
-            StartCoroutine(WaitForSeconds(minWorkTime, maxWorkTime));
+            if (!isAccidentTarget)
+                StartCoroutine(WaitForSeconds(minWorkTime, maxWorkTime));
         }
         else
         {
@@ -71,7 +75,9 @@ public class Worker : InteractableObject
 
             currentState = STATE.IDLING;
             animator.SetBool("isWorking", false);
-            StartCoroutine(WaitForSeconds(minIdleTime, maxIdleTime));
+
+            if (!isAccidentTarget)
+                StartCoroutine(WaitForSeconds(minIdleTime, maxIdleTime));
         }
     }
 
@@ -92,7 +98,6 @@ public class Worker : InteractableObject
     {
         // wait for a range of time
 
-        animator.SetBool("isWalking", false);
         yield return new WaitForSeconds(Random.Range(minSeconds, maxSeconds));
         MoveToRandomPoint();
     }
@@ -124,14 +129,15 @@ public class Worker : InteractableObject
         navMeshAgent.SetDestination(patrolPoint.transform.position);
     }
 
-    private void FreeAssignedPoint()
+    /// <summary>
+    /// clears references to the current patrol point
+    /// </summary>
+    public void FreeAssignedPoint()
     {
-        // clears references to the current patrol point
-
         if (assignedPoint == null)
             return;
 
-        assignedPoint.FreePoint();
+        assignedPoint.assignedWorker = null;
         assignedPoint = null;
     }
 
@@ -139,7 +145,7 @@ public class Worker : InteractableObject
     {
         // sends the worker to a random patrol point
 
-        PatrolPoint nextTarget = workerManager.GetRandomPoint();
+        PatrolPoint nextTarget = workerManager.GetAnyRandomPoint();
                 
         if (nextTarget != null)
         {
@@ -151,14 +157,32 @@ public class Worker : InteractableObject
         }
     }
 
+    /// <summary>
+    /// Deletes the worker, used for failed accidents
+    /// </summary>
     private void KillWorker()
     {
-        // as the name sugests
-
         assignedPoint.FreePoint();
         Destroy(gameObject);
     }
 
+    /// <summary>
+    /// Called when the accident timer finishes, meaning the player didn't find it in time
+    /// </summary>
+    public void AccidentTimeOver()
+    {
+        Debug.Log($"Worker {gameObject.name} timed out!");
+        KillWorker();
+    }
+
+    /// <summary>
+    /// Sets the worker quiz data, used for the accident solution.
+    /// </summary>
+    /// <param name="newQuestionData">The Scriptable Object containing the question that will show on the quiz.</param>
+    public void SetQuizData(QuizQuestion newQuestionData)
+    {
+        GetComponent<Clickable>().questionData = newQuestionData;
+    }
 
     protected override void AnswereWrong()
     {

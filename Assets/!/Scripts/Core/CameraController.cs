@@ -26,8 +26,6 @@ public class CameraController : MonoBehaviour
     private bool canMoveRight = false;
     private float direction = 0f;
 
-    Vector3 onClickPos;
-
     private void Start()
     {
         SetupOnScreenControls();

@@ -8,10 +8,8 @@ public class Workstation : MonoBehaviour
     // TODO: add station's anim controls
 
     public GameObject workerLookAt;
-    [HideInInspector] public bool isWorkerPresent = false;
     [HideInInspector] public PatrolPoint assossiatedPatrolPoint;
     public string workAnimation = "Work";
-    public string assossiatedAccident = "Accident";
 
     private void Awake()
     {
