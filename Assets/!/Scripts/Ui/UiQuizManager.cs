@@ -81,7 +81,6 @@ public class UiQuizManager : MonoBehaviour
         HideQuiz();
         hud.Show();
 
-        hud.HideAlert();
         associatedObject.OnQuizEnd(isCorrect);
         associatedObject = null;
     }
@@ -132,7 +131,7 @@ public class UiQuizManager : MonoBehaviour
         quizUi.rootVisualElement.style.display = DisplayStyle.Flex;
         hud.Hide();
         onScreenControls.Hide();
-        workerManager.isCountingDown = false;
+        workerManager.PauseGame();
 
         answerButtons.Clear();
 

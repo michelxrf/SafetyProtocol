@@ -29,6 +29,7 @@ public class WorkerManager : MonoBehaviour
     [HideInInspector] public bool isCountingDown = false;
     private Worker workerInAccidentEvent;
     private AccidentData currentAccidentData;
+    [HideInInspector] public bool accidentActive = false;
     [HideInInspector] public int solvedAccidents = 0;
     [HideInInspector] public int totalAccidents = 0;
     [HideInInspector] public int solvedHazzards = 0;
@@ -255,6 +256,7 @@ public class WorkerManager : MonoBehaviour
     /// </summary>
     public void StartAccidentCountdown()
     {
+        accidentActive = true;
         isCountingDown = true;
         accidentRemainingTime = accidentCountdownTime;
         hudManager.ShowAlert(accidentRemainingTime);
@@ -273,6 +275,7 @@ public class WorkerManager : MonoBehaviour
 
         if (accidentRemainingTime < 0)
         {
+            accidentActive = false;
             isCountingDown = false;
             workerInAccidentEvent.AccidentTimeOver();
             workerInAccidentEvent = null;

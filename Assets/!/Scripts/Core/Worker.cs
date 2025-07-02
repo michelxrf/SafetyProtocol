@@ -57,13 +57,6 @@ public class Worker : InteractableObject
         // makes the worker clickable and starts countdown to solution
         animator.SetBool("isWalking", false);
 
-        if (isAccidentTarget)
-        {
-            workerManager.StartAccidentCountdown();
-            GetComponent<Clickable>().isEnabled = true;
-            isAccidentTarget = false;
-        }
-
         bool isDestinationAWorkstation = assignedPoint.GetComponent<Workstation>() != null ? true : false;
         if (isDestinationAWorkstation)
         {
@@ -86,6 +79,13 @@ public class Worker : InteractableObject
 
             if (!isAccidentTarget)
                 StartCoroutine(WaitForSeconds(minIdleTime, maxIdleTime));
+        }
+
+        if (isAccidentTarget)
+        {
+            workerManager.StartAccidentCountdown();
+            GetComponent<Clickable>().isEnabled = true;
+            isAccidentTarget = false;
         }
     }
 
@@ -112,6 +112,7 @@ public class Worker : InteractableObject
     /// <returns></returns>
     private IEnumerator WaitForSeconds(float minSeconds, float maxSeconds)
     {
+        Debug.Log($"{gameObject.name} is on wait coroutine");
         yield return new WaitForSeconds(Random.Range(minSeconds, maxSeconds));
         MoveToRandomPoint();
     }
@@ -191,7 +192,6 @@ public class Worker : InteractableObject
     /// </summary>
     public void AccidentTimeOver()
     {
-        Debug.Log($"Worker {gameObject.name} timed out!");
         KillWorker();
     }
 
@@ -213,6 +213,8 @@ public class Worker : InteractableObject
 
         workerManager.solvedAccidents += 1;
         workerManager.isCountingDown = false;
+        workerManager.accidentActive = false;
+        hud.HideAlert();
         hud.UpdateScores();
         workerManager.CallNextAccident();
         StartCoroutine(WaitForSeconds(minWorkTime, maxWorkTime));
@@ -224,6 +226,7 @@ public class Worker : InteractableObject
     protected override void AnswereWrong()
     {
         base.AnswereWrong();
+        workerManager.accidentActive = false;
         workerManager.isCountingDown = false;
         workerManager.CallNextAccident();
         KillWorker();
