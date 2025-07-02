@@ -20,6 +20,8 @@ public class WorkerManager : MonoBehaviour
     [SerializeField] private float idleChance;
 
     [Header("Accidents")]
+    [SerializeField] HudManager hudManager;
+    [SerializeField] UiQuizManager quizScreen;
     [SerializeField] private ACCIDENTORDER accidentOrder = ACCIDENTORDER.RANDOM;
     public float accidentCountdownTime = 5f;
     [SerializeField] public List<AccidentEvent> accidentEventsList;
@@ -27,8 +29,10 @@ public class WorkerManager : MonoBehaviour
     [HideInInspector] public bool isCountingDown = false;
     private Worker workerInAccidentEvent;
     private AccidentData currentAccidentData;
-    public int solvedAccidents = 0;
-    public int totalAccidents = 0;
+    [HideInInspector] public int solvedAccidents = 0;
+    [HideInInspector] public int totalAccidents = 0;
+    [HideInInspector] public int solvedHazzards = 0;
+    [HideInInspector] public int totalHazzards = 0;
     private enum ACCIDENTORDER { RANDOM, SEQUENCE };
 
     private List<PatrolPoint> patrolPoints = new();
@@ -41,12 +45,14 @@ public class WorkerManager : MonoBehaviour
         GetAllWorkersInScene();
         GetAllPatrolPointsInScene();
 
+        totalHazzards = FindObjectsByType<Hazard>(FindObjectsSortMode.None).Length;
         totalAccidents = accidentEventsList.Count;
 
         if (playerCamera == null)
-        {
             playerCamera = FindFirstObjectByType<CameraController>();
-        }
+
+        if (hudManager  == null)
+            hudManager = FindFirstObjectByType<HudManager>();
     }
 
     /// <summary>
@@ -133,6 +139,8 @@ public class WorkerManager : MonoBehaviour
     {
         if (!(accidentEventsList.Count > 0))
         {
+            currentAccidentData = null;
+
             Debug.LogError("Accidents list is empty. Level cleared?");
             Debug.Log($"{solvedAccidents}/{totalAccidents} accidents solved");
             return;
@@ -166,7 +174,7 @@ public class WorkerManager : MonoBehaviour
     /// </summary>
     public PatrolPoint GetRandomWorkstation()
     {
-        List<Workstation> freeWorkstation = workstations.FindAll(n => n.assossiatedPatrolPoint == null);
+        List<Workstation> freeWorkstation = workstations.FindAll(n => n.assossiatedPatrolPoint.assignedWorker == null);
 
         if (freeWorkstation.Count > 0)
         {
@@ -249,6 +257,7 @@ public class WorkerManager : MonoBehaviour
     {
         isCountingDown = true;
         accidentRemainingTime = accidentCountdownTime;
+        hudManager.ShowAlert(accidentRemainingTime);
     }
 
     /// <summary>
@@ -260,13 +269,14 @@ public class WorkerManager : MonoBehaviour
             return;
 
         accidentRemainingTime -= Time.deltaTime;
-        Debug.Log($"time remaining to solve accident: {accidentRemainingTime.ToString("#0.0")}");
+        hudManager.UpdateAccidentCountdown(accidentRemainingTime);
 
         if (accidentRemainingTime < 0)
         {
             isCountingDown = false;
             workerInAccidentEvent.AccidentTimeOver();
             workerInAccidentEvent = null;
+            hudManager.HideAlert();
             CallNextAccident();
         }
     }

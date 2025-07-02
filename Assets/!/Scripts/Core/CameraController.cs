@@ -1,18 +1,16 @@
-using UnityEditor.Build;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
+/// <summary>
+/// Controls camera movement.
+/// </summary>
 [RequireComponent(typeof(PlayerInput))]
 public class CameraController : MonoBehaviour
 {
-    // controls the camera movement
-
-    // TODO: verify game state (pause, gameover, play) to prevent movement outside of play
-
     [Header("References")]
     [SerializeField] private Camera playerCamera;
-    [SerializeField] private UIDocument hud;
+    [SerializeField] private UIDocument onScreenInput;
     [SerializeField] private Button moveLeftButton;
     [SerializeField] private Button moveRightButton;
     [SerializeField] private PlayerControls playerControls;
@@ -32,11 +30,15 @@ public class CameraController : MonoBehaviour
         SetupOnScreenControls();
     }
 
+    /// <summary>
+    /// Sets up references to on screen input buttons.
+    /// </summary>
     public void SetupOnScreenControls()
     {
-        // configures the on screen buttons
+        if (onScreenInput == null)
+            return;
 
-        VisualElement root = hud.rootVisualElement;
+        VisualElement root = onScreenInput.rootVisualElement;
         moveLeftButton = root.Q<Button>("MoveLeft");
         moveRightButton = root.Q<Button>("MoveRight");
 
@@ -99,6 +101,9 @@ public class CameraController : MonoBehaviour
         playerCamera.transform.position = new Vector3(playerCamera.transform.position.x + speed * direction * Time.deltaTime, playerCamera.transform.position.y, playerCamera.transform.position.z);
     }
 
+    /// <summary>
+    /// prevents the camera from moving beyond set bounds.
+    /// </summary>
     private void VerifyBounds()
     {
         // limits the camera movement to the bounds defined by the designer

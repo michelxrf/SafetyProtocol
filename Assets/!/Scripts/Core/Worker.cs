@@ -10,7 +10,6 @@ using static UnityEngine.GraphicsBuffer;
 public class Worker : InteractableObject
 {
     [Header("References")]
-    [SerializeField] private WorkerManager workerManager;
     private AgentDestinationReachedNotifier destinationReachedNotifier;
     private Animator animator;
 
@@ -31,8 +30,10 @@ public class Worker : InteractableObject
     public bool isAccidentTarget = false;
 
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         // disables worker quiz till it gets called to accident
         GetComponent<Clickable>().isEnabled = false;
         GetComponent<Clickable>().questionData = null;
@@ -60,6 +61,7 @@ public class Worker : InteractableObject
         {
             workerManager.StartAccidentCountdown();
             GetComponent<Clickable>().isEnabled = true;
+            isAccidentTarget = false;
         }
 
         bool isDestinationAWorkstation = assignedPoint.GetComponent<Workstation>() != null ? true : false;
@@ -211,7 +213,9 @@ public class Worker : InteractableObject
 
         workerManager.solvedAccidents += 1;
         workerManager.isCountingDown = false;
+        hud.UpdateScores();
         workerManager.CallNextAccident();
+        StartCoroutine(WaitForSeconds(minWorkTime, maxWorkTime));
     }
 
     /// <summary>

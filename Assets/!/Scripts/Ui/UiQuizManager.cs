@@ -8,10 +8,11 @@ using UnityEngine.UIElements;
 /// </summary>
 public class UiQuizManager : MonoBehaviour
 {
+    [SerializeField] private HudManager hud;
+    [SerializeField] private OnScreenControls onScreenControls;
     [SerializeField] private WorkerManager workerManager;
     [SerializeField] ClickHandler clickHandler;
     private InteractableObject associatedObject;
-    private UiManager uiManager;
     private UIDocument quizUi;
 
     // list to keep track of player answering
@@ -25,13 +26,22 @@ public class UiQuizManager : MonoBehaviour
         {
             clickHandler = FindAnyObjectByType<ClickHandler>();
         }
-        uiManager = transform.parent.GetComponent<UiManager>();
         quizUi = GetComponent<UIDocument>();
         quizUi.rootVisualElement.style.display = DisplayStyle.None;
 
         quizUi.rootVisualElement.Q<Button>("SubmitButton").clicked += OnSubmitClick;
+
+        if (onScreenControls ==  null)
+            onScreenControls = FindFirstObjectByType<OnScreenControls>();
+
+        if (hud == null)
+            hud = FindFirstObjectByType<HudManager>();
     }
 
+    /// <summary>
+    /// Prevents the submit button from being clicked if not a single answer has been selected.
+    /// </summary>
+    /// <returns>True if more than zero answers are selected, false otherwise.</returns>
     private bool HasAtLeastOneAnswerSelected()
     {
         foreach (VisualElement answer in quizUi.rootVisualElement.Q<VisualElement>("AnswersContainer").Children())
@@ -68,7 +78,10 @@ public class UiQuizManager : MonoBehaviour
     private void OnSubmitClick()
     {
         bool isCorrect = VerifyAnswers();
-        uiManager.ShowHud();
+        HideQuiz();
+        hud.Show();
+
+        hud.HideAlert();
         associatedObject.OnQuizEnd(isCorrect);
         associatedObject = null;
     }
@@ -117,6 +130,9 @@ public class UiQuizManager : MonoBehaviour
     public void ShowQuiz(QuizQuestion questionToShow, InteractableObject interactedObject)
     {
         quizUi.rootVisualElement.style.display = DisplayStyle.Flex;
+        hud.Hide();
+        onScreenControls.Hide();
+        workerManager.isCountingDown = false;
 
         answerButtons.Clear();
 
@@ -160,6 +176,11 @@ public class UiQuizManager : MonoBehaviour
         workerManager.PauseGame();
     }
 
+    /// <summary>
+    /// Instantiate radio buttons for the answer options, used for questions where theres only one right answer.
+    /// </summary>
+    /// <param name="text">Display text for this answer.</param>
+    /// <param name="desiredAnswer">The correct state to solve this quiz.</param>
     private void AddRadioButton(string text, bool desiredAnswer)
     {
         VisualElement answersList = quizUi.rootVisualElement.Q<VisualElement>("AnswersContainer");
@@ -174,6 +195,11 @@ public class UiQuizManager : MonoBehaviour
         newButton.RegisterCallback<ChangeEvent<bool>>(evt => OnAnswerSelected());
     }
 
+    /// <summary>
+    /// Instantiate toggle buttons for the answer options, used for questions with multiple right answer.
+    /// </summary>
+    /// <param name="text">Display text for this answer.</param>
+    /// <param name="desiredAnswer">The correct state to solve this quiz.</param>
     private void AddToggleButton(string text, bool desiredAnswer)
     {
         VisualElement answersList = quizUi.rootVisualElement.Q<VisualElement>("AnswersContainer");
@@ -189,10 +215,12 @@ public class UiQuizManager : MonoBehaviour
         newButton.RegisterCallback<ChangeEvent<bool>>(evt => OnAnswerSelected());
     }
 
+    /// <summary>
+    /// Reorders orders of the answers to show.
+    /// </summary>
+    /// <param name="answerContainer">The Visual Element containing the answers.</param>
     private void ShuffleAnswers(VisualElement answerContainer)
     {
-        // Reorders the order the questions show
-
         List<VisualElement> elements = answerContainer.Children().ToList();
 
         // Shuffle the list of elements
@@ -210,10 +238,16 @@ public class UiQuizManager : MonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// Makes the quiz screen disapper.
+    /// </summary>
     public void HideQuiz()
     {
         clickHandler.canClick = true;
         quizUi.rootVisualElement.style.display = DisplayStyle.None;
         workerManager.UnpauseGame();
+        hud.Show();
+        onScreenControls.Show();
     }
 }

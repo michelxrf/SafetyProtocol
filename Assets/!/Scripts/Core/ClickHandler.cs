@@ -1,4 +1,3 @@
-using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -57,7 +56,6 @@ public class ClickHandler : MonoBehaviour
             {
                 if(clickable.isEnabled)
                 {
-                    Debug.Log("Beep");
                     canClick = false;
                     clickable.OnClick();
                 }

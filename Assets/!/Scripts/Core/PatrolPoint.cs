@@ -6,7 +6,7 @@ using UnityEngine;
 public class PatrolPoint : MonoBehaviour
 {
     [SerializeField] private WorkerManager workerManager;
-    [HideInInspector] public Worker assignedWorker;
+    public Worker assignedWorker;
     [HideInInspector] public bool isWorkerHere = false;
 
     private void Awake()

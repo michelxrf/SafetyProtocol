@@ -8,12 +8,12 @@ public class Clickable : MonoBehaviour
     // IDEAS: make the object play a sfx once clicked
 
     public QuizQuestion questionData;
-    private UiManager uiManager;
+    private UiQuizManager quizScreen;
     [HideInInspector] public bool isEnabled = true;
 
     private void Awake()
     {
-        uiManager = FindFirstObjectByType<UiManager>();
+        quizScreen = FindFirstObjectByType<UiQuizManager>();
     }
 
     public void OnClick()
@@ -23,7 +23,7 @@ public class Clickable : MonoBehaviour
 
         if (questionData != null)
         {
-            uiManager.ShowQuiz(questionData, GetComponent<InteractableObject>());
+            quizScreen.ShowQuiz(questionData, GetComponent<InteractableObject>());
         }
     }
 }
