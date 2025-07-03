@@ -10,6 +10,7 @@ using static UnityEngine.Rendering.DebugUI.MessageBox;
 public class HudManager : MonoBehaviour
 {
     private WorkerManager workerManager;
+    private PauseScreen pauseScreen;
 
     private UIDocument hud;
     private VisualElement accidentAlertIcon;
@@ -45,6 +46,9 @@ public class HudManager : MonoBehaviour
 
         if (workerManager == null)
             workerManager = FindFirstObjectByType<WorkerManager>();
+
+        if (pauseScreen == null)
+            pauseScreen = FindFirstObjectByType<PauseScreen>();
     }
 
     private void Start()
@@ -109,7 +113,8 @@ public class HudManager : MonoBehaviour
     /// </summary>
     private void OnPauseClicked()
     {
-        Debug.Log("Pause not implemented yet.");
+        workerManager.PauseGame();
+        pauseScreen.Show();
     }
 
     /// <summary>
