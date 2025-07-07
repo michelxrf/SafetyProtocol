@@ -13,6 +13,7 @@ public class WorkerManager : MonoBehaviour
     [SerializeField] UiQuizManager quizScreen;
 
     [Header("Settings")]
+    public float timeToAnswerQuiz = 30f;
     public bool debugMode = true;
     [SerializeField] private bool generateRandomPatrolPoints;
     private bool isGamePaused = false;

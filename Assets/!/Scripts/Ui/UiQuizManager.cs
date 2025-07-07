@@ -18,6 +18,11 @@ public class UiQuizManager : MonoBehaviour
     // list to keep track of player answering
     private Dictionary<VisualElement, bool> answerButtons = new();
 
+    // timer variables
+    private bool isCountingDown = false;
+    private float timeElapsed = 0f;
+    private float timeLimit;
+
     private void Awake()
     {
         workerManager = FindFirstObjectByType<WorkerManager>();
@@ -32,6 +37,9 @@ public class UiQuizManager : MonoBehaviour
 
         if (hud == null)
             hud = FindFirstObjectByType<HudManager>();
+
+        // initialize timer to answer the question
+        timeLimit = workerManager.timeToAnswerQuiz;
     }
 
     /// <summary>
@@ -119,16 +127,42 @@ public class UiQuizManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Updates the time the player have to answer the current question on screen.
+    /// </summary>
+    private void CountdownTimer()
+    {
+        if (!isCountingDown)
+            return;
+
+        // counts time
+        timeElapsed += Time.deltaTime;
+
+        // force an answer submition as timer ends
+        if (timeElapsed > timeLimit)
+        {
+            isCountingDown = false;
+            OnSubmitClick();
+        }
+
+        // updates timer ui
+        quizUi.rootVisualElement.Q<Label>("Timer").text = (timeLimit - timeElapsed).ToString($"#0.0" + "s");
+    }
+
+    private void Update()
+    {
+        CountdownTimer();
+    }
+
+    /// <summary>
     /// Loads the question data and shows it in the quiz screen.
     /// </summary>
     public void ShowQuiz(QuizQuestion questionToShow, InteractableObject interactedObject)
     {
-        quizUi.rootVisualElement.style.display = DisplayStyle.Flex;
         hud.Hide();
         onScreenControls.Hide();
-        workerManager.PauseGame();
-
         answerButtons.Clear();
+
+        workerManager.PauseGame();
 
         associatedObject = interactedObject;
 
@@ -167,7 +201,12 @@ public class UiQuizManager : MonoBehaviour
 
         // disables the submit answer by default until an answer is selected
         quizUi.rootVisualElement.Q<Button>("SubmitButton").SetEnabled(false);
-        workerManager.PauseGame();
+
+        // zeros the timer
+        timeElapsed = 0f;
+        isCountingDown = true;
+
+        quizUi.rootVisualElement.style.display = DisplayStyle.Flex;
     }
 
     /// <summary>
@@ -238,6 +277,7 @@ public class UiQuizManager : MonoBehaviour
     /// </summary>
     public void HideQuiz()
     {
+        isCountingDown = false;
         quizUi.rootVisualElement.style.display = DisplayStyle.None;        
     }
 }
