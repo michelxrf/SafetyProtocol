@@ -36,8 +36,8 @@ public class PauseScreen : MonoBehaviour
     {
         ui.rootVisualElement.style.display = DisplayStyle.Flex;
 
-        onScreenControls.Show();
-        hud.Show();
+        onScreenControls.Hide();
+        hud.Hide();
     }
 
     /// <summary>
@@ -48,6 +48,5 @@ public class PauseScreen : MonoBehaviour
         ui.rootVisualElement.style.display = DisplayStyle.None;
         hud.Show();
         onScreenControls.Show();
-        workerManager.UnpauseGame();
     }
 }

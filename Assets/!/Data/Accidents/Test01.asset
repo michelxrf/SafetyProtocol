@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce442604b3af8fc41bd133770755b27c, type: 3}
   m_Name: Test01
   m_EditorClassIdentifier: 
-  accidentImage: {fileID: 0}
-  accidentTitle: 
-  accidentDescription: 
+  accidentImage: {fileID: 2800000, guid: d341788410f12d74ab3085637a241146, type: 3}
+  accidentTitle: Shit Happened!
+  accidentDescription: Somebody just died! Holly potatoes!
   accidentAudio: {fileID: 0}

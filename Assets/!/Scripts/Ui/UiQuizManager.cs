@@ -11,7 +11,7 @@ public class UiQuizManager : MonoBehaviour
     [SerializeField] private HudManager hud;
     [SerializeField] private OnScreenControls onScreenControls;
     [SerializeField] private WorkerManager workerManager;
-    [SerializeField] ClickHandler clickHandler;
+    
     private InteractableObject associatedObject;
     private UIDocument quizUi;
 
@@ -22,10 +22,6 @@ public class UiQuizManager : MonoBehaviour
     {
         workerManager = FindFirstObjectByType<WorkerManager>();
 
-        if (clickHandler == null)
-        {
-            clickHandler = FindAnyObjectByType<ClickHandler>();
-        }
         quizUi = GetComponent<UIDocument>();
         quizUi.rootVisualElement.style.display = DisplayStyle.None;
 
@@ -79,7 +75,6 @@ public class UiQuizManager : MonoBehaviour
     {
         bool isCorrect = VerifyAnswers();
         HideQuiz();
-        hud.Show();
 
         associatedObject.OnQuizEnd(isCorrect);
         associatedObject = null;
@@ -243,10 +238,6 @@ public class UiQuizManager : MonoBehaviour
     /// </summary>
     public void HideQuiz()
     {
-        clickHandler.canClick = true;
-        quizUi.rootVisualElement.style.display = DisplayStyle.None;
-        workerManager.UnpauseGame();
-        hud.Show();
-        onScreenControls.Show();
+        quizUi.rootVisualElement.style.display = DisplayStyle.None;        
     }
 }

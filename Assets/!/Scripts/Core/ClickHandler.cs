@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// Calls a raycast on a player click or touch, the raycast is used to interact with world objects.
+/// </summary>
 [RequireComponent(typeof(Camera))]
 public class ClickHandler : MonoBehaviour
 {

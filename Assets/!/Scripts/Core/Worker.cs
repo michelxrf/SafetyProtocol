@@ -12,6 +12,7 @@ public class Worker : InteractableObject
     [Header("References")]
     private AgentDestinationReachedNotifier destinationReachedNotifier;
     private Animator animator;
+    private AccidentScreen accidentScreen;
 
     [Header("Navigation")]
     private NavMeshAgent navMeshAgent;
@@ -39,6 +40,7 @@ public class Worker : InteractableObject
         GetComponent<Clickable>().questionData = null;
 
         // gets references
+        accidentScreen = FindFirstObjectByType<AccidentScreen>();
         animator = GetComponentInChildren<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         destinationReachedNotifier = GetComponent<AgentDestinationReachedNotifier>();
@@ -192,7 +194,7 @@ public class Worker : InteractableObject
     /// </summary>
     public void AccidentTimeOver()
     {
-        KillWorker();
+        AnswereWrong();
     }
 
     /// <summary>
@@ -216,6 +218,7 @@ public class Worker : InteractableObject
         workerManager.accidentActive = false;
         hud.HideAlert();
         hud.UpdateScores();
+        hud.Show();
         workerManager.CallNextAccident();
         StartCoroutine(WaitForSeconds(minWorkTime, maxWorkTime));
     }
@@ -228,6 +231,10 @@ public class Worker : InteractableObject
         base.AnswereWrong();
         workerManager.accidentActive = false;
         workerManager.isCountingDown = false;
+        hud.HideAlert();
+
+        accidentScreen.Show(workerManager.currentAccidentData);
+
         workerManager.CallNextAccident();
         KillWorker();
     }

@@ -9,6 +9,8 @@ using System.Drawing;
 public class WorkerManager : MonoBehaviour
 {
     [SerializeField] CameraController playerCamera;
+    [SerializeField] HudManager hudManager;
+    [SerializeField] UiQuizManager quizScreen;
 
     [Header("Settings")]
     public bool debugMode = true;
@@ -20,15 +22,13 @@ public class WorkerManager : MonoBehaviour
     [SerializeField] private float idleChance;
 
     [Header("Accidents")]
-    [SerializeField] HudManager hudManager;
-    [SerializeField] UiQuizManager quizScreen;
     [SerializeField] private ACCIDENTORDER accidentOrder = ACCIDENTORDER.RANDOM;
     public float accidentCountdownTime = 5f;
     [SerializeField] public List<AccidentEvent> accidentEventsList;
     [HideInInspector] public float accidentRemainingTime;
     [HideInInspector] public bool isCountingDown = false;
     private Worker workerInAccidentEvent;
-    private AccidentData currentAccidentData;
+    [HideInInspector] public AccidentData currentAccidentData;
     [HideInInspector] public bool accidentActive = false;
     [HideInInspector] public int solvedAccidents = 0;
     [HideInInspector] public int totalAccidents = 0;

@@ -2,6 +2,10 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+
+/// <summary>
+/// Allows objects to respond to clicks or touches.
+/// </summary>
 public class Clickable : MonoBehaviour
 {
     // makes the object reacts to a click
@@ -16,6 +20,9 @@ public class Clickable : MonoBehaviour
         quizScreen = FindFirstObjectByType<UiQuizManager>();
     }
 
+    /// <summary>
+    /// Shows associated quiz once object is clicked.
+    /// </summary>
     public void OnClick()
     {
         if (!isEnabled)

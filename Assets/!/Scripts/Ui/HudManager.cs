@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
+using UnityEngine.InputSystem.OnScreen;
 using UnityEngine.UIElements;
 using static UnityEngine.Rendering.DebugUI.MessageBox;
 
@@ -12,7 +13,9 @@ public class HudManager : MonoBehaviour
     private WorkerManager workerManager;
     private PauseScreen pauseScreen;
 
+    private ClickHandler clickHandler;
     private UIDocument hud;
+    private OnScreenControls onScreenControls;
     private VisualElement accidentAlertIcon;
     private Label accidentCountdown;
     private Label currentAccidentsCount;
@@ -25,22 +28,23 @@ public class HudManager : MonoBehaviour
 
     private void Awake()
     {
+        // gets references
         if (hud ==  null)
             hud = GetComponent<UIDocument>();
+        
+        clickHandler = FindAnyObjectByType<ClickHandler>();
 
-        hud.rootVisualElement.style.display = DisplayStyle.Flex;
-
+        onScreenControls = FindFirstObjectByType<OnScreenControls>();
         pauseButton = hud.rootVisualElement.Q<Button>("PauseButton");
-
+        
         accidentAlertIcon = hud.rootVisualElement.Q<VisualElement>("AlertIcon");
         accidentAlertIcon.style.display = DisplayStyle.None;
-
+        
         accidentCountdown = hud.rootVisualElement.Q<Label>("Countdown");
         accidentCountdown.style.display = DisplayStyle.None;
-
+        
         currentAccidentsCount = hud.rootVisualElement.Q<Label>("SolvedAccidents");
         maxAccidentsCount = hud.rootVisualElement.Q<Label>("MaxAccidents");
-        
         currentHazardCount = hud.rootVisualElement.Q<Label>("SolvedHazards");
         maxHazardCount = hud.rootVisualElement.Q<Label>("MaxHazards");
 
@@ -49,6 +53,9 @@ public class HudManager : MonoBehaviour
 
         if (pauseScreen == null)
             pauseScreen = FindFirstObjectByType<PauseScreen>();
+
+        // shows hud by default starting state
+        hud.rootVisualElement.style.display = DisplayStyle.Flex;
     }
 
     private void Start()
@@ -93,11 +100,15 @@ public class HudManager : MonoBehaviour
 
     public void Show()
     {
+        clickHandler.canClick = true;
+        workerManager.UnpauseGame();
+        onScreenControls.Show();
         hud.rootVisualElement.style.display = DisplayStyle.Flex;
     }
 
     public void Hide()
     {
+        clickHandler.canClick = false;
         hud.rootVisualElement.style.display = DisplayStyle.None;
     }
 
