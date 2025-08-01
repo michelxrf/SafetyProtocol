@@ -1,0 +1,12 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1;">
+        <ui:VisualElement name="VisualElement" style="flex-grow: 0; left: 5%; right: 65%; position: absolute; bottom: 0%; top: 0%; justify-content: center; font-size: 36px; flex-shrink: 0; align-items: stretch;">
+            <ui:VisualElement name="Icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/!/Sprites/Inventory%20Items/Boot.jpg?fileID=2800000&amp;guid=e16269b5450c634408acec58189f1849&amp;type=3#Boot&quot;); -unity-background-scale-mode: scale-to-fit;" />
+            <ui:VisualElement name="Buttons" style="flex-grow: 0.5;">
+                <ui:Button text="Modo Carreira (Em desenvolvimento)" name="Carrer" enabled="false" />
+                <ui:Button text="Multijogador" name="Multiplayer" />
+                <ui:Button text="Sair" name="Quit" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

@@ -12,14 +12,11 @@ public class LeaderboardManager : MonoBehaviour
 {
     public static LeaderboardManager Instance { get; private set; }
 
-    //TODO: conect to some ui element that displays the scores
-    //[HideInInspector] public LeaderboardUi leaderboardUi;
-
     // Inits all player and leaderboard info as an unitialized state
-    [HideInInspector] public string playerID;
-    private string playerName = String.Empty;
-    private int playerScore = -1;
-    private string currentLeaderboardName = String.Empty;
+    public string playerID { get; private set; }
+    public string playerName { get; private set; } = String.Empty;
+    public int playerScore { get; private set; } = -1;
+    private string leaderboardName = String.Empty;
 
     [Header("Connection Settings")]
     [SerializeField] float forcedRetryInterval = 10f; // After an failed attempt to conect, tries again after this amount of seconds
@@ -48,6 +45,13 @@ public class LeaderboardManager : MonoBehaviour
     private bool waitingAutoReconnect = false;
     private bool retrievePlayerScoreOnAuth = false;
 
+    // Actions
+    public Action<GetLeaderboardResult> OnLeaderboardReceived;
+    public Action<GetLeaderboardAroundPlayerResult> OnPlayerScoreReceived;
+    public Action OnFailedToConnect;
+    public Action OnEmptyLeadearboardReceived;
+    public Action OnRetryingConnection;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -61,6 +65,22 @@ public class LeaderboardManager : MonoBehaviour
             DontDestroyOnLoad(Instance);
             AuthAsGuest();
         }
+    }
+
+    /// <summary>
+    /// Changes the destination leaderboard
+    /// </summary>
+    /// <param name="newLeaderboardName"></param>
+    public void ChangeLeaderboardName(string newLeaderboardName)
+    {
+        // safety validation
+        if (newLeaderboardName == String.Empty)
+        {
+            Debug.LogError("Trying to set leaderboard name to empty.");
+            return;
+        }
+
+        leaderboardName = newLeaderboardName;
     }
 
     /// <summary>
@@ -86,6 +106,7 @@ public class LeaderboardManager : MonoBehaviour
     {
         // Updates conection flags and counters
         playerID = result.PlayFabId;
+
         loggedIn = true;
         retryAuthCount = 0;
 
@@ -100,21 +121,21 @@ public class LeaderboardManager : MonoBehaviour
         // Calls to submit score after a successful auth, used in reconection attempts
         if (!scoreSubmitted && playerScore >= 0)
         {
-            SubmitCurrentScore(playerScore, currentLeaderboardName);
+            SubmitCurrentScore(playerScore);
         }
 
         // Calls to retrieve the leaderboard after a succesful auth, used in reconnect attempts
         if (retrieveLeaderboardOnAuth)
         {
             retrieveLeaderboardOnAuth = false;
-            GetScoresAsync(currentLeaderboardName);
+            GetTop10Scores();
         }
 
         // Calls to retrieve the player's score after a sucessful reconect attempt
         if (retrievePlayerScoreOnAuth)
         {
             retrievePlayerScoreOnAuth = false;
-            GetPlayerScoreAsync(currentLeaderboardName);
+            GetPlayerScore();
         }
     }
 
@@ -125,7 +146,7 @@ public class LeaderboardManager : MonoBehaviour
     private void OnAuthError(PlayFabError error)
     {
         loggedIn = false;
-        
+
         // prints error to console
         Debug.Log(error.GenerateErrorReport());
 
@@ -166,6 +187,13 @@ public class LeaderboardManager : MonoBehaviour
     /// <param name="newPlayerName">The new name.</param>
     public void ChangePlayerName(string newPlayerName)
     {
+        // safety validation
+        if (newPlayerName == String.Empty)
+        {
+            Debug.LogError("Can't set player name to empty.");
+            return;
+        }
+
         Debug.Log($"uploading new player name: {newPlayerName}");
         playerName = newPlayerName;
 
@@ -244,11 +272,9 @@ public class LeaderboardManager : MonoBehaviour
     /// Sends the current player score to the backend.
     /// </summary>
     /// <param name="score">The score to send.</param>
-    /// <param name="leaderboardName">The leaderboard it will register the score to.</param>
-    public void SubmitCurrentScore(int score, string leaderboardName)
+    public void SubmitCurrentScore(int score)
     {
         playerScore = score;
-        currentLeaderboardName = leaderboardName;
 
         // retries to login, used when connection was lost
         if (!loggedIn)
@@ -278,13 +304,13 @@ public class LeaderboardManager : MonoBehaviour
     /// Called when the backend successfully received the new score.
     /// </summary>
     /// <param name="result">Backend response</param>
-    void OnSubmitScoreSuccess(UpdatePlayerStatisticsResult result)
+    private void OnSubmitScoreSuccess(UpdatePlayerStatisticsResult result)
     {
         scoreSubmitted = true;
 
         if (retrieveLeaderboardOnSubmit)
         {
-            GetTop10Scores(currentLeaderboardName);
+            GetTop10Scores();
         }
 
         Debug.Log("score succesfully submitted to Playfab");
@@ -338,17 +364,21 @@ public class LeaderboardManager : MonoBehaviour
     private IEnumerator RetrySubmitScoreConection(float delay)
     {
         yield return new WaitForSeconds(delay);
-        SubmitCurrentScore(playerScore, currentLeaderboardName);
+        SubmitCurrentScore(playerScore);
     }
 
 
     /// <summary>
     /// Calls the backend for the best 10 scores of the leaderboard.
     /// </summary>
-    /// <param name="leaderboardName">The leaderboard it'll pick from.</param>
-    public void GetTop10Scores(string leaderboardName)
+    public void GetTop10Scores()
     {
-        currentLeaderboardName = leaderboardName;
+        // safety validation
+        if (leaderboardName == String.Empty)
+        {
+            Debug.LogError("Can't get scores before setting Leaderboardname");
+            return;
+        }
 
         // retry to log in, if conection was lost at some point
         if (!loggedIn)
@@ -376,21 +406,16 @@ public class LeaderboardManager : MonoBehaviour
     /// <param name="result">The backend response data.</param>
     private void OnGetLeaderboardSuccess(GetLeaderboardResult result)
     {
-        // TODO: deals with empity leaderboards
-
         Debug.Log("Leaderboard scores received");
 
-        // TODO: tells the UI element to fill it's scores
-        /*
-        if (leaderboardUi != null)
+        if (result.Leaderboard.Count > 0)
         {
-            leaderboardUi.FillScores(result);
+            OnLeaderboardReceived?.Invoke(result);
         }
         else
         {
-            Debug.LogError("LeaderboardManager has no UI ref");
+            OnEmptyLeadearboardReceived?.Invoke();
         }
-        */
     }
 
     /// <summary>
@@ -438,16 +463,15 @@ public class LeaderboardManager : MonoBehaviour
     private IEnumerator RetryGetLeaderboardConection(float delay)
     {
         yield return new WaitForSeconds(delay);
-        GetTop10Scores(currentLeaderboardName);
+        GetTop10Scores();
     }
 
 
     /// <summary>
     /// A delayed score call, verify if it still fits the use. TODO: This might not make sense in the current project.
     /// </summary>
-    /// <param name="leaderboardName">Leaderboard to send the scores to.</param>
     /// <returns></returns>
-    public IEnumerator GetScoresAsync(string leaderboardName)
+    private IEnumerator GetScoresAsync()
     {
         yield return new WaitForSeconds(2);
 
@@ -459,16 +483,15 @@ public class LeaderboardManager : MonoBehaviour
         }
         else
         {
-            GetTop10Scores(leaderboardName);
+            GetTop10Scores();
         }
     }
 
     /// <summary>
     /// A delayed score call, verify if it still fits the use. TODO: This might not make sense in the current project.
     /// </summary>
-    /// <param name="leaderboardName"></param>
     /// <returns></returns>
-    public IEnumerator GetPlayerScoreAsync(string leaderboardName)
+    private IEnumerator GetPlayerScoreAsync()
     {
         yield return new WaitForSeconds(2);
 
@@ -480,17 +503,21 @@ public class LeaderboardManager : MonoBehaviour
         }
         else
         {
-            GetPlayerScore(leaderboardName);
+            GetPlayerScore();
         }
     }
 
     /// <summary>
     /// Calls the backend to retrieve only the player's last score submited.
     /// </summary>
-    /// <param name="leaderboardName">The leaderboard to get the score from.</param>
-    public void GetPlayerScore(string leaderboardName)
+    public void GetPlayerScore()
     {
-        currentLeaderboardName = leaderboardName;
+        // Safety validating
+        if (leaderboardName == String.Empty)
+        {
+            Debug.LogError("Can't get scores before setting Leaderboardname");
+            return;
+        }
 
         // forces a login retry, in case of lost connections
         if (!loggedIn)
@@ -518,18 +545,7 @@ public class LeaderboardManager : MonoBehaviour
     private void OnGetPlayerScoreSuccess(GetLeaderboardAroundPlayerResult result)
     {
         Debug.Log("best player score received");
-        //TODO: connect to UI
-
-        /*
-        if (leaderboardUi != null)
-        {
-            leaderboardUi.ShowBestPlayerScore(result.Leaderboard[0].StatValue);
-        }
-        else
-        {
-            Debug.LogError("LeaderboardManager has no UI ref");
-        }
-        */
+        OnPlayerScoreReceived?.Invoke(result);
     }
 
     /// <summary>
@@ -577,7 +593,7 @@ public class LeaderboardManager : MonoBehaviour
     private IEnumerator RetryGetPlayerScoreConection(float delay)
     {
         yield return new WaitForSeconds(delay);
-        GetPlayerScore(currentLeaderboardName);
+        GetPlayerScore();
     }
 
 
@@ -586,16 +602,23 @@ public class LeaderboardManager : MonoBehaviour
     /// </summary>
     private void NoConnection()
     {
-        // TOOD: Tells an UI element that there's no connection
-
         if (waitingAutoReconnect)
             return;
 
-        //leaderboardUi.NoConnection();
+        OnFailedToConnect?.Invoke();
 
         retrieveLeaderboardOnSubmit = true;
         retrieveLeaderboardOnAuth = true;
         StartCoroutine(AutoReconnect());
+    }
+
+    /// <summary>
+    /// Returns the player's name
+    /// </summary>
+    /// <returns>Player name.</returns>
+    public string GetPlayerName()
+    {
+        return playerName;
     }
 
     /// <summary>
@@ -604,8 +627,6 @@ public class LeaderboardManager : MonoBehaviour
     /// <returns></returns>
     private IEnumerator AutoReconnect()
     {
-        // TODO: Notifie UI
-
         waitingAutoReconnect = true;
         int countdown = (int)forcedRetryInterval;
         while (countdown > 0)
@@ -613,35 +634,12 @@ public class LeaderboardManager : MonoBehaviour
             yield return new WaitForSeconds(1f);
 
             countdown--;
-            /*
-            if (leaderboardUi != null)
-            {
-                leaderboardUi.WaitingReconnect(countdown);
-            }
-            */
         }
 
-        GetTop10Scores(currentLeaderboardName);
+        GetTop10Scores();
         waitingAutoReconnect = false;
-        //leaderboardUi.Connecting();
+        
+        OnRetryingConnection?.Invoke();
     }
 
-    /// <summary>
-    /// Clears all connection states and data. Is it still useful?
-    /// </summary>
-    public void ResetLeaderboard()
-    {
-        StopAllCoroutines();
-        playerScore = -1;
-        currentLeaderboardName = String.Empty;
-        retryAuthCount = 0;
-        retryNameChangeCount = 0;
-        retryGetLeaderboardCount = 0;
-        retrySubmitScoreCount = 0;
-        scoreSubmitted = false;
-        retrieveLeaderboardOnAuth = false;
-        retrieveLeaderboardOnSubmit = false;
-
-    }
-    
 }

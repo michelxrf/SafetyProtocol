@@ -2,6 +2,8 @@ using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Drawing;
+using UnityEditor.SearchService;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Directs the workers on a level, sending them to random patrols, workstations and accident events.
@@ -143,8 +145,8 @@ public class WorkerManager : MonoBehaviour
         {
             currentAccidentData = null;
 
-            Debug.LogError("Accidents list is empty. Level cleared?");
-            Debug.Log($"{solvedAccidents}/{totalAccidents} accidents solved");
+            Debug.LogWarning("Accidents list is empty. Level cleared?");
+            EndGame();
             return;
         }
 
@@ -169,6 +171,16 @@ public class WorkerManager : MonoBehaviour
         currentAccidentData = nextAccident.accidentData;
         nextAccident.worker.SetQuizData(nextAccident.quizQuestion);
         SendWorkerToAccident(nextAccident.worker, nextAccident.patrolPoint);
+    }
+
+    /// <summary>
+    /// Shows gameend screen and submit player scores
+    /// </summary>
+    private void EndGame()
+    {
+        Debug.Log($"A: {solvedAccidents}/{totalAccidents}, H:{solvedHazzards}/{totalHazzards}");
+        SceneManager.LoadScene(0);
+        LeaderboardManager.Instance.SubmitCurrentScore(1);
     }
 
     /// <summary>

@@ -1,0 +1,28 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/!/UI/Styles/Placeholder.uss?fileID=7433441132597879392&amp;guid=cb9193efaf9345e47847c38266f3b8f2&amp;type=3#Placeholder" />
+    <ui:VisualElement style="flex-grow: 1; flex-direction: row; font-size: 24px; justify-content: space-between;">
+        <ui:VisualElement name="VisualElement" style="flex-grow: 0; margin-left: 0%; margin-right: 0%; margin-top: 10%; margin-bottom: 10%; justify-content: space-around; left: 5%; right: 65%; flex-shrink: 0; position: absolute; bottom: 0%; top: 0%;">
+            <ui:VisualElement name="InputFields" style="flex-grow: 0;">
+                <ui:TextField label="Username" placeholder-text="user123" name="UserName" />
+                <ui:TextField label="Turma" placeholder-text="turma123" name="LeaderboardName" />
+            </ui:VisualElement>
+            <ui:VisualElement name="LevelSetup" style="flex-grow: 1; justify-content: center;">
+                <ui:RadioButtonGroup label="Dificuldade" choices="Normal,Difícil" value="0" name="Difficulty" />
+                <ui:RadioButtonGroup label="Mapa" choices="Canteiro de Obras" value="0" name="Map" />
+            </ui:VisualElement>
+            <ui:VisualElement name="ActionButtons" style="flex-grow: 1; flex-direction: column-reverse; align-items: stretch; justify-content: flex-start; align-self: stretch;">
+                <ui:Button text="Voltar" name="Back" style="bottom: auto; top: auto; font-size: 48px; position: relative;" />
+                <ui:Button text="Jogar" name="Play" style="bottom: auto; top: auto; font-size: 48px; position: relative;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="Leaderboard" style="flex-grow: 0; margin-right: 0%; margin-left: 0%; margin-top: 10%; margin-bottom: 10%; justify-content: flex-start; left: 40%; right: 5%; flex-shrink: 0; position: absolute;">
+            <ui:Label text="PLACAR DA TURMA" name="Title" style="-unity-text-align: upper-center; font-size: 48px; -unity-font-style: bold; height: auto; flex-grow: 0; border-top-width: 10px; border-bottom-width: 10px;" />
+            <ui:VisualElement name="Header" class="ScoreEntry" style="flex-grow: 0; flex-direction: row; align-items: flex-start; justify-content: space-between; border-bottom-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); width: auto;">
+                <ui:Label text="#" name="Rank" class="RankColumm" style="width: 10%; flex-grow: 0;" />
+                <ui:Label text="Jogador" name="Name" class="NameColumm" />
+                <ui:Label text="Pontuação" name="Score" class="ScoreColumm" />
+            </ui:VisualElement>
+            <ui:Label text="Digite o código da turma para ver o placar." name="Notice" style="-unity-text-align: middle-center; font-size: 48px; -unity-font-style: bold; height: 450px; flex-grow: 0; border-top-width: 10px; border-bottom-width: 10px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
