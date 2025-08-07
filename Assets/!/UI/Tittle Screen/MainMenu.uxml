@@ -1,11 +1,12 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement style="flex-grow: 1;">
-        <ui:VisualElement name="VisualElement" style="flex-grow: 0; left: 5%; right: 65%; position: absolute; bottom: 0%; top: 0%; justify-content: center; font-size: 36px; flex-shrink: 0; align-items: stretch;">
-            <ui:VisualElement name="Icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/!/Sprites/Inventory%20Items/Boot.jpg?fileID=2800000&amp;guid=e16269b5450c634408acec58189f1849&amp;type=3#Boot&quot;); -unity-background-scale-mode: scale-to-fit;" />
+    <Style src="project://database/Assets/!/UI/Styles/Menus.uss?fileID=7433441132597879392&amp;guid=733d1cbb52089e94ba0a1b470523af93&amp;type=3#Menus" />
+    <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/!/UI/Assets/Background.png?fileID=2800000&amp;guid=cb3b3a32216d5a34abe6722d8d296442&amp;type=3#Background&quot;);">
+        <ui:VisualElement name="VisualElement" style="flex-grow: 0; left: 135px; right: auto; position: absolute; bottom: 0%; top: 0%; justify-content: center; font-size: 36px; flex-shrink: 0; align-items: stretch; background-color: rgb(20, 56, 20); width: 468px;">
+            <ui:VisualElement name="Icon" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/!/UI/Assets/logo_safety_protocol.png?fileID=2800000&amp;guid=b15f55c6d36b2d14eaff119a3f2a9d71&amp;type=3#logo_safety_protocol&quot;); background-size: 751.32px 284px; flex-shrink: 0; align-self: center; align-items: center; width: 858px; top: -141px;" />
             <ui:VisualElement name="Buttons" style="flex-grow: 0.5;">
-                <ui:Button text="Modo Carreira (Em desenvolvimento)" name="Carrer" enabled="false" />
-                <ui:Button text="Multijogador" name="Multiplayer" />
-                <ui:Button text="Sair" name="Quit" />
+                <ui:Button text="Modo Carreira&#10;(Em desenvolvimento)" name="Carrer" enabled="false" class="y-button" />
+                <ui:Button text="Multijogador" name="Multiplayer" class="custombutton y-button" />
+                <ui:Button text="Sair" name="Quit" class="custombutton button g-button" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

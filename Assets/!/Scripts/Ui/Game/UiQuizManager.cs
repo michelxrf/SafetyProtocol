@@ -8,38 +8,19 @@ using UnityEngine.UIElements;
 /// </summary>
 public class UiQuizManager : MonoBehaviour
 {
-    [SerializeField] private HudManager hud;
-    [SerializeField] private OnScreenControls onScreenControls;
-    [SerializeField] private WorkerManager workerManager;
-    
     private InteractableObject associatedObject;
-    private UIDocument quizUi;
+    private UIDocument uiDocument;
 
     // list to keep track of player answering
     private Dictionary<VisualElement, bool> answerButtons = new();
 
-    // timer variables
-    private bool isCountingDown = false;
-    private float timeElapsed = 0f;
-    private float timeLimit;
-
     private void Awake()
     {
-        workerManager = FindFirstObjectByType<WorkerManager>();
+        uiDocument = GetComponent<UIDocument>();
+        uiDocument.rootVisualElement.style.display = DisplayStyle.None;
 
-        quizUi = GetComponent<UIDocument>();
-        quizUi.rootVisualElement.style.display = DisplayStyle.None;
-
-        quizUi.rootVisualElement.Q<Button>("SubmitButton").clicked += OnSubmitClick;
-
-        if (onScreenControls ==  null)
-            onScreenControls = FindFirstObjectByType<OnScreenControls>();
-
-        if (hud == null)
-            hud = FindFirstObjectByType<HudManager>();
-
-        // initialize timer to answer the question
-        timeLimit = workerManager.timeToAnswerQuiz;
+        uiDocument.rootVisualElement.Q<Button>("SubmitButton").clicked += OnSubmitClicked;
+        uiDocument.rootVisualElement.Q<Button>("CloseButton").clicked += OnCloseClicked;
     }
 
     /// <summary>
@@ -48,7 +29,7 @@ public class UiQuizManager : MonoBehaviour
     /// <returns>True if more than zero answers are selected, false otherwise.</returns>
     private bool HasAtLeastOneAnswerSelected()
     {
-        foreach (VisualElement answer in quizUi.rootVisualElement.Q<VisualElement>("AnswersContainer").Children())
+        foreach (VisualElement answer in uiDocument.rootVisualElement.Q<VisualElement>("AnswersContainer").Children())
         {
             switch (answer)
             {
@@ -73,19 +54,19 @@ public class UiQuizManager : MonoBehaviour
     /// </summary>
     private void OnAnswerSelected()
     {
-        quizUi.rootVisualElement.Q<Button>("SubmitButton").SetEnabled(HasAtLeastOneAnswerSelected());
+        uiDocument.rootVisualElement.Q<Button>("SubmitButton").SetEnabled(HasAtLeastOneAnswerSelected());
     }
 
     /// <summary>
     /// Callback when quiz's submit button gets clicked. Verify answers and close the Quiz.
     /// </summary>
-    private void OnSubmitClick()
+    private void OnSubmitClicked()
     {
         bool isCorrect = VerifyAnswers();
-        HideQuiz();
-
         associatedObject.OnQuizEnd(isCorrect);
         associatedObject = null;
+
+        answerButtons.Clear();
     }
 
     /// <summary>
@@ -93,7 +74,7 @@ public class UiQuizManager : MonoBehaviour
     /// </summary>
     private bool VerifyAnswers()
     {
-        foreach(VisualElement answer in answerButtons.Keys)
+        foreach (VisualElement answer in answerButtons.Keys)
         {
             bool playerAnswer;
             switch (answer)
@@ -127,30 +108,14 @@ public class UiQuizManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Updates the time the player have to answer the current question on screen.
+    /// Allows the player to close the quiz and continue the game without solving it
     /// </summary>
-    private void CountdownTimer()
+    private void OnCloseClicked()
     {
-        if (!isCountingDown)
-            return;
+        associatedObject = null;
+        ScreenSelector.Instance.SwitchScreen(ScreenSelector.SCREENMODE.GAME);
 
-        // counts time
-        timeElapsed += Time.deltaTime;
-
-        // force an answer submition as timer ends
-        if (timeElapsed > timeLimit)
-        {
-            isCountingDown = false;
-            OnSubmitClick();
-        }
-
-        // updates timer ui
-        quizUi.rootVisualElement.Q<Label>("Timer").text = (timeLimit - timeElapsed).ToString($"#0.0" + "s");
-    }
-
-    private void Update()
-    {
-        CountdownTimer();
+        answerButtons.Clear();
     }
 
     /// <summary>
@@ -158,21 +123,16 @@ public class UiQuizManager : MonoBehaviour
     /// </summary>
     public void ShowQuiz(QuizQuestion questionToShow, InteractableObject interactedObject)
     {
-        hud.Hide();
-        onScreenControls.Hide();
-        answerButtons.Clear();
-
-        workerManager.PauseGame();
-
+        // initialize timer to answer the question
         associatedObject = interactedObject;
 
-        quizUi.rootVisualElement.Q<Label>("Question").text = questionToShow.question;
-        quizUi.rootVisualElement.Q<VisualElement>("AnswersContainer").Clear();
+        uiDocument.rootVisualElement.Q<Label>("Question").text = questionToShow.question;
+        uiDocument.rootVisualElement.Q<VisualElement>("AnswersContainer").Clear();
 
         // use toggle buttons for multiple right answers
         if (questionToShow.rightAnswers.Length > 1)
         {
-            quizUi.rootVisualElement.Q<Label>("Instruction").text = "Marque todas as respostas corretas.";
+            uiDocument.rootVisualElement.Q<Label>("Instruction").text = "Marque todas as respostas corretas.";
             foreach (var answer in questionToShow.rightAnswers)
             {
                 AddToggleButton(answer, true);
@@ -186,7 +146,7 @@ public class UiQuizManager : MonoBehaviour
         // use radio buttons for single right answers
         else
         {
-            quizUi.rootVisualElement.Q<Label>("Instruction").text = "Marque apenas uma resposta.";
+            uiDocument.rootVisualElement.Q<Label>("Instruction").text = "Marque apenas uma resposta.";
             foreach (var answer in questionToShow.rightAnswers)
             {
                 AddRadioButton(answer, true);
@@ -197,16 +157,12 @@ public class UiQuizManager : MonoBehaviour
             }
         }
 
-        ShuffleAnswers(quizUi.rootVisualElement.Q<VisualElement>("AnswersContainer"));
+        ShuffleAnswers(uiDocument.rootVisualElement.Q<VisualElement>("AnswersContainer"));
 
         // disables the submit answer by default until an answer is selected
-        quizUi.rootVisualElement.Q<Button>("SubmitButton").SetEnabled(false);
+        uiDocument.rootVisualElement.Q<Button>("SubmitButton").SetEnabled(false);
 
-        // zeros the timer
-        timeElapsed = 0f;
-        isCountingDown = true;
-
-        quizUi.rootVisualElement.style.display = DisplayStyle.Flex;
+        ScreenSelector.Instance.SwitchScreen(ScreenSelector.SCREENMODE.QUIZ);
     }
 
     /// <summary>
@@ -216,7 +172,7 @@ public class UiQuizManager : MonoBehaviour
     /// <param name="desiredAnswer">The correct state to solve this quiz.</param>
     private void AddRadioButton(string text, bool desiredAnswer)
     {
-        VisualElement answersList = quizUi.rootVisualElement.Q<VisualElement>("AnswersContainer");
+        VisualElement answersList = uiDocument.rootVisualElement.Q<VisualElement>("AnswersContainer");
 
         RadioButton newButton = new RadioButton();
         newButton.text = text;
@@ -235,7 +191,7 @@ public class UiQuizManager : MonoBehaviour
     /// <param name="desiredAnswer">The correct state to solve this quiz.</param>
     private void AddToggleButton(string text, bool desiredAnswer)
     {
-        VisualElement answersList = quizUi.rootVisualElement.Q<VisualElement>("AnswersContainer");
+        VisualElement answersList = uiDocument.rootVisualElement.Q<VisualElement>("AnswersContainer");
 
         Toggle newButton = new Toggle();
         newButton.AddToClassList("answers");
@@ -269,15 +225,5 @@ public class UiQuizManager : MonoBehaviour
         {
             answerContainer.Add(el);
         }
-    }
-
-
-    /// <summary>
-    /// Makes the quiz screen disapper.
-    /// </summary>
-    public void HideQuiz()
-    {
-        isCountingDown = false;
-        quizUi.rootVisualElement.style.display = DisplayStyle.None;        
     }
 }

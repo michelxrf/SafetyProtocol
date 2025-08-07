@@ -3,13 +3,13 @@ using UnityEngine.UIElements;
 
 public class OnScreenControls : MonoBehaviour
 {
-    public UIDocument ui;
+    public UIDocument uiDocument;
     private CameraController mainCamera;
 
     private void Awake()
     {
         mainCamera = FindFirstObjectByType<CameraController>();
-        ui = GetComponent<UIDocument>();
+        uiDocument = GetComponent<UIDocument>();
     }
 
     private void OnEnable()
@@ -19,12 +19,12 @@ public class OnScreenControls : MonoBehaviour
 
     public void Hide()
     {
-        ui.rootVisualElement.style.display = DisplayStyle.None;
+        uiDocument.rootVisualElement.style.display = DisplayStyle.None;
     }
 
     public void Show()
     {
-        ui.rootVisualElement.style.display = DisplayStyle.Flex;
+        uiDocument.rootVisualElement.style.display = DisplayStyle.Flex;
     }
 
 }

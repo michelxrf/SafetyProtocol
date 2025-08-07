@@ -11,7 +11,7 @@ public class Clickable : MonoBehaviour
     // makes the object reacts to a click
     // IDEAS: make the object play a sfx once clicked
 
-    public QuizQuestion questionData;
+    [HideInInspector] public QuizQuestion questionData;
     private UiQuizManager quizScreen;
     [HideInInspector] public bool isEnabled = true;
 

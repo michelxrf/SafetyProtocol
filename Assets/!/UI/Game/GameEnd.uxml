@@ -1,0 +1,22 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(137, 137, 137, 0.78);">
+        <ui:VisualElement style="flex-grow: 1;">
+            <ui:Label text="Fim da Partida" name="Tittle" style="font-size: 96px; -unity-text-align: upper-center;" />
+            <ui:VisualElement style="flex-grow: 1;">
+                <ui:VisualElement style="flex-grow: 1;">
+                    <ui:Label text="Tempo Total: 00:00" name="Time" style="font-size: 50px;" />
+                </ui:VisualElement>
+                <ui:VisualElement style="flex-grow: 1;">
+                    <ui:Label text="Acidentes Evitados: X/Y" name="Accidents" style="font-size: 50px;" />
+                </ui:VisualElement>
+                <ui:VisualElement style="flex-grow: 1;">
+                    <ui:Label text="Riscos Eliminados: X/Y" name="Hazzards" style="font-size: 50px;" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement style="flex-grow: 1;">
+                <ui:Label text="Pontuação Total: 0000" name="Score" style="font-size: 50px;" />
+            </ui:VisualElement>
+            <ui:Button text="Continuar" name="ContinueButton" style="font-size: 48px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

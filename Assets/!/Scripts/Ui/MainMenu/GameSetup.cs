@@ -10,7 +10,7 @@ using UnityEngine.UIElements;
 /// </summary>
 public class GameSetup : MonoBehaviour
 {
-    UIDocument ui;
+    UIDocument uiDocument;
     [SerializeField] TitleScreen tittleScreen;
     VisualElement header;
 
@@ -25,36 +25,36 @@ public class GameSetup : MonoBehaviour
     private void Awake()
     {
         // set up game setup screen
-        ui = GetComponent<UIDocument>();
-        ui.rootVisualElement.style.display = DisplayStyle.None;
+        uiDocument = GetComponent<UIDocument>();
+        uiDocument.rootVisualElement.style.display = DisplayStyle.None;
 
         // init "voltar" button
-        ui.rootVisualElement.Q<Button>("Back").clicked += ShowTitle;
+        uiDocument.rootVisualElement.Q<Button>("Back").clicked += ShowTitle;
 
         // init "jogar" button
-        startGameButton = ui.rootVisualElement.Q<Button>("Play");
+        startGameButton = uiDocument.rootVisualElement.Q<Button>("Play");
         startGameButton.SetEnabled(false);
         startGameButton.clicked += StartGame;
 
         // init username inputfield
-        usernameInput = ui.rootVisualElement.Q<TextField>("UserName");
+        usernameInput = uiDocument.rootVisualElement.Q<TextField>("UserName");
         usernameInput.RegisterCallback<FocusOutEvent>(evt => { UsernameChanged(usernameInput.value); });
         usernameInput.RegisterCallback<FocusInEvent>(evt => { LockGameStartOnEdit(); });
 
         // init "nome da turma" input field
-        leaderboardNameInput = ui.rootVisualElement.Q<TextField>("LeaderboardName");
+        leaderboardNameInput = uiDocument.rootVisualElement.Q<TextField>("LeaderboardName");
         leaderboardNameInput.RegisterCallback<FocusOutEvent>(evt => { ClassNameChanged(leaderboardNameInput.value); });
         leaderboardNameInput.RegisterCallback<FocusInEvent>(evt => { LockGameStartOnEdit(); });
 
         // init level select
-        gameMap = ui.rootVisualElement.Q<RadioButtonGroup>("Map");
+        gameMap = uiDocument.rootVisualElement.Q<RadioButtonGroup>("Map");
         gameMap.RegisterValueChangedCallback(evt => { ClassNameChanged(leaderboardNameInput.value); });
 
         // init difficulty select
-        difficultySetting = ui.rootVisualElement.Q<RadioButtonGroup>("Difficulty");
+        difficultySetting = uiDocument.rootVisualElement.Q<RadioButtonGroup>("Difficulty");
         difficultySetting.RegisterValueChangedCallback(evt => { ClassNameChanged(leaderboardNameInput.value); });
 
-        header = ui.rootVisualElement.Q<VisualElement>("Header");
+        header = uiDocument.rootVisualElement.Q<VisualElement>("Header");
         header.style.display = DisplayStyle.None;
     }
 
@@ -75,12 +75,12 @@ public class GameSetup : MonoBehaviour
 
     public void Show()
     {
-        ui.rootVisualElement.style.display = DisplayStyle.Flex;
+        uiDocument.rootVisualElement.style.display = DisplayStyle.Flex;
     }
 
     public void Hide()
     {
-        ui.rootVisualElement.style.display = DisplayStyle.None;
+        uiDocument.rootVisualElement.style.display = DisplayStyle.None;
     }
 
     /// <summary>
@@ -90,7 +90,7 @@ public class GameSetup : MonoBehaviour
     {
         Debug.Log("Should update leadeboard...");
 
-        VisualElement leaderboardParent = ui.rootVisualElement.Q<VisualElement>("Leaderboard");
+        VisualElement leaderboardParent = uiDocument.rootVisualElement.Q<VisualElement>("Leaderboard");
 
         // show header
         header.style.display = DisplayStyle.Flex;
@@ -125,7 +125,7 @@ public class GameSetup : MonoBehaviour
             leaderboardParent.Add(entryParent);
             entryParent.AddToClassList("ScoreEntry");
 
-            ui.rootVisualElement.Q<Label>("Notice").style.display = DisplayStyle.None;
+            uiDocument.rootVisualElement.Q<Label>("Notice").style.display = DisplayStyle.None;
         }
     }
 
@@ -181,8 +181,8 @@ public class GameSetup : MonoBehaviour
     /// </summary>
     void ShowLoadingScores()
     {
-        ui.rootVisualElement.Q<Label>("Notice").style.display = DisplayStyle.Flex;
-        ui.rootVisualElement.Q<Label>("Notice").text = "Carregando sala...";
+        uiDocument.rootVisualElement.Q<Label>("Notice").style.display = DisplayStyle.Flex;
+        uiDocument.rootVisualElement.Q<Label>("Notice").text = "Carregando sala...";
     }
 
     /// <summary>
@@ -216,7 +216,7 @@ public class GameSetup : MonoBehaviour
     /// </summary>
     private void ClearLeaderboard()
     {
-        VisualElement leaderboardParent = ui.rootVisualElement.Q<VisualElement>("Leaderboard");
+        VisualElement leaderboardParent = uiDocument.rootVisualElement.Q<VisualElement>("Leaderboard");
 
         VisualElement[] allEntries = leaderboardParent.Children().ToArray();
         foreach (VisualElement entry in allEntries)
@@ -241,8 +241,8 @@ public class GameSetup : MonoBehaviour
     {
         ClearLeaderboard();
 
-        ui.rootVisualElement.Q<Label>("Notice").style.display = DisplayStyle.Flex;
-        ui.rootVisualElement.Q<Label>("Notice").text = "Este placar está vazio, seja o primeiro a pontuar!";
+        uiDocument.rootVisualElement.Q<Label>("Notice").style.display = DisplayStyle.Flex;
+        uiDocument.rootVisualElement.Q<Label>("Notice").text = "Este placar está vazio, seja o primeiro a pontuar!";
     }
 
     /// <summary>

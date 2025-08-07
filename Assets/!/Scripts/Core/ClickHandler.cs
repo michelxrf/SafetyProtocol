@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class ClickHandler : MonoBehaviour
 {
     // cast clicks to clickable objects in the game world
+    public static ClickHandler Instance { get; private set; }
 
     private Camera mainCamera;
     private PlayerControls controls;
@@ -15,23 +16,11 @@ public class ClickHandler : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         mainCamera = GetComponent<Camera>();
         controls = new PlayerControls();
-    }
-
-    private void OnEnable()
-    {
         controls.Enable();
-
-        // WARNING: needs testing if "canceled" will work on mobile touch
         controls.InGame.Click.canceled += OnClickPerformed;
-    }
-
-    private void OnDisable()
-    {
-        // WARNING: needs testing if "canceled" will work on mobile touch
-        controls.InGame.Click.canceled -= OnClickPerformed;
-        controls.Disable();
     }
 
     private void OnClickPerformed(InputAction.CallbackContext context)

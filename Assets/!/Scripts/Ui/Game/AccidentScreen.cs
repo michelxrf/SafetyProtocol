@@ -6,19 +6,16 @@ using UnityEngine.UIElements;
 /// </summary>
 public class AccidentScreen : MonoBehaviour
 {
-    private UIDocument ui;
-    private HudManager hudManager;
+    private UIDocument uiDocument;
     private AudioSource accidentSfx;
 
     private void Awake()
     {
         // gets references
-        ui = GetComponent<UIDocument>();
-        ui.rootVisualElement.style.display = DisplayStyle.None;
+        uiDocument = GetComponent<UIDocument>();
+        uiDocument.rootVisualElement.style.display = DisplayStyle.None;
 
-        ui.rootVisualElement.Q<Button>("Continue").clicked += Hide;
-
-        hudManager = FindFirstObjectByType<HudManager>();
+        uiDocument.rootVisualElement.Q<Button>("Continue").clicked += ContinueClicked;
     }
 
     /// <summary>
@@ -28,11 +25,11 @@ public class AccidentScreen : MonoBehaviour
     public void Show(AccidentData accidentData)
     {
         // sets the accident screen
-        ui.rootVisualElement.Q<Label>("Tittle").text = accidentData.accidentTitle;
-        ui.rootVisualElement.Q<Label>("Description").text = accidentData.accidentDescription;
-        
+        uiDocument.rootVisualElement.Q<Label>("Tittle").text = accidentData.accidentTitle;
+        uiDocument.rootVisualElement.Q<Label>("Description").text = accidentData.accidentDescription;
+      
         if (accidentData.accidentImage != null)
-            ui.rootVisualElement.Q<VisualElement>("Image").style.backgroundImage = accidentData.accidentImage;
+            uiDocument.rootVisualElement.Q<VisualElement>("Image").style.backgroundImage = accidentData.accidentImage;
 
         // play the SFX
         if (accidentData.accidentAudio != null)
@@ -41,16 +38,15 @@ public class AccidentScreen : MonoBehaviour
             accidentSfx.Play();
         }
 
-        // shows it
-        ui.rootVisualElement.style.display = DisplayStyle.Flex;
+        ScreenSelector.Instance.SwitchScreen(ScreenSelector.SCREENMODE.ACCIDENT);
     }
 
     /// <summary>
-    /// Hides the accident screen.
+    /// Hides the accident screen and continues the game
     /// </summary>
-    public void Hide()
+    public void ContinueClicked()
     {
-        ui.rootVisualElement.style.display = DisplayStyle.None;
-        hudManager.Show();
+        ScreenSelector.Instance.SwitchScreen(ScreenSelector.SCREENMODE.GAME);
+        WorkerManager.Instance.CallNextAccident();
     }
 }

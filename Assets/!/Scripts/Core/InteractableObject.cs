@@ -5,18 +5,6 @@ using UnityEngine;
     /// </summary>
 public class InteractableObject : MonoBehaviour
 {
-    [SerializeField] protected WorkerManager workerManager;
-    [SerializeField] protected HudManager hud;
-
-    protected virtual void Awake()
-    {
-        if (workerManager == null)
-            workerManager = FindFirstObjectByType<WorkerManager>();
-
-        if (hud == null)
-            hud = FindFirstObjectByType<HudManager>();
-    }
-
     /// <summary>
     /// callback from quiz being answered.
     /// </summary>

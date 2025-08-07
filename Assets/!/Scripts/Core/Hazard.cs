@@ -13,9 +13,7 @@ public class Hazard : InteractableObject
     {
         base.Solve();
 
-        workerManager.solvedHazzards += 1;
-        hud.UpdateScores();
-        hud.Show();
+        WorkerManager.Instance.HazzardSolved();
         DisableInteraction();
     }
 
@@ -25,7 +23,7 @@ public class Hazard : InteractableObject
     protected override void AnswereWrong()
     {
         base.AnswereWrong();
-        hud.Show();
+        ScreenSelector.Instance.SwitchScreen(ScreenSelector.SCREENMODE.GAME);
         DisableInteraction();
     }
 

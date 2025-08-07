@@ -1,0 +1,14 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(138, 138, 138, 0.78);">
+        <ui:VisualElement name="Leaderboard" style="flex-grow: 0; margin-right: 0%; margin-left: 0%; margin-top: 10%; margin-bottom: 10%; justify-content: flex-start; left: auto; right: auto; flex-shrink: 0; position: relative;">
+            <ui:Label text="PLACAR DA TURMA" name="Title" style="-unity-text-align: upper-center; font-size: 48px; -unity-font-style: bold; height: auto; flex-grow: 0; border-top-width: 10px; border-bottom-width: 10px;" />
+            <ui:VisualElement name="Header" class="ScoreEntry" style="flex-grow: 0; flex-direction: row; align-items: flex-start; justify-content: space-between; border-bottom-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); width: auto;">
+                <ui:Label text="#" name="Rank" class="RankColumm" style="width: 10%; flex-grow: 0;" />
+                <ui:Label text="Jogador" name="Name" class="NameColumm" />
+                <ui:Label text="Pontuação" name="Score" class="ScoreColumm" />
+            </ui:VisualElement>
+            <ui:Label text="Digite o código da turma para ver o placar." name="Notice" style="-unity-text-align: middle-center; font-size: 48px; -unity-font-style: bold; height: 450px; flex-grow: 0; border-top-width: 10px; border-bottom-width: 10px;" />
+        </ui:VisualElement>
+        <ui:Button text="Voltar ao Menu" name="ContinueButton" style="font-size: 96px;" />
+    </ui:VisualElement>
+</ui:UXML>

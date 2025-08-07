@@ -12,7 +12,6 @@ public class Worker : InteractableObject
     [Header("References")]
     private AgentDestinationReachedNotifier destinationReachedNotifier;
     private Animator animator;
-    private AccidentScreen accidentScreen;
 
     [Header("Navigation")]
     private NavMeshAgent navMeshAgent;
@@ -28,19 +27,16 @@ public class Worker : InteractableObject
     public enum STATE { IDLING, MOVING, WORKING };
     public enum JOB_TYPE { CONSTRUCTION, ELECTRICAL, HEIGHT };
     [HideInInspector] public PatrolPoint assignedPoint;
-    public bool isAccidentTarget = false;
+    [HideInInspector] public bool isAccidentTarget = false;
 
 
-    protected override void Awake()
+    void Awake()
     {
-        base.Awake();
-
         // disables worker quiz till it gets called to accident
         GetComponent<Clickable>().isEnabled = false;
         GetComponent<Clickable>().questionData = null;
 
         // gets references
-        accidentScreen = FindFirstObjectByType<AccidentScreen>();
         animator = GetComponentInChildren<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         destinationReachedNotifier = GetComponent<AgentDestinationReachedNotifier>();
@@ -85,7 +81,7 @@ public class Worker : InteractableObject
 
         if (isAccidentTarget)
         {
-            workerManager.StartAccidentCountdown();
+            WorkerManager.Instance.StartAccidentCountdown();
             GetComponent<Clickable>().isEnabled = true;
             isAccidentTarget = false;
         }
@@ -114,7 +110,6 @@ public class Worker : InteractableObject
     /// <returns></returns>
     private IEnumerator WaitForSeconds(float minSeconds, float maxSeconds)
     {
-        Debug.Log($"{gameObject.name} is on wait coroutine");
         yield return new WaitForSeconds(Random.Range(minSeconds, maxSeconds));
         MoveToRandomPoint();
     }
@@ -167,7 +162,7 @@ public class Worker : InteractableObject
     /// </summary>
     public void MoveToRandomPoint()
     {
-        PatrolPoint nextTarget = workerManager.GetAnyRandomPoint();
+        PatrolPoint nextTarget = WorkerManager.Instance.GetAnyRandomPoint();
                 
         if (nextTarget != null)
         {
@@ -185,16 +180,8 @@ public class Worker : InteractableObject
     private void KillWorker()
     {
         assignedPoint.FreePoint();
-        workerManager.workers.Remove(this);
+        WorkerManager.Instance.workers.Remove(this);
         Destroy(gameObject);
-    }
-
-    /// <summary>
-    /// Called when the accident timer finishes, meaning the player didn't find it in time
-    /// </summary>
-    public void AccidentTimeOver()
-    {
-        AnswereWrong();
     }
 
     /// <summary>
@@ -213,13 +200,7 @@ public class Worker : InteractableObject
     {
         base.Solve();
 
-        workerManager.solvedAccidents += 1;
-        workerManager.isCountingDown = false;
-        workerManager.accidentActive = false;
-        hud.HideAlert();
-        hud.UpdateScores();
-        hud.Show();
-        workerManager.CallNextAccident();
+        WorkerManager.Instance.AccidentSolved();
         StartCoroutine(WaitForSeconds(minWorkTime, maxWorkTime));
     }
 
@@ -229,16 +210,10 @@ public class Worker : InteractableObject
     protected override void AnswereWrong()
     {
         base.AnswereWrong();
-        workerManager.accidentActive = false;
-        workerManager.isCountingDown = false;
-        hud.HideAlert();
-
-        accidentScreen.Show(workerManager.currentAccidentData);
-
-        workerManager.CallNextAccident();
+        
+        WorkerManager.Instance.AccidentHappened();
         KillWorker();
     }
-
 
     /// <summary>
     /// Makes worker animations

@@ -1,0 +1,33 @@
+.y-button:hover {
+    background-image: url("project://database/Assets/!/UI/Assets/YButtonHover.png?fileID=2800000&guid=bbd6ade600effc040a04525a1b3883f9&type=3#YButtonHover");
+}
+
+.y-button:active {
+    background-image: url("project://database/Assets/!/UI/Assets/YButtonPressed.png?fileID=2800000&guid=9847c58d4963e6c4da356e7c38057931&type=3#YButtonPressed");
+}
+
+.y-button:disabled {
+    background-image: url("project://database/Assets/!/UI/Assets/YButtonDisabled.png?fileID=2800000&guid=d72597518ea26574898be444bb2bb7f9&type=3#YButtonDisabled");
+}
+
+.y-button {
+    background-image: url("project://database/Assets/!/UI/Assets/YButtonNormal.png?fileID=2800000&guid=8780cf7d0b89d134caad4cab9d7a469f&type=3#YButtonNormal");
+    -unity-slice-type: sliced;
+}
+
+.g-button {
+    background-image: url("project://database/Assets/!/UI/Assets/GButtonNormal.png?fileID=2800000&guid=69fcbd44a4351ef4a9fe45d958c6ce80&type=3#GButtonNormal");
+    -unity-slice-type: sliced;
+}
+
+.g-button:hover {
+    background-image: url("project://database/Assets/!/UI/Assets/GButtonHover.png?fileID=2800000&guid=06ce44ce133715445a23be6098ff488b&type=3#GButtonHover");
+}
+
+.g-button:disabled {
+    background-image: url("project://database/Assets/!/UI/Assets/GButtonDisabled.png?fileID=2800000&guid=3001967d1ee3952469e2232512649a3e&type=3#GButtonDisabled");
+}
+
+.g-button:active {
+    background-image: url("project://database/Assets/!/UI/Assets/GButtonPressed.png?fileID=2800000&guid=f2951e760cfc2404fb05d3584b77bde9&type=3#GButtonPressed");
+}

@@ -10,15 +10,22 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class WorkerManager : MonoBehaviour
 {
+    public static WorkerManager Instance { get; private set; }
+
     [SerializeField] CameraController playerCamera;
     [SerializeField] HudManager hudManager;
     [SerializeField] UiQuizManager quizScreen;
+    [SerializeField] AccidentScreen accidentScreen;
+    [SerializeField] GameEndScreen gameEndScreen;
 
     [Header("Settings")]
     public float timeToAnswerQuiz = 30f;
     public bool debugMode = true;
     [SerializeField] private bool generateRandomPatrolPoints;
     private bool isGamePaused = false;
+    [SerializeField] int solveAccidentScore = 100;
+    [SerializeField] int solveHazzardScore = 50;
+    [SerializeField] int perSecondScore = 3;
 
     [Header("Worker Behavior")]
     [Range(0f, 1f)]
@@ -38,14 +45,19 @@ public class WorkerManager : MonoBehaviour
     [HideInInspector] public int solvedHazzards = 0;
     [HideInInspector] public int totalHazzards = 0;
     private enum ACCIDENTORDER { RANDOM, SEQUENCE };
+    private int score = 0;
 
     private List<PatrolPoint> patrolPoints = new();
     [HideInInspector] public List<Worker> workers = new();
     private List<Workstation> workstations = new();
 
+    [HideInInspector] public float gameTime = 0f;
+
 
     private void Awake()
     {
+        Instance = this;
+
         GetAllWorkersInScene();
         GetAllPatrolPointsInScene();
 
@@ -57,6 +69,12 @@ public class WorkerManager : MonoBehaviour
 
         if (hudManager  == null)
             hudManager = FindFirstObjectByType<HudManager>();
+
+        if (accidentScreen == null)
+            accidentScreen = FindFirstObjectByType<AccidentScreen>();
+
+        if (gameEndScreen == null)
+            gameEndScreen = FindFirstObjectByType<GameEndScreen>();
     }
 
     /// <summary>
@@ -114,6 +132,24 @@ public class WorkerManager : MonoBehaviour
         Debug.Log($"Scene has {patrolPoints.Count} patrol points, and {workstations.Count} workstations.");
     }
 
+    /// <summary>
+    /// Called when player fails to solve the accident, it should display the accident screen
+    /// </summary>
+    public void AccidentHappened()
+    {
+        accidentScreen.Show(currentAccidentData);
+        ClearAccident();
+    }
+
+    /// <summary>
+    /// Disables current accident without scoring, used for failed attempts
+    /// </summary>
+    public void ClearAccident()
+    {
+        accidentActive = false;
+        isCountingDown = false;
+        workerInAccidentEvent = null;
+    }
     private void Start()
     {
         InitAllWorkersMovement();
@@ -123,6 +159,7 @@ public class WorkerManager : MonoBehaviour
     private void Update()
     {
         CountdownToAccident();
+        CountGametime();
     }
 
     /// <summary>
@@ -146,7 +183,7 @@ public class WorkerManager : MonoBehaviour
             currentAccidentData = null;
 
             Debug.LogWarning("Accidents list is empty. Level cleared?");
-            EndGame();
+            ShowEndGame();
             return;
         }
 
@@ -173,14 +210,12 @@ public class WorkerManager : MonoBehaviour
         SendWorkerToAccident(nextAccident.worker, nextAccident.patrolPoint);
     }
 
-    /// <summary>
-    /// Shows gameend screen and submit player scores
-    /// </summary>
-    private void EndGame()
+    public void ShowEndGame()
     {
+        gameEndScreen.Show(score, gameTime, solvedAccidents, totalAccidents, solvedHazzards, totalHazzards);
+        ScreenSelector.Instance.SwitchScreen(ScreenSelector.SCREENMODE.GAMEEND);
         Debug.Log($"A: {solvedAccidents}/{totalAccidents}, H:{solvedHazzards}/{totalHazzards}");
-        SceneManager.LoadScene(0);
-        LeaderboardManager.Instance.SubmitCurrentScore(1);
+        LeaderboardManager.Instance.SubmitCurrentScore(score);
     }
 
     /// <summary>
@@ -272,7 +307,17 @@ public class WorkerManager : MonoBehaviour
         accidentActive = true;
         isCountingDown = true;
         accidentRemainingTime = accidentCountdownTime;
-        hudManager.ShowAlert(accidentRemainingTime);
+    }
+
+    /// <summary>
+    /// Count total game time
+    /// </summary>
+    private void CountGametime()
+    {
+        if (isGamePaused)
+            return;
+
+        gameTime += Time.deltaTime;
     }
 
     /// <summary>
@@ -284,16 +329,10 @@ public class WorkerManager : MonoBehaviour
             return;
 
         accidentRemainingTime -= Time.deltaTime;
-        hudManager.UpdateAccidentCountdown(accidentRemainingTime);
 
         if (accidentRemainingTime < 0)
         {
-            accidentActive = false;
-            isCountingDown = false;
-            workerInAccidentEvent.AccidentTimeOver();
-            workerInAccidentEvent = null;
-            hudManager.HideAlert();
-            CallNextAccident();
+            AccidentHappened();
         }
     }
 
@@ -324,8 +363,32 @@ public class WorkerManager : MonoBehaviour
             worker.ResumeAnimation();
         }
     }
-}
 
+    /// <summary>
+    /// Increment score and update hud
+    /// </summary>
+    public void HazzardSolved()
+    {
+        solvedHazzards += 1;
+        score += solveHazzardScore;
+        hudManager.UpdateScores();
+        ScreenSelector.Instance.SwitchScreen(ScreenSelector.SCREENMODE.GAME);
+    }
+
+    /// <summary>
+    /// Increment score and update hud
+    /// </summary>
+    public void AccidentSolved()
+    {
+        solvedAccidents += 1;
+        score += solveAccidentScore + Mathf.FloorToInt(accidentRemainingTime) * perSecondScore;
+        hudManager.UpdateScores();
+        ScreenSelector.Instance.SwitchScreen(ScreenSelector.SCREENMODE.GAME);
+
+        ClearAccident();
+        CallNextAccident();
+    }
+}
 
 /// <summary>
 /// Used to allow the level designer to assossiate accident objects to workers and patrol points or workstations

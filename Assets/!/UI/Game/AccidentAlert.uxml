@@ -1,0 +1,6 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Timer" picking-mode="Ignore" style="position: absolute; right: 0; width: 276px;">
+        <ui:Label text="00:00" name="Countdown" style="align-items: center; align-self: stretch; justify-content: space-evenly; -unity-text-align: upper-center; font-size: 28px;" />
+        <ui:VisualElement name="AlertIcon" style="background-image: url(&quot;project://database/Assets/!/Sprites/UI/warning-sign-30915_640.png?fileID=2800000&amp;guid=3b95872b0330c5d4c8b81f792c898ac5&amp;type=3#warning-sign-30915_640&quot;); -unity-background-scale-mode: scale-to-fit; background-position-x: center 0; height: 180px;" />
+    </ui:VisualElement>
+</ui:UXML>
