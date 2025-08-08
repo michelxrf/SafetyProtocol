@@ -8,7 +8,10 @@ using UnityEngine.UIElements;
 /// </summary>
 public class ScreenSelector : MonoBehaviour
 {
+    // Singleotn vars
     public static ScreenSelector Instance { get; private set; }
+    static bool applicationIsQuitting = false;
+
     public enum SCREENMODE { GAME, PAUSE, ACCIDENT, GAMEEND, HIGHSCORES, QUIZ }
 
     [Header("References")]
@@ -22,7 +25,17 @@ public class ScreenSelector : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (applicationIsQuitting)
+            return;
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
     }
 
     private void Start()
@@ -123,5 +136,12 @@ public class ScreenSelector : MonoBehaviour
                 break;
         }  
 
+    }
+    /// <summary>
+    /// prevents mess wiht ghost gameobjects
+    /// </summary>
+    private void OnApplicationQuit()
+    {
+        applicationIsQuitting = true;
     }
 }

@@ -4,27 +4,47 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// Calls a raycast on a player click or touch, the raycast is used to interact with world objects.
 /// </summary>
-[RequireComponent(typeof(Camera))]
 public class ClickHandler : MonoBehaviour
 {
-    // cast clicks to clickable objects in the game world
+    // Singleton vars
     public static ClickHandler Instance { get; private set; }
+    static bool applicationIsQuitting = false;
 
-    private Camera mainCamera;
+    [SerializeField] Camera mainCamera;
     private PlayerControls controls;
-    public bool canClick = true;
+    [HideInInspector] public bool canClick = true;
 
     private void Awake()
     {
-        Instance = this;
-        mainCamera = GetComponent<Camera>();
+        if (applicationIsQuitting)
+            return;
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+
+        if (mainCamera == null)
+            mainCamera = FindAnyObjectByType<Camera>();
+
         controls = new PlayerControls();
         controls.Enable();
         controls.InGame.Click.canceled += OnClickPerformed;
     }
 
+    /// <summary>
+    /// Handles clicking on world objects through raycasting
+    /// </summary>
+    /// <param name="context"></param>
     private void OnClickPerformed(InputAction.CallbackContext context)
     {
+        if(!canClick)
+            return;
+        
         Vector2 screenPosition;
 
         if (Touchscreen.current != null && Touchscreen.current.primaryTouch.press.isPressed)
@@ -53,5 +73,13 @@ public class ClickHandler : MonoBehaviour
                 }
             }
         }
+    }
+
+    /// <summary>
+    /// prevents mess wiht ghost gameobjects
+    /// </summary>
+    private void OnApplicationQuit()
+    {
+        applicationIsQuitting = true;
     }
 }

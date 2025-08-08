@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 8812706383724977295}
   - component: {fileID: 7386334697847815960}
   - component: {fileID: 7146403289429753315}
-  - component: {fileID: 2231869755169609807}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: MainCamera
@@ -157,6 +156,8 @@ MonoBehaviour:
   speed: 20
   leftSideLimitX: -15
   rightSideLimitX: 15
+  forwardLimitZ: -2
+  backLimitZ: -10
   isMovementAllowed: 1
 --- !u!114 &7146403289429753315
 MonoBehaviour:
@@ -188,16 +189,3 @@ MonoBehaviour:
   m_DefaultActionMap: InGame
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &2231869755169609807
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5346104961415736114}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f659a99621e28b04c987a4b851a8cc22, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  canClick: 1

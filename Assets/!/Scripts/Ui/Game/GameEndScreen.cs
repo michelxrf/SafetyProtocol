@@ -37,6 +37,9 @@ public class GameEndScreen : MonoBehaviour
     /// <param name="totalHazzards">total hazzards on level</param>
     public void Show(int score, float time, int accidentsSolved, int totalAccidents, int hazzardsSolved, int totalHazzards)
     {
+        // prevents click handling bug as it was destroied during scene change
+        ClickHandler.Instance.canClick = false;
+
         scoreLabel.text = $"Sua pontuação: {score.ToString()}";
         timeLabel.text = $"Tempo total: {time.ToString($"#0.0")} seconds";
         accidentsLabel.text = $"Acidentes prevenidos: {accidentsSolved.ToString()}/{totalAccidents.ToString()}";

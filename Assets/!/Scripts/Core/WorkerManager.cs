@@ -10,7 +10,9 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class WorkerManager : MonoBehaviour
 {
+    // Singleton vars
     public static WorkerManager Instance { get; private set; }
+    static bool applicationIsQuitting = false;
 
     [SerializeField] CameraController playerCamera;
     [SerializeField] HudManager hudManager;
@@ -56,7 +58,17 @@ public class WorkerManager : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
+        if (applicationIsQuitting)
+            return;
+
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
 
         GetAllWorkersInScene();
         GetAllPatrolPointsInScene();
@@ -387,6 +399,14 @@ public class WorkerManager : MonoBehaviour
 
         ClearAccident();
         CallNextAccident();
+    }
+
+    /// <summary>
+    /// prevents mess wiht ghost gameobjects
+    /// </summary>
+    private void OnApplicationQuit()
+    {
+        applicationIsQuitting = true;
     }
 }
 

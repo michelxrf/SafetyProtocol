@@ -11,6 +11,7 @@ using System;
 public class LeaderboardManager : MonoBehaviour
 {
     public static LeaderboardManager Instance { get; private set; }
+    static bool applicationIsQuitting = false;
 
     // Inits all player and leaderboard info as an unitialized state
     public string playerID { get; private set; }
@@ -54,6 +55,9 @@ public class LeaderboardManager : MonoBehaviour
 
     private void Awake()
     {
+        if (applicationIsQuitting)
+            return;
+
         if (Instance != null && Instance != this)
         {
             // prevents a second Singleton from being created
@@ -640,6 +644,14 @@ public class LeaderboardManager : MonoBehaviour
         waitingAutoReconnect = false;
         
         OnRetryingConnection?.Invoke();
+    }
+
+    /// <summary>
+    /// prevents mess wiht ghost gameobjects
+    /// </summary>
+    private void OnApplicationQuit()
+    {
+        applicationIsQuitting = true;
     }
 
 }
