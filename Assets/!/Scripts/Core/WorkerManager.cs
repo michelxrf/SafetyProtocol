@@ -12,16 +12,13 @@ public class WorkerManager : MonoBehaviour
 {
     // Singleton vars
     public static WorkerManager Instance { get; private set; }
-    static bool applicationIsQuitting = false;
 
-    [SerializeField] CameraController playerCamera;
-    [SerializeField] HudManager hudManager;
-    [SerializeField] UiQuizManager quizScreen;
-    [SerializeField] AccidentScreen accidentScreen;
-    [SerializeField] GameEndScreen gameEndScreen;
+    CameraController playerCamera;
+    HudManager hudManager;
+    AccidentScreen accidentScreen;
+    GameEndScreen gameEndScreen;
 
     [Header("Settings")]
-    public float timeToAnswerQuiz = 30f;
     public bool debugMode = true;
     [SerializeField] private bool generateRandomPatrolPoints;
     private bool isGamePaused = false;
@@ -58,9 +55,6 @@ public class WorkerManager : MonoBehaviour
 
     private void Awake()
     {
-        if (applicationIsQuitting)
-            return;
-
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -68,25 +62,25 @@ public class WorkerManager : MonoBehaviour
         else
         {
             Instance = this;
+
+            GetAllWorkersInScene();
+            GetAllPatrolPointsInScene();
+
+            totalHazzards = FindObjectsByType<Hazard>(FindObjectsSortMode.None).Length;
+            totalAccidents = accidentEventsList.Count;
+
+            if (playerCamera == null)
+                playerCamera = FindFirstObjectByType<CameraController>();
+
+            if (hudManager == null)
+                hudManager = FindFirstObjectByType<HudManager>();
+
+            if (accidentScreen == null)
+                accidentScreen = FindFirstObjectByType<AccidentScreen>();
+
+            if (gameEndScreen == null)
+                gameEndScreen = FindFirstObjectByType<GameEndScreen>();
         }
-
-        GetAllWorkersInScene();
-        GetAllPatrolPointsInScene();
-
-        totalHazzards = FindObjectsByType<Hazard>(FindObjectsSortMode.None).Length;
-        totalAccidents = accidentEventsList.Count;
-
-        if (playerCamera == null)
-            playerCamera = FindFirstObjectByType<CameraController>();
-
-        if (hudManager  == null)
-            hudManager = FindFirstObjectByType<HudManager>();
-
-        if (accidentScreen == null)
-            accidentScreen = FindFirstObjectByType<AccidentScreen>();
-
-        if (gameEndScreen == null)
-            gameEndScreen = FindFirstObjectByType<GameEndScreen>();
     }
 
     /// <summary>
@@ -251,7 +245,6 @@ public class WorkerManager : MonoBehaviour
 
         else
         {
-            Debug.LogWarning("No freeworkstation");
             return null;
         }
     }
@@ -399,14 +392,6 @@ public class WorkerManager : MonoBehaviour
 
         ClearAccident();
         CallNextAccident();
-    }
-
-    /// <summary>
-    /// prevents mess wiht ghost gameobjects
-    /// </summary>
-    private void OnApplicationQuit()
-    {
-        applicationIsQuitting = true;
     }
 }
 

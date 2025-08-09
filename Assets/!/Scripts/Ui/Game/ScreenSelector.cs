@@ -10,7 +10,6 @@ public class ScreenSelector : MonoBehaviour
 {
     // Singleotn vars
     public static ScreenSelector Instance { get; private set; }
-    static bool applicationIsQuitting = false;
 
     public enum SCREENMODE { GAME, PAUSE, ACCIDENT, GAMEEND, HIGHSCORES, QUIZ }
 
@@ -25,9 +24,6 @@ public class ScreenSelector : MonoBehaviour
 
     private void Awake()
     {
-        if (applicationIsQuitting)
-            return;
-
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -49,7 +45,6 @@ public class ScreenSelector : MonoBehaviour
     /// <param name="newMode"></param>
     public void SwitchScreen(SCREENMODE newMode)
     {
-        Debug.Log($"Swtiching to {newMode.ToString()}");
         switch (newMode)
         {
             case SCREENMODE.GAME:
@@ -136,12 +131,5 @@ public class ScreenSelector : MonoBehaviour
                 break;
         }  
 
-    }
-    /// <summary>
-    /// prevents mess wiht ghost gameobjects
-    /// </summary>
-    private void OnApplicationQuit()
-    {
-        applicationIsQuitting = true;
     }
 }

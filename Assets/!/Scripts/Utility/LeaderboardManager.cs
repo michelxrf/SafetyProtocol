@@ -11,13 +11,12 @@ using System;
 public class LeaderboardManager : MonoBehaviour
 {
     public static LeaderboardManager Instance { get; private set; }
-    static bool applicationIsQuitting = false;
 
     // Inits all player and leaderboard info as an unitialized state
     public string playerID { get; private set; }
     public string playerName { get; private set; } = String.Empty;
     public int playerScore { get; private set; } = -1;
-    private string leaderboardName = String.Empty;
+    public string leaderboardName { get; private set; } = String.Empty; 
 
     [Header("Connection Settings")]
     [SerializeField] float forcedRetryInterval = 10f; // After an failed attempt to conect, tries again after this amount of seconds
@@ -55,9 +54,6 @@ public class LeaderboardManager : MonoBehaviour
 
     private void Awake()
     {
-        if (applicationIsQuitting)
-            return;
-
         if (Instance != null && Instance != this)
         {
             // prevents a second Singleton from being created
@@ -645,13 +641,4 @@ public class LeaderboardManager : MonoBehaviour
         
         OnRetryingConnection?.Invoke();
     }
-
-    /// <summary>
-    /// prevents mess wiht ghost gameobjects
-    /// </summary>
-    private void OnApplicationQuit()
-    {
-        applicationIsQuitting = true;
-    }
-
 }

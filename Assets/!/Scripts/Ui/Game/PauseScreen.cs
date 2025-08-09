@@ -8,15 +8,10 @@ public class PauseScreen : MonoBehaviour
 {
     [SerializeField] private UIDocument uiDocument;
 
-    [SerializeField] private WorkerManager workerManager;
-
     private void Awake()
     {
         if (uiDocument == null)
             uiDocument = GetComponent<UIDocument>();
-
-        if (workerManager == null)
-            workerManager = FindFirstObjectByType<WorkerManager>();
 
         uiDocument.rootVisualElement.style.display = DisplayStyle.None;
         uiDocument.rootVisualElement.Q<Button>("UnpauseButton").clicked += UnpauseClicked;

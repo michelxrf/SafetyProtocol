@@ -22,6 +22,8 @@ public class GameSetup : MonoBehaviour
 
     Button startGameButton;
 
+    Label playerScoreEntry = null;
+
     private void Awake()
     {
         // set up game setup screen
@@ -38,12 +40,14 @@ public class GameSetup : MonoBehaviour
 
         // init username inputfield
         usernameInput = uiDocument.rootVisualElement.Q<TextField>("UserName");
-        usernameInput.RegisterCallback<FocusOutEvent>(evt => { UsernameChanged(usernameInput.value); });
+        usernameInput.isDelayed = true;
+        usernameInput.RegisterValueChangedCallback(evt => { UsernameChanged(usernameInput.value); usernameInput.Blur(); });
         usernameInput.RegisterCallback<FocusInEvent>(evt => { LockGameStartOnEdit(); });
 
         // init "nome da turma" input field
         leaderboardNameInput = uiDocument.rootVisualElement.Q<TextField>("LeaderboardName");
-        leaderboardNameInput.RegisterCallback<FocusOutEvent>(evt => { ClassNameChanged(leaderboardNameInput.value); });
+        leaderboardNameInput.isDelayed = true;
+        leaderboardNameInput.RegisterValueChangedCallback(evt => { ClassNameChanged(leaderboardNameInput.value); leaderboardNameInput.Blur(); });
         leaderboardNameInput.RegisterCallback<FocusInEvent>(evt => { LockGameStartOnEdit(); });
 
         // init level select
@@ -120,6 +124,7 @@ public class GameSetup : MonoBehaviour
             if (entry.PlayFabId == LeaderboardManager.Instance.playerID)
             {
                 entryParent.style.color = Color.yellow;
+                playerScoreEntry = playerName;
             }
 
             leaderboardParent.Add(entryParent);
@@ -144,6 +149,9 @@ public class GameSetup : MonoBehaviour
 
         VerifyAndAllowGameStart();
         LeaderboardManager.Instance.ChangePlayerName(newName);
+
+        if (playerScoreEntry != null)
+            playerScoreEntry.text = newName;
     }
 
     /// <summary>
@@ -152,10 +160,15 @@ public class GameSetup : MonoBehaviour
     /// <param name="newName">New class name</param>
     private void ClassNameChanged(string newName)
     {
+        string difficultyName = difficultySetting.choices.ToList()[difficultySetting.value];
+        string gameMapName = gameMap.choices.ToList()[gameMap.value];
+
+        if (ComposeLeaderboardName(difficultyName, newName, gameMapName) == newName)
+            return;
+
         if (!IsTextSafe(newName))
         {
             leaderboardNameInput.value = string.Empty;
-            startGameButton.SetEnabled(false);
             VerifyAndAllowGameStart();
             return;
         }
@@ -166,14 +179,10 @@ public class GameSetup : MonoBehaviour
 
         VerifyAndAllowGameStart();
 
-        string difficultyName = difficultySetting.choices.ToList()[difficultySetting.value];
-        string gameMapName = gameMap.choices.ToList()[gameMap.value];
 
         LeaderboardManager.Instance.ChangeLeaderboardName(ComposeLeaderboardName(difficultyName, newName, gameMapName));
         LeaderboardManager.Instance.GetTop10Scores();
         LeaderboardManager.Instance.GetPlayerScore();
-
-        startGameButton.SetEnabled(true);
     }
 
     /// <summary>
@@ -224,6 +233,8 @@ public class GameSetup : MonoBehaviour
             if (entry.name == "PlayerEntry")
                 leaderboardParent.Remove(entry);
         }
+
+        playerScoreEntry = null;
     }
 
     /// <summary>
@@ -258,14 +269,7 @@ public class GameSetup : MonoBehaviour
     /// </summary>
     void VerifyAndAllowGameStart()
     {
-        if((usernameInput.value.Length > 0) && (leaderboardNameInput.value.Length > 0))
-        {
-            startGameButton.SetEnabled(true);
-        }
-        else
-        {
-            startGameButton.SetEnabled(false);
-        }
+        startGameButton.SetEnabled((leaderboardNameInput.value.Length > 0));
     }
 
     /// <summary>

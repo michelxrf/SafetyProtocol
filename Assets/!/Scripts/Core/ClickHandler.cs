@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// Calls a raycast on a player click or touch, the raycast is used to interact with world objects.
@@ -8,17 +9,14 @@ public class ClickHandler : MonoBehaviour
 {
     // Singleton vars
     public static ClickHandler Instance { get; private set; }
-    static bool applicationIsQuitting = false;
 
+    private UIDocument anyUiDocumet;
     [SerializeField] Camera mainCamera;
     private PlayerControls controls;
     [HideInInspector] public bool canClick = true;
 
     private void Awake()
     {
-        if (applicationIsQuitting)
-            return;
-
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -26,14 +24,18 @@ public class ClickHandler : MonoBehaviour
         else
         {
             Instance = this;
+            controls = new PlayerControls();
+            controls.Enable();
+            controls.InGame.Click.canceled += OnClickPerformed;
         }
+    }
 
+    private void Start()
+    {
         if (mainCamera == null)
             mainCamera = FindAnyObjectByType<Camera>();
 
-        controls = new PlayerControls();
-        controls.Enable();
-        controls.InGame.Click.canceled += OnClickPerformed;
+        anyUiDocumet = FindFirstObjectByType<UIDocument>();
     }
 
     /// <summary>
@@ -61,6 +63,15 @@ public class ClickHandler : MonoBehaviour
             return;
         }
 
+        //prevent clicking through UI
+        var panel = anyUiDocumet.rootVisualElement.panel;
+        Vector2 panelPosition = RuntimePanelUtils.ScreenToPanel(panel, screenPosition);
+        VisualElement clickedUiElement = anyUiDocumet.rootVisualElement.panel.Pick(panelPosition);
+        
+        if(clickedUiElement != null)
+            return;
+        //
+
         Ray ray = mainCamera.ScreenPointToRay(screenPosition);
         if (Physics.Raycast(ray, out RaycastHit hit))
         {
@@ -73,13 +84,5 @@ public class ClickHandler : MonoBehaviour
                 }
             }
         }
-    }
-
-    /// <summary>
-    /// prevents mess wiht ghost gameobjects
-    /// </summary>
-    private void OnApplicationQuit()
-    {
-        applicationIsQuitting = true;
     }
 }

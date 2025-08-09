@@ -440,6 +440,37 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+--- !u!1 &429149552
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 429149553}
+  m_Layer: 0
+  m_Name: CameraLimiter1
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &429149553
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429149552}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -17.69, y: 1, z: -2.82}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &431762142
 GameObject:
   m_ObjectHideFlags: 0
@@ -1400,6 +1431,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 200df223664ef5c4797827a889a151d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &2050858833
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2050858834}
+  m_Layer: 0
+  m_Name: CameraLimiter2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2050858834
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2050858833}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 17.55, y: 1, z: -9.68}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2098208520 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1294009164751434, guid: 2372d9bbcd210804f860cbdb001c619a, type: 3}
@@ -1611,6 +1673,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GenericHazard
       objectReference: {fileID: 0}
+    - target: {fileID: 5868427935149982434, guid: d2a368079081cfc45bf02d1ed2bcc8ae, type: 3}
+      propertyPath: itemList.Array.data[0].isEquipped
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1677,6 +1743,14 @@ PrefabInstance:
       propertyPath: onScreenInput
       value: 
       objectReference: {fileID: 1608275194}
+    - target: {fileID: 7386334697847815960, guid: 75065e802a347554c86c6deaeb6c2c82, type: 3}
+      propertyPath: cameraLimiter1
+      value: 
+      objectReference: {fileID: 429149553}
+    - target: {fileID: 7386334697847815960, guid: 75065e802a347554c86c6deaeb6c2c82, type: 3}
+      propertyPath: cameraLimiter2
+      value: 
+      objectReference: {fileID: 2050858834}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1859,7 +1933,7 @@ PrefabInstance:
       objectReference: {fileID: 102192623}
     - target: {fileID: 2944574125477364198, guid: e6872dfb866c910429b5365602840a7d, type: 3}
       propertyPath: debugMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2944574125477364198, guid: e6872dfb866c910429b5365602840a7d, type: 3}
       propertyPath: timeToAnswerQuiz
@@ -2091,6 +2165,10 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 3442715571995118695}
+    - target: {fileID: 3683372299936811455, guid: 8caf9fe68bd18e547b7a5592bbb59ba6, type: 3}
+      propertyPath: panelSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: 607b822b45932e9479f087f002766ff1, type: 2}
     - target: {fileID: 4336646774236944523, guid: 8caf9fe68bd18e547b7a5592bbb59ba6, type: 3}
       propertyPath: m_Name
       value: ClickHandler
@@ -2157,3 +2235,5 @@ SceneRoots:
   - {fileID: 1360002088}
   - {fileID: 1255827582340729884}
   - {fileID: 8877546783609373925}
+  - {fileID: 429149553}
+  - {fileID: 2050858834}

@@ -1,7 +1,7 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/!/UI/Styles/Placeholder.uss?fileID=7433441132597879392&amp;guid=cb9193efaf9345e47847c38266f3b8f2&amp;type=3#Placeholder" />
     <ui:VisualElement style="flex-grow: 1; flex-direction: row; font-size: 24px; justify-content: space-between;">
-        <ui:VisualElement name="VisualElement" style="flex-grow: 0; margin-left: 0%; margin-right: 0%; margin-top: 10%; margin-bottom: 10%; justify-content: space-around; left: 5%; right: 65%; flex-shrink: 0; position: absolute; bottom: 0%; top: 0%;">
+        <ui:VisualElement style="flex-grow: 0; margin-left: 0%; margin-right: 0%; margin-top: 10%; margin-bottom: 10%; justify-content: space-around; left: 5%; right: 65%; flex-shrink: 0; position: absolute; bottom: 0%; top: 0%;">
             <ui:VisualElement name="InputFields" style="flex-grow: 0;">
                 <ui:TextField label="Username" placeholder-text="user123" name="UserName" />
                 <ui:TextField label="Turma" placeholder-text="turma123" name="LeaderboardName" />

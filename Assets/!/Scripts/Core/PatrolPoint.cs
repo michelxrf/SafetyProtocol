@@ -5,16 +5,13 @@ using UnityEngine;
 /// </summary>
 public class PatrolPoint : MonoBehaviour
 {
-    [SerializeField] private WorkerManager workerManager;
-    public Worker assignedWorker;
+    [HideInInspector] public Worker assignedWorker;
     [HideInInspector] public bool isWorkerHere = false;
 
-    private void Awake()
+    private void Start()
     {
-        workerManager = FindFirstObjectByType<WorkerManager>();
-
         // hides the markers
-        GetComponent<MeshRenderer>().enabled = workerManager.debugMode;
+        GetComponent<MeshRenderer>().enabled = WorkerManager.Instance.debugMode;
     }
 
 

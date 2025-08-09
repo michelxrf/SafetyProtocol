@@ -22,7 +22,6 @@ public class AccidentAlert : MonoBehaviour
         timer = uiDocument.rootVisualElement.Q<Label>("Countdown");
         accidentAlertIcon = uiDocument.rootVisualElement.Q<VisualElement>("AlertIcon");
 
-
         StartCoroutine(BlinkAlert());
     }
 

@@ -20,10 +20,13 @@ public class CameraController : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private float speed = 10f;
 
-    [SerializeField] private int leftSideLimitX;
-    [SerializeField] private int rightSideLimitX;
-    [SerializeField] private int forwardLimitZ;
-    [SerializeField] private int backLimitZ;
+    [SerializeField] private Transform cameraLimiter1;
+    [SerializeField] private Transform cameraLimiter2;
+
+    private float leftSideLimitX;
+    private float rightSideLimitX;
+    private float forwardLimitZ;
+    private float backLimitZ;
 
     [HideInInspector] public bool isMovementAllowed = true;
 
@@ -33,6 +36,23 @@ public class CameraController : MonoBehaviour
     private bool canMoveBackward = false;
 
     private Vector3 direction = Vector3.zero;
+
+    private void Awake()
+    {
+        CalculeMapBorders();
+    }
+
+    /// <summary>
+    /// Calculates camera movement limits based on two limiters points
+    /// </summary>
+    void CalculeMapBorders()
+    {
+        leftSideLimitX = Mathf.Min(cameraLimiter1.transform.position.x, cameraLimiter2.transform.position.x);
+        rightSideLimitX = Mathf.Max(cameraLimiter1.transform.position.x, cameraLimiter2.transform.position.x);
+
+        backLimitZ = Mathf.Min(cameraLimiter1.transform.position.z, cameraLimiter2.transform.position.z);
+        forwardLimitZ = Mathf.Max(cameraLimiter1.transform.position.z, cameraLimiter2.transform.position.z);
+    }
 
     private void Start()
     {
@@ -45,9 +65,10 @@ public class CameraController : MonoBehaviour
     public void SetupOnScreenControls()
     {
         if (onScreenInput == null)
-            return;
-
+            onScreenInput = FindFirstObjectByType<OnScreenControls>().GetComponent<UIDocument>();
+        
         VisualElement root = onScreenInput.rootVisualElement;
+
         moveLeftButton = root.Q<Button>("MoveLeft");
         moveRightButton = root.Q<Button>("MoveRight");
         moveForwardButton = root.Q<Button>("Forward");
@@ -135,10 +156,10 @@ public class CameraController : MonoBehaviour
         VerifyBounds();
 
         if ((!canMoveLeft && direction.x < 0f) || (!canMoveRight && direction.x > 0f)) // skip if out of bounds
-            return;
+            direction.x = 0f;
 
         if ((!canMoveBackward && direction.z < 0f) || (!canMoveForward && direction.z > 0f)) // skip if out of bounds
-            return;
+            direction.z = 0f;
 
         playerCamera.transform.position = new Vector3(playerCamera.transform.position.x + speed * direction.x * Time.deltaTime,
                 playerCamera.transform.position.y,

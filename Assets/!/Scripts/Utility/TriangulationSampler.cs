@@ -23,7 +23,16 @@ public class TriangulationSampler : MonoBehaviour
         
         foreach (var point in points)
         {
-            GameObject newPatrolPoint = Instantiate(patrolPointPrefab, point, Quaternion.identity, patrolPointContainer.transform);
+            GameObject newPatrolPoint;
+            if (patrolPointContainer != null)
+            {
+                newPatrolPoint = Instantiate(patrolPointPrefab, point, Quaternion.identity, patrolPointContainer.transform);
+            }
+            else
+            {
+                newPatrolPoint = Instantiate(patrolPointPrefab, point, Quaternion.identity);
+            }
+
             patrolPoints.Add(newPatrolPoint.GetComponent<PatrolPoint>());
         }
 

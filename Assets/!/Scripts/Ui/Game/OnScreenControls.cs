@@ -4,16 +4,18 @@ using UnityEngine.UIElements;
 public class OnScreenControls : MonoBehaviour
 {
     public UIDocument uiDocument;
-    private CameraController mainCamera;
+    [SerializeField] CameraController mainCamera;
 
     private void Awake()
     {
-        mainCamera = FindFirstObjectByType<CameraController>();
         uiDocument = GetComponent<UIDocument>();
     }
 
-    private void OnEnable()
+    private void Start()
     {
+        if (mainCamera == null)
+            mainCamera = FindFirstObjectByType<CameraController>();
+
         mainCamera.SetupOnScreenControls();
     }
 

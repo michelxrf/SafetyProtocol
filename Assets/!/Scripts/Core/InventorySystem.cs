@@ -1,8 +1,11 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem.LowLevel;
 
+
+/// <summary>
+/// Used to toggle on and off worker equipment meshes at runtime
+/// </summary>
 public class InventorySystem : MonoBehaviour
 {
     [SerializeField] private List<Item> itemList = new();

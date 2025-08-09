@@ -14,8 +14,11 @@ public class Workstation : MonoBehaviour
     private void Awake()
     {
         assossiatedPatrolPoint = GetComponent<PatrolPoint>();
+    }
 
-        if (workerLookAt == null )
+    private void Start()
+    {
+        if (workerLookAt == null)
         {
             workerLookAt = GetComponentInChildren<MeshRenderer>().gameObject;
         }
