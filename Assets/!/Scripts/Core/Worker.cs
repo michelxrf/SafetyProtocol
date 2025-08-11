@@ -130,11 +130,20 @@ public class Worker : InteractableObject
     /// <param name="patrolPoint">The Patrol Point the worker will move to.</param>
     public void MoveToPoint(PatrolPoint patrolPoint)
     {
+
         StopAllCoroutines();
 
         FreeAssignedPoint();
         assignedPoint = patrolPoint;
         assignedPoint.AssignWorker(this);
+
+        // prevent getting stuck when sent to current location
+        Debug.Log($"{(patrolPoint.transform.position - transform.position).magnitude} <= {navMeshAgent.stoppingDistance}");
+        if ((patrolPoint.transform.position - transform.position).magnitude <= navMeshAgent.stoppingDistance)
+        {
+            ReachDestination();
+            return;
+        }
 
         animator.SetBool("isWalking", true);
         animator.SetBool("isWorking", false);

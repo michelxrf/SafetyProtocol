@@ -255,7 +255,7 @@ public class WorkerManager : MonoBehaviour
     /// </summary>
     public PatrolPoint GetAnyRandomPoint()
     {
-        if (idleChance <= Random.Range(0f, 1f))
+        if (Random.Range(0f, 1f) <= idleChance)
         {
             return GetRandomPatrolPoint();
         }

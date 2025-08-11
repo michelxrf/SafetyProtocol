@@ -53,7 +53,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 0.02
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -73,14 +73,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b754cbeab5e142c49aaa6e014d6acf4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  workerManager: {fileID: 0}
   minIdleTime: 5
   maxIdleTime: 20
   minWorkTime: 5
   maxWorkTime: 20
   workerType: 0
   currentState: 0
-  hasAccident: 0
+  assignedPoint: {fileID: 0}
+  isAccidentTarget: 0
 --- !u!114 &5248186529614829738
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questionData: {fileID: 0}
+  isEnabled: 1
 --- !u!114 &5088631743124767070
 MonoBehaviour:
   m_ObjectHideFlags: 0
