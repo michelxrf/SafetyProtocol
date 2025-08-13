@@ -12,6 +12,7 @@ public class ScreenSelector : MonoBehaviour
     public static ScreenSelector Instance { get; private set; }
 
     public enum SCREENMODE { GAME, PAUSE, ACCIDENT, GAMEEND, HIGHSCORES, QUIZ }
+    public SCREENMODE currentScreenMode {get; private set; } = SCREENMODE.GAME;
 
     [Header("References")]
     [SerializeField] UIDocument onScreenControls;
@@ -45,6 +46,8 @@ public class ScreenSelector : MonoBehaviour
     /// <param name="newMode"></param>
     public void SwitchScreen(SCREENMODE newMode)
     {
+        currentScreenMode = newMode;
+
         switch (newMode)
         {
             case SCREENMODE.GAME:

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -7,10 +8,10 @@ using UnityEngine.UIElements;
 public class HudManager : MonoBehaviour
 {
     private UIDocument uiDocument;
-    private Label currentAccidentsCount;
-    private Label maxAccidentsCount;
-    private Label currentHazardCount;
-    private Label maxHazardCount;
+    private Label accidentsCount;
+    private Label hazardCount;
+    private Label gameTime;
+    private Button pauseButton;
 
     private void Awake()
     {
@@ -18,12 +19,14 @@ public class HudManager : MonoBehaviour
         if (uiDocument ==  null)
             uiDocument = GetComponent<UIDocument>();
 
-        uiDocument.rootVisualElement.Q<Button>("PauseButton").clicked += OnPauseClicked;
+        pauseButton = uiDocument.rootVisualElement.Q<Button>("PauseButton");
 
-        currentAccidentsCount = uiDocument.rootVisualElement.Q<Label>("SolvedAccidents");
-        maxAccidentsCount = uiDocument.rootVisualElement.Q<Label>("MaxAccidents");
-        currentHazardCount = uiDocument.rootVisualElement.Q<Label>("SolvedHazards");
-        maxHazardCount = uiDocument.rootVisualElement.Q<Label>("MaxHazards");
+        if(pauseButton != null )
+            pauseButton.clicked += OnPauseClicked;
+
+        accidentsCount = uiDocument.rootVisualElement.Q<Label>("SolvedAccidents");
+        hazardCount = uiDocument.rootVisualElement.Q<Label>("SolvedHazards");
+        gameTime = uiDocument.rootVisualElement.Q<Label>("GameTimeLabel");
 
         // shows hud by default starting state
         uiDocument.rootVisualElement.style.display = DisplayStyle.Flex;
@@ -32,6 +35,23 @@ public class HudManager : MonoBehaviour
     private void Start()
     {
         UpdateScores();
+        UpdateTime();
+    }
+
+    private void Update()
+    {
+        UpdateTime();
+    }
+
+    /// <summary>
+    /// Shows current game time
+    /// </summary>
+    private void UpdateTime()
+    {
+        int minutes = Mathf.FloorToInt(WorkerManager.Instance.gameTime / 60);
+        int seconds = Mathf.FloorToInt(WorkerManager.Instance.gameTime % 60);
+
+        gameTime.text = string.Format("{00:00}:{01:00}", minutes, seconds);
     }
 
     /// <summary>
@@ -39,11 +59,8 @@ public class HudManager : MonoBehaviour
     /// </summary>
     public void UpdateScores()
     {
-        currentHazardCount.text = WorkerManager.Instance.solvedHazzards.ToString();
-        currentAccidentsCount.text = WorkerManager.Instance.solvedAccidents.ToString();
-
-        maxHazardCount.text = WorkerManager.Instance.totalHazzards.ToString();
-        maxAccidentsCount.text = WorkerManager.Instance.totalAccidents.ToString();
+        hazardCount.text = WorkerManager.Instance.solvedHazzards.ToString() + "/" + WorkerManager.Instance.totalHazzards.ToString();
+        accidentsCount.text = WorkerManager.Instance.solvedAccidents.ToString() + "/" + WorkerManager.Instance.totalAccidents.ToString();
     }
 
     /// <summary>

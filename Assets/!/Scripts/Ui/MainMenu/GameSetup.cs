@@ -123,12 +123,15 @@ public class GameSetup : MonoBehaviour
             // highlights the entry for this player's score
             if (entry.PlayFabId == LeaderboardManager.Instance.playerID)
             {
-                entryParent.style.color = Color.yellow;
+                entryParent.AddToClassList("PlayerScoreEntry");
                 playerScoreEntry = playerName;
+            }
+            else
+            {
+                entryParent.AddToClassList("ScoreEntry");
             }
 
             leaderboardParent.Add(entryParent);
-            entryParent.AddToClassList("ScoreEntry");
 
             uiDocument.rootVisualElement.Q<Label>("Notice").style.display = DisplayStyle.None;
         }

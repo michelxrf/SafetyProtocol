@@ -1,14 +1,16 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement style="flex-grow: 1; background-color: rgba(138, 138, 138, 0.78);">
-        <ui:VisualElement name="Leaderboard" style="flex-grow: 0; margin-right: 0%; margin-left: 0%; margin-top: 10%; margin-bottom: 10%; justify-content: flex-start; left: auto; right: auto; flex-shrink: 0; position: relative;">
-            <ui:Label text="PLACAR DA TURMA" name="Title" style="-unity-text-align: upper-center; font-size: 48px; -unity-font-style: bold; height: auto; flex-grow: 0; border-top-width: 10px; border-bottom-width: 10px;" />
-            <ui:VisualElement name="Header" class="ScoreEntry" style="flex-grow: 0; flex-direction: row; align-items: flex-start; justify-content: space-between; border-bottom-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); width: auto;">
+    <Style src="project://database/Assets/!/UI/Styles/Menus.uss?fileID=7433441132597879392&amp;guid=733d1cbb52089e94ba0a1b470523af93&amp;type=3#Menus" />
+    <Style src="project://database/Assets/!/UI/Styles/Leaderboard.uss?fileID=7433441132597879392&amp;guid=cb9193efaf9345e47847c38266f3b8f2&amp;type=3#Leaderboard" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.78); align-items: center;">
+        <ui:VisualElement name="Leaderboard" style="margin-right: 0; margin-left: 0; margin-top: auto; margin-bottom: auto; justify-content: flex-start; left: auto; right: auto; position: relative; background-image: url(&quot;project://database/Assets/!/UI/Assets/HudPanel.png?fileID=2800000&amp;guid=bb38e34d76261ce4087d9ff600dde8f0&amp;type=3#HudPanel&quot;); -unity-slice-left: 64; -unity-slice-top: 64; -unity-slice-right: 64; -unity-slice-bottom: 64; width: 900px; height: 750px;">
+            <ui:Label text="PLACAR DA TURMA" name="Title" class="font-barlow-bold" style="-unity-text-align: upper-center; font-size: 32px; -unity-font-style: normal; height: auto; flex-grow: 0; border-top-width: 10px; border-bottom-width: 10px;" />
+            <ui:VisualElement name="Header" class="ScoreEntry" style="align-items: flex-start; justify-content: space-between; border-bottom-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0);">
                 <ui:Label text="#" name="Rank" class="RankColumm" style="width: 10%; flex-grow: 0;" />
                 <ui:Label text="Jogador" name="Name" class="NameColumm" />
                 <ui:Label text="Pontuação" name="Score" class="ScoreColumm" />
             </ui:VisualElement>
-            <ui:Label text="Digite o código da turma para ver o placar." name="Notice" style="-unity-text-align: middle-center; font-size: 48px; -unity-font-style: bold; height: 450px; flex-grow: 0; border-top-width: 10px; border-bottom-width: 10px;" />
+            <ui:Label name="Notice" text="Carregando placar..." class="font-barlow-regular" style="height: 625px; flex-grow: 0; border-top-width: 10px; border-bottom-width: 10px; -unity-text-align: middle-center; font-size: 32px;" />
         </ui:VisualElement>
-        <ui:Button text="Voltar ao Menu" name="ContinueButton" style="font-size: 96px;" />
+        <ui:Button text="Voltar ao Menu" name="ContinueButton" class="r-button" style="position: absolute; top: 966px;" />
     </ui:VisualElement>
 </ui:UXML>

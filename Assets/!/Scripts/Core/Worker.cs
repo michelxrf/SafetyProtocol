@@ -138,7 +138,6 @@ public class Worker : InteractableObject
         assignedPoint.AssignWorker(this);
 
         // prevent getting stuck when sent to current location
-        Debug.Log($"{(patrolPoint.transform.position - transform.position).magnitude} <= {navMeshAgent.stoppingDistance}");
         if ((patrolPoint.transform.position - transform.position).magnitude <= navMeshAgent.stoppingDistance)
         {
             ReachDestination();

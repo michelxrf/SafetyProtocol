@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 /// <summary>
@@ -15,6 +16,8 @@ public class PauseScreen : MonoBehaviour
 
         uiDocument.rootVisualElement.style.display = DisplayStyle.None;
         uiDocument.rootVisualElement.Q<Button>("UnpauseButton").clicked += UnpauseClicked;
+
+        uiDocument.rootVisualElement.Q<Button>("QuitButton").clicked += QuitClicked;
     }
 
     /// <summary>
@@ -24,5 +27,13 @@ public class PauseScreen : MonoBehaviour
     {
         WorkerManager.Instance.UnpauseGame();
         ScreenSelector.Instance.SwitchScreen(ScreenSelector.SCREENMODE.GAME);
+    }
+
+    /// <summary>
+    /// Back to main menu
+    /// </summary>
+    private void QuitClicked()
+    {
+        SceneManager.LoadScene(0);
     }
 }

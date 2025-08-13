@@ -1,22 +1,27 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement style="flex-grow: 1; background-color: rgba(137, 137, 137, 0.78);">
-        <ui:VisualElement style="flex-grow: 1;">
-            <ui:Label text="Fim da Partida" name="Tittle" style="font-size: 96px; -unity-text-align: upper-center;" />
-            <ui:VisualElement style="flex-grow: 1;">
-                <ui:VisualElement style="flex-grow: 1;">
-                    <ui:Label text="Tempo Total: 00:00" name="Time" style="font-size: 50px;" />
+    <Style src="project://database/Assets/!/UI/Styles/Menus.uss?fileID=7433441132597879392&amp;guid=733d1cbb52089e94ba0a1b470523af93&amp;type=3#Menus" />
+    <ui:VisualElement style="flex-grow: 1; background-color: rgba(137, 137, 137, 0.78); align-items: center; justify-content: center;">
+        <ui:VisualElement class="font-barlow-regular" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/HudPanel.png?fileID=2800000&amp;guid=bb38e34d76261ce4087d9ff600dde8f0&amp;type=3#HudPanel&quot;); -unity-slice-left: 64; -unity-slice-top: 64; -unity-slice-right: 64; -unity-slice-bottom: 64; width: 900px; height: 750px;">
+            <ui:Label text="Fim da Partida" name="Tittle" class="font-barlow-bold" style="font-size: 64px; -unity-text-align: upper-center; -unity-font-style: normal;" />
+            <ui:VisualElement name="VisualElement" style="flex-grow: 1; align-items: center; justify-content: center; font-size: 32px;">
+                <ui:VisualElement style="flex-direction: row; height: 44px;">
+                    <ui:VisualElement style="background-image: url(&quot;project://database/Assets/!/UI/Assets/icon_timer.png?fileID=2800000&amp;guid=793659985fe6d99459fa2ddf077ede1e&amp;type=3#icon_timer&quot;); width: 44px; height: 44px;" />
+                    <ui:Label text="Tempo Total: 00:00" name="Time" style="align-self: center; align-items: center;" />
                 </ui:VisualElement>
-                <ui:VisualElement style="flex-grow: 1;">
-                    <ui:Label text="Acidentes Evitados: X/Y" name="Accidents" style="font-size: 50px;" />
+                <ui:VisualElement style="flex-direction: row;">
+                    <ui:VisualElement style="background-image: url(&quot;project://database/Assets/!/UI/Assets/icon_accident.png?fileID=2800000&amp;guid=8fd6367134bf7b84cb6e877269f2df44&amp;type=3#icon_accident&quot;); width: 44px; height: 44px;" />
+                    <ui:Label text="Acidentes Evitados: X/Y" name="Accidents" />
                 </ui:VisualElement>
-                <ui:VisualElement style="flex-grow: 1;">
-                    <ui:Label text="Riscos Eliminados: X/Y" name="Hazzards" style="font-size: 50px;" />
+                <ui:VisualElement style="flex-direction: row;">
+                    <ui:VisualElement style="background-image: url(&quot;project://database/Assets/!/UI/Assets/icon_risk.png?fileID=2800000&amp;guid=2e7bb4c270948fb45b2694321e4bb325&amp;type=3#icon_risk&quot;); width: 44px; height: 44px;" />
+                    <ui:Label text="Riscos Eliminados: X/Y" name="Hazzards" />
+                </ui:VisualElement>
+                <ui:VisualElement style="flex-direction: row;">
+                    <ui:VisualElement style="background-image: none; width: 44px; height: 44px;" />
+                    <ui:Label text="Pontuação Total: 0000" name="Score" class="font-barlow-bold" style="border-top-width: 5px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); margin-top: 32px;" />
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement style="flex-grow: 1;">
-                <ui:Label text="Pontuação Total: 0000" name="Score" style="font-size: 50px;" />
-            </ui:VisualElement>
-            <ui:Button text="Continuar" name="ContinueButton" style="font-size: 48px;" />
         </ui:VisualElement>
+        <ui:Button text="Continuar" name="ContinueButton" class="y-button" style="font-size: 48px; top: 966px; position: absolute;" />
     </ui:VisualElement>
 </ui:UXML>

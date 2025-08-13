@@ -1,0 +1,25 @@
+.font-barlow-regular {
+    -unity-font-definition: url("project://database/Assets/!/Fonts/Barlow/Barlow-Regular.ttf?fileID=12800000&guid=6a4bdc0fad33a1040a0b506eb3b3ffd8&type=3#Barlow-Regular");
+}
+
+.font-barlow-bold {
+    -unity-font-definition: url("project://database/Assets/!/Fonts/Barlow/Barlow-Bold.ttf?fileID=12800000&guid=b6fda5bf6e56b194da1cfd4a2a2dde5c&type=3#Barlow-Bold");
+}
+
+.font-barlow-semibold {
+    -unity-font-definition: url("project://database/Assets/!/Fonts/Ropa_Sans/RopaSans-Regular.ttf?fileID=12800000&guid=fe4c67fea5eb61d48baee455d4557852&type=3#RopaSans-Regular");
+    -unity-text-outline-width: 1.5px;
+    -unity-text-outline-color: rgb(0, 0, 0);
+    font-size: 32px;
+}
+
+.font-ropasans-regular {
+    -unity-font-definition: url("project://database/Assets/!/Fonts/Ropa_Sans/RopaSans-Regular.ttf?fileID=12800000&guid=fe4c67fea5eb61d48baee455d4557852&type=3#RopaSans-Regular");
+}
+
+:root {
+}
+
+.font-barlow-bold {
+    -unity-font-definition: url("project://database/Assets/!/Fonts/Barlow/Barlow-Bold.ttf?fileID=12800000&guid=b6fda5bf6e56b194da1cfd4a2a2dde5c&type=3#Barlow-Bold");
+}

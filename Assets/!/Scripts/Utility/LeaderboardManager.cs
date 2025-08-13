@@ -48,6 +48,7 @@ public class LeaderboardManager : MonoBehaviour
     // Actions
     public Action<GetLeaderboardResult> OnLeaderboardReceived;
     public Action<GetLeaderboardAroundPlayerResult> OnPlayerScoreReceived;
+    public Action OnScoreSubmitted;
     public Action OnFailedToConnect;
     public Action OnEmptyLeadearboardReceived;
     public Action OnRetryingConnection;
@@ -313,6 +314,7 @@ public class LeaderboardManager : MonoBehaviour
             GetTop10Scores();
         }
 
+        OnScoreSubmitted?.Invoke();
         Debug.Log("score succesfully submitted to Playfab");
     }
 

@@ -3,7 +3,7 @@
 
 .answers {
     flex-direction: row-reverse;
-    font-size: 75px;
+    font-size: 32px;
     -unity-text-align: upper-left;
     justify-content: center;
     align-self: auto;

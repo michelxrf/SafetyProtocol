@@ -1,5 +1,8 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement style="flex-grow: 1; background-color: rgb(0, 0, 0);">
-        <ui:Button text="Resume" name="UnpauseButton" style="top: 40%; left: 30%; align-items: auto; justify-content: flex-start; align-self: auto; align-content: auto; width: 40%; height: 20%;" />
+    <Style src="project://database/Assets/!/UI/Styles/Menus.uss?fileID=7433441132597879392&amp;guid=733d1cbb52089e94ba0a1b470523af93&amp;type=3#Menus" />
+    <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0.78); justify-content: center;">
+        <ui:Label text="JOGO EM PAUSA" class="font-barlow-bold" style="color: rgb(255, 255, 255); font-size: 64px; margin-top: 50px; margin-right: 50px; margin-bottom: 50px; margin-left: 50px; -unity-text-align: upper-center; -unity-font-style: normal;" />
+        <ui:Button text="Continuar" name="UnpauseButton" class="g-button" style="align-items: auto; justify-content: flex-start; align-self: center; align-content: auto;" />
+        <ui:Button text="Sair" name="QuitButton" class="r-button" style="align-items: auto; justify-content: flex-start; align-self: center; align-content: auto;" />
     </ui:VisualElement>
 </ui:UXML>

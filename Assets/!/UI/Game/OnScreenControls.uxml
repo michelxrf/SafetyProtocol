@@ -1,9 +1,9 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/!/UI/Game/OnScrenStyle.uss?fileID=7433441132597879392&amp;guid=2f2a4629da41dd44db7a769753405117&amp;type=3#OnScrenStyle" />
     <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1;">
-        <ui:Button text="&lt;" name="MoveLeft" class="navigationButton" style="opacity: 0.7; align-self: flex-start; height: 100%; width: 5%; top: auto; bottom: auto; -unity-font-style: bold; font-size: 80px; position: absolute;" />
-        <ui:Button text="&gt;" name="MoveRight" class="navigationButton" style="opacity: 0.7; align-self: flex-end; height: 100%; width: 5%; top: auto; bottom: auto; -unity-font-style: bold; font-size: 80px; align-items: auto; position: absolute;" />
-        <ui:Button text="-" name="Back" class="navigationButton" style="position: absolute; bottom: 33px; left: 1507px; width: 108px; height: 86px; font-size: 50px;" />
+        <ui:Button text="-" name="Back" class="navigationButton" style="position: absolute; top: auto; left: auto; bottom: 20px; right: 168px;" />
+        <ui:Button text="&lt;" name="MoveLeft" class="navigationButton" style="position: absolute; right: 316px; bottom: 20px;" />
+        <ui:Button text="&gt;" name="MoveRight" class="navigationButton" style="position: absolute; top: auto; left: auto; right: 20px; bottom: 20px;" />
+        <ui:Button text="+" name="Forward" class="navigationButton" style="position: absolute; top: auto; left: auto; bottom: 168px; right: 168px;" />
     </ui:VisualElement>
-    <ui:Button text="+" name="Forward" class="navigationButton" style="position: absolute; top: 955px; left: 1635px; height: 98px; width: 115px; font-size: 50px;" />
 </ui:UXML>

@@ -65,9 +65,11 @@ public class ClickHandler : MonoBehaviour
 
         //prevent clicking through UI
         var panel = anyUiDocumet.rootVisualElement.panel;
-        Vector2 panelPosition = RuntimePanelUtils.ScreenToPanel(panel, screenPosition);
+
+        Vector2 panelPosition = new Vector2(screenPosition.x, Screen.height - screenPosition.y);
+
         VisualElement clickedUiElement = anyUiDocumet.rootVisualElement.panel.Pick(panelPosition);
-        
+
         if(clickedUiElement != null)
             return;
         //

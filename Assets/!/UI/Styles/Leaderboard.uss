@@ -1,0 +1,39 @@
+:root {
+}
+
+.ScoreEntry {
+    flex-direction: row;
+    width: 805px;
+    align-self: center;
+    -unity-font-definition: url("project://database/Assets/!/Fonts/Barlow/Barlow-Regular.ttf?fileID=12800000&guid=6a4bdc0fad33a1040a0b506eb3b3ffd8&type=3#Barlow-Regular");
+}
+
+.NameColumm {
+    flex-grow: 0;
+    width: 50%;
+}
+
+.ScoreColumm {
+    flex-grow: 1;
+    width: 40%;
+}
+
+.font-regular {
+    -unity-font-definition: url("project://database/Assets/!/Fonts/Barlow/Barlow-Regular.ttf?fileID=12800000&guid=6a4bdc0fad33a1040a0b506eb3b3ffd8&type=3#Barlow-Regular");
+}
+
+.RankColumm {
+    flex-grow: 1;
+    width: 10%;
+}
+
+.PlayerScoreEntry {
+    flex-direction: row;
+    width: 805px;
+    align-self: center;
+    -unity-font-definition: url("project://database/Assets/!/Fonts/Barlow/Barlow-Regular.ttf?fileID=12800000&guid=6a4bdc0fad33a1040a0b506eb3b3ffd8&type=3#Barlow-Regular");
+    color: rgb(173, 62, 2);
+}
+
+.r-button:active {
+}

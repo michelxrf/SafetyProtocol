@@ -13,6 +13,7 @@ public class AccidentAlert : MonoBehaviour
     Label timer;
 
     [SerializeField] float alertBlinkInterval = .5f;
+    [SerializeField] bool blinkAlert = true;
 
     private void Awake()
     {
@@ -22,7 +23,8 @@ public class AccidentAlert : MonoBehaviour
         timer = uiDocument.rootVisualElement.Q<Label>("Countdown");
         accidentAlertIcon = uiDocument.rootVisualElement.Q<VisualElement>("AlertIcon");
 
-        StartCoroutine(BlinkAlert());
+        if (blinkAlert)
+            StartCoroutine(BlinkAlert());
     }
 
     private void Update()

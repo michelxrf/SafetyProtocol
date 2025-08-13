@@ -15,6 +15,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Button moveRightButton;
     [SerializeField] private Button moveForwardButton;
     [SerializeField] private Button moveBackButton;
+    [SerializeField] private Button pauseButton;
     [SerializeField] private PlayerControls playerControls;
     
     [Header("Settings")]
@@ -136,6 +137,23 @@ public class CameraController : MonoBehaviour
         // get the movement direction from the Input System
 
         direction = inputValue.Get<Vector3>();
+    }
+
+    /// <summary>
+    /// responds to player Input (Input System)
+    /// </summary>
+    private void OnPause()
+    {
+        if (ScreenSelector.Instance.currentScreenMode == ScreenSelector.SCREENMODE.GAME)
+        {
+            WorkerManager.Instance.PauseGame();
+            ScreenSelector.Instance.SwitchScreen(ScreenSelector.SCREENMODE.PAUSE);
+        }
+        else if(ScreenSelector.Instance.currentScreenMode == ScreenSelector.SCREENMODE.PAUSE)
+        {
+            WorkerManager.Instance.UnpauseGame();
+            ScreenSelector.Instance.SwitchScreen(ScreenSelector.SCREENMODE.GAME);
+        }
     }
     private void Update()
     {
