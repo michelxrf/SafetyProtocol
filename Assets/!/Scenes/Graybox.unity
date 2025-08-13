@@ -1835,38 +1835,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FullGameUI
       objectReference: {fileID: 0}
-    - target: {fileID: 685526491498639755, guid: 211e6b03570f3cf4fafa32e6738b9dab, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1091799257885289448, guid: 211e6b03570f3cf4fafa32e6738b9dab, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2875900552867954820, guid: 211e6b03570f3cf4fafa32e6738b9dab, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3284866433177313472, guid: 211e6b03570f3cf4fafa32e6738b9dab, type: 3}
-      propertyPath: m_SortingOrder
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 3414584150429596400, guid: 211e6b03570f3cf4fafa32e6738b9dab, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4222042180785640911, guid: 211e6b03570f3cf4fafa32e6738b9dab, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4543428515530795052, guid: 211e6b03570f3cf4fafa32e6738b9dab, type: 3}
-      propertyPath: m_SortingOrder
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 5780954473827445454, guid: 211e6b03570f3cf4fafa32e6738b9dab, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6280064575926539589, guid: 211e6b03570f3cf4fafa32e6738b9dab, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1990.2676
@@ -1905,18 +1873,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6280064575926539589, guid: 211e6b03570f3cf4fafa32e6738b9dab, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6509953027318559485, guid: 211e6b03570f3cf4fafa32e6738b9dab, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7032916500125986588, guid: 211e6b03570f3cf4fafa32e6738b9dab, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8920179255019683253, guid: 211e6b03570f3cf4fafa32e6738b9dab, type: 3}
-      propertyPath: blinkAlert
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

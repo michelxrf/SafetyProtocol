@@ -3,6 +3,9 @@
 }
 
 .r-button:active {
+}
+
+.r-button:active {
     background-image: url("project://database/Assets/!/UI/Assets/RButtonPressed.png?fileID=2800000&guid=e2d4b5ed459dc0340ae8843a6d3ee991&type=3#RButtonPressed");
 }
 

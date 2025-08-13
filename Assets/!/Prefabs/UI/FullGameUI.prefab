@@ -67,6 +67,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6280064575926539589}
     m_Modifications:
+    - target: {fileID: 3073074490838253517, guid: 38ea9e8c61bdca949bef593e28b61bba, type: 3}
+      propertyPath: m_SortingOrder
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 5751081961052228788, guid: 38ea9e8c61bdca949bef593e28b61bba, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -213,6 +217,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6280064575926539589}
     m_Modifications:
+    - target: {fileID: 2866218550660532142, guid: 663f64b740852894c953f9c6e41a8a1c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 3113980357542530666, guid: 663f64b740852894c953f9c6e41a8a1c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -256,6 +264,10 @@ PrefabInstance:
     - target: {fileID: 4549228189097733894, guid: 663f64b740852894c953f9c6e41a8a1c, type: 3}
       propertyPath: m_Name
       value: AccidentAlert
+      objectReference: {fileID: 0}
+    - target: {fileID: 7134138843583205943, guid: 663f64b740852894c953f9c6e41a8a1c, type: 3}
+      propertyPath: blinkAlert
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

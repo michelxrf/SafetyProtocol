@@ -6,6 +6,7 @@
     width: 805px;
     align-self: center;
     -unity-font-definition: url("project://database/Assets/!/Fonts/Barlow/Barlow-Regular.ttf?fileID=12800000&guid=6a4bdc0fad33a1040a0b506eb3b3ffd8&type=3#Barlow-Regular");
+    font-size: 24px;
 }
 
 .NameColumm {
@@ -33,7 +34,5 @@
     align-self: center;
     -unity-font-definition: url("project://database/Assets/!/Fonts/Barlow/Barlow-Regular.ttf?fileID=12800000&guid=6a4bdc0fad33a1040a0b506eb3b3ffd8&type=3#Barlow-Regular");
     color: rgb(173, 62, 2);
-}
-
-.r-button:active {
+    font-size: 24px;
 }
