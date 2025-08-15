@@ -224,7 +224,13 @@ public class WorkerManager : MonoBehaviour
 
         Debug.Log($"{LeaderboardManager.Instance.playerScore} - {score}");
         if (LeaderboardManager.Instance.playerScore < score)
+        {
             LeaderboardManager.Instance.SubmitCurrentScore(score);
+        }
+        else
+        {
+            LeaderboardManager.Instance.GetTop10Scores();
+        }
     }
 
     /// <summary>

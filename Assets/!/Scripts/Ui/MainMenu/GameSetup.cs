@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 /// <summary>
 /// Controls the screen that will be used to set up the game.
@@ -86,20 +87,19 @@ public class GameSetup : MonoBehaviour
         {
             leaderboardNameInput.SetValueWithoutNotify(SettingsKeeper.Instance.classRoomName);
             
-            foreach (RadioButton option in difficultySetting.Children())
+            foreach (string option in difficultySetting.choices.ToList())
             {
-                if (option.name == SettingsKeeper.Instance.dificultyLevel)
+                if (option == SettingsKeeper.Instance.dificultyLevel)
                 {
-                    Debug.Log($"{option.name} - {SettingsKeeper.Instance.dificultyLevel}");
-                    option.value = true;
+                    difficultySetting.SetValueWithoutNotify(difficultySetting.choices.ToList().IndexOf(option));
                     break;
                 }
             }
-            foreach (RadioButton option in gameMap.Children())
+            foreach (string option in gameMap.choices.ToList())
             {
-                if (option.name == SettingsKeeper.Instance.gameMap)
+                if (option == SettingsKeeper.Instance.gameMap)
                 {
-                    option.value = true;
+                    gameMap.SetValueWithoutNotify(gameMap.choices.ToList().IndexOf(option));
                     break;
                 }
             }
