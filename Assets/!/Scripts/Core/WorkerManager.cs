@@ -221,7 +221,10 @@ public class WorkerManager : MonoBehaviour
         gameEndScreen.Show(score, gameTime, solvedAccidents, totalAccidents, solvedHazzards, totalHazzards);
         ScreenSelector.Instance.SwitchScreen(ScreenSelector.SCREENMODE.GAMEEND);
         Debug.Log($"A: {solvedAccidents}/{totalAccidents}, H:{solvedHazzards}/{totalHazzards}");
-        LeaderboardManager.Instance.SubmitCurrentScore(score);
+
+        Debug.Log($"{LeaderboardManager.Instance.playerScore} - {score}");
+        if (LeaderboardManager.Instance.playerScore < score)
+            LeaderboardManager.Instance.SubmitCurrentScore(score);
     }
 
     /// <summary>

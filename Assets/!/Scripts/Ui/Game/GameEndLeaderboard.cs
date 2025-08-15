@@ -23,9 +23,12 @@ public class GameEndLeaderboard : MonoBehaviour
         header.style.display = DisplayStyle.None;
     }
 
+    /// <summary>
+    /// Calls Playfab for scores
+    /// </summary>
     private void GetScores()
     {
-        LeaderboardManager.Instance.GetTop10Scores();
+        LeaderboardManager.Instance.StartCoroutine(LeaderboardManager.Instance.GetScoresAsync());
     }
 
     private void Start()
@@ -34,9 +37,12 @@ public class GameEndLeaderboard : MonoBehaviour
         LeaderboardManager.Instance.OnScoreSubmitted += GetScores;
     }
 
+    /// <summary>
+    /// Instantiate lines in the leaderboard, each line is a rank/player/score entry
+    /// </summary>
     private void PopulateLeaderboard(GetLeaderboardResult playfabData)
     {
-        Debug.Log("Should update leadeboard...");
+        ClearLeaderboard();
 
         VisualElement leaderboardParent = uiDocument.rootVisualElement.Q<VisualElement>("Leaderboard");
 
@@ -80,7 +86,9 @@ public class GameEndLeaderboard : MonoBehaviour
             uiDocument.rootVisualElement.Q<Label>("Notice").style.display = DisplayStyle.None;
         }
     }
-
+    /// <summary>
+    /// Clears all entries from the leaderboard.
+    /// </summary>
     private void ClearLeaderboard()
     {
         VisualElement leaderboardParent = uiDocument.rootVisualElement.Q<VisualElement>("Leaderboard");
@@ -102,7 +110,8 @@ public class GameEndLeaderboard : MonoBehaviour
 
     private void OnDestroy()
     {
-        LeaderboardManager.Instance.OnLeaderboardReceived -= PopulateLeaderboard;
-        LeaderboardManager.Instance.OnEmptyLeadearboardReceived -= ClearLeaderboard;
+        LeaderboardManager.Instance.OnLeaderboardReceived = null;
+        LeaderboardManager.Instance.OnEmptyLeadearboardReceived = null;
+        LeaderboardManager.Instance.OnScoreSubmitted = null;
     }
 }
