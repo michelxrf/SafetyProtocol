@@ -46,9 +46,9 @@ public class WorkerManager : MonoBehaviour
     private enum ACCIDENTORDER { RANDOM, SEQUENCE };
     private int score = 0;
 
-    private List<PatrolPoint> patrolPoints = new();
+    [HideInInspector] public List<PatrolPoint> patrolPoints = new();
     [HideInInspector] public List<Worker> workers = new();
-    private List<Workstation> workstations = new();
+    [HideInInspector] public List<Workstation> workstations = new();
 
     [HideInInspector] public float gameTime = 0f;
 
@@ -62,9 +62,6 @@ public class WorkerManager : MonoBehaviour
         else
         {
             Instance = this;
-
-            GetAllWorkersInScene();
-            GetAllPatrolPointsInScene();
 
             totalHazzards = FindObjectsByType<Hazard>(FindObjectsSortMode.None).Length;
             totalAccidents = accidentEventsList.Count;
@@ -80,62 +77,13 @@ public class WorkerManager : MonoBehaviour
 
             if (gameEndScreen == null)
                 gameEndScreen = FindFirstObjectByType<GameEndScreen>();
-        }
-    }
 
-    /// <summary>
-    /// Finds all Workers in the level and saves them in a list.
-    /// </summary>
-    private void GetAllWorkersInScene()
-    {
-        // as the name suggests, list all workers
-        // TODO: experiment with workers registering themselves
-
-        workers = (FindObjectsByType<Worker>(FindObjectsSortMode.None)).ToList<Worker>();
-    }
-
-    /// <summary>
-    /// Collects all Patrol Points present in the level in a list.
-    /// </summary>
-    private void GetAllPatrolPointsInScene()
-    {
-        PatrolPoint[] manuallySetPatrolPoints = FindObjectsByType<PatrolPoint>(FindObjectsSortMode.None);
-
-        if (manuallySetPatrolPoints.Length > 0)
-        {
-            // adds all designer made patrol points
-
-            foreach (PatrolPoint patrolPoint in manuallySetPatrolPoints)
+            // generate patrol points based on the navMesh
+            if (generateRandomPatrolPoints)
             {
-                if (patrolPoint.GetComponent<Workstation>() != null)
-                {
-                    workstations.Add(patrolPoint.GetComponent<Workstation>());
-                }
-                else
-                {
-                    patrolPoints.Add(patrolPoint);
-                }
+                patrolPoints.AddRange(GetComponent<TriangulationSampler>().GenerateRandomPatrolPoints());
             }
         }
-
-        if (generateRandomPatrolPoints)
-        {
-            // generate patrol points based on the navMesh
-
-            patrolPoints.AddRange(GetComponent<TriangulationSampler>().GenerateRandomPatrolPoints());
-        }
-
-        if (patrolPoints.Count == 0)
-        {
-            Debug.LogError("No patrol points in the scene!");
-        }
-
-        if (workers.Count > patrolPoints.Count + 1)
-        {
-            Debug.LogWarning("Not enough patrol points for the level's worker population!");
-        }
-
-        Debug.Log($"Scene has {patrolPoints.Count} patrol points, and {workstations.Count} workstations.");
     }
 
     /// <summary>
@@ -236,24 +184,29 @@ public class WorkerManager : MonoBehaviour
     /// <summary>
     /// returns the Patrol Point of a random free workstation
     /// </summary>
-    public PatrolPoint GetRandomWorkstation()
+    public PatrolPoint GetRandomWorkstation(Worker.JOB_TYPE jobType)
     {
-        List<Workstation> freeWorkstation = workstations.FindAll(n => n.assossiatedPatrolPoint.assignedWorker == null);
+        // filter non empty workstations
+        List<Workstation> freeWorkstations = workstations.FindAll(n => n.assossiatedPatrolPoint.assignedWorker == null);
 
-        if (freeWorkstation.Count > 0)
+        // filter workstations of differnet job type
+        List<Workstation> sameTagWorkstations = freeWorkstations.FindAll(n => n.workerType == jobType);
+
+        if (sameTagWorkstations.Count > 0)
         {
             List<PatrolPoint> assossiatedPatrols = new List<PatrolPoint>();
 
-            foreach (Workstation workstation in freeWorkstation)
+            foreach (Workstation workstation in sameTagWorkstations)
             {
                 assossiatedPatrols.Add(workstation.assossiatedPatrolPoint);
             }
 
-            return assossiatedPatrols[Random.Range(0, freeWorkstation.Count)];
+            return assossiatedPatrols[Random.Range(0, sameTagWorkstations.Count)];
         }
 
         else
         {
+            Debug.LogWarning("no free workstation found. Too few workstations for this worker population?");
             return null;
         }
     }
@@ -262,7 +215,7 @@ public class WorkerManager : MonoBehaviour
     /// Returns a random free patrol point, either a workstation or simple patrol point.
     /// Worsktation chance is defined by idleChance variable.
     /// </summary>
-    public PatrolPoint GetAnyRandomPoint()
+    public PatrolPoint GetRandomPoint(Worker.JOB_TYPE jobType)
     {
         if (Random.Range(0f, 1f) <= idleChance)
         {
@@ -270,7 +223,7 @@ public class WorkerManager : MonoBehaviour
         }
         else
         {
-            return GetRandomWorkstation();
+            return GetRandomWorkstation(jobType);
         }
     }
 

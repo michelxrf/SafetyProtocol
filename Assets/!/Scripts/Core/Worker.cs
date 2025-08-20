@@ -24,7 +24,7 @@ public class Worker : InteractableObject
     [SerializeField] public JOB_TYPE workerType;
     [HideInInspector] public STATE currentState;
     public enum STATE { IDLING, MOVING, WORKING };
-    public enum JOB_TYPE { CONSTRUCTION, ELECTRICAL, HEIGHT };
+    public enum JOB_TYPE { CONSTRUCTION, ELECTRICAL, HEIGHT, PLUMBING, SOLDERING };
     [HideInInspector] public PatrolPoint assignedPoint;
     [HideInInspector] public bool isAccidentTarget = false;
 
@@ -42,6 +42,11 @@ public class Worker : InteractableObject
 
         // saves navMeshAgent speed for pausing and resuming worker movement
         navMeshAgentSpeed = navMeshAgent.speed;
+    }
+
+    private void Start()
+    {
+        WorkerManager.Instance.workers.Add(this);
     }
 
     /// <summary>
@@ -169,7 +174,7 @@ public class Worker : InteractableObject
     /// </summary>
     public void MoveToRandomPoint()
     {
-        PatrolPoint nextTarget = WorkerManager.Instance.GetAnyRandomPoint();
+        PatrolPoint nextTarget = WorkerManager.Instance.GetRandomPoint(workerType);
                 
         if (nextTarget != null)
         {

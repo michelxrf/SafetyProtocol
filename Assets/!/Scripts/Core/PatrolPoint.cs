@@ -12,6 +12,16 @@ public class PatrolPoint : MonoBehaviour
     {
         // hides the markers
         GetComponent<MeshRenderer>().enabled = WorkerManager.Instance.debugMode;
+
+        Workstation workstation = GetComponent<Workstation>();
+        if (workstation != null )
+        {
+            WorkerManager.Instance.workstations.Add(workstation);
+        }
+        else
+        {
+            WorkerManager.Instance.patrolPoints.Add(this);
+        }
     }
 
 

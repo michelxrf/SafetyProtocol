@@ -4,11 +4,10 @@ using UnityEngine;
 public class Workstation : MonoBehaviour
 {
     // component attached to some patrol points to expand them to work as workstations
-    // TODO: define Accident Type
-    // TODO: add station's anim controls
 
     public GameObject workerLookAt;
     [HideInInspector] public PatrolPoint assossiatedPatrolPoint;
+    public Worker.JOB_TYPE workerType;
     public string workAnimation = "Work";
 
     private void Awake()
