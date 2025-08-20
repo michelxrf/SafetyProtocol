@@ -39,6 +39,7 @@ public class Worker : InteractableObject
         animator = GetComponentInChildren<Animator>();
         navMeshAgent = GetComponent<NavMeshAgent>();
         destinationReachedNotifier = GetComponent<AgentDestinationReachedNotifier>();
+        destinationReachedNotifier.OnDestinationReached += ReachDestination;
 
         // saves navMeshAgent speed for pausing and resuming worker movement
         navMeshAgentSpeed = navMeshAgent.speed;
@@ -56,13 +57,16 @@ public class Worker : InteractableObject
     /// </summary>
     private void ReachDestination()
     {
-        // makes the worker clickable and starts countdown to solution
+        if (assignedPoint == null)
+            return;
+
         animator.SetBool("isWalking", false);
 
         bool isDestinationAWorkstation = assignedPoint.GetComponent<Workstation>() != null ? true : false;
         if (isDestinationAWorkstation)
         {
             // if the spot the worker arrived is a workstation, do the following
+            viewportCamera = assignedPoint.GetComponent<Workstation>().viewPortCamera;
 
             currentState = STATE.WORKING;
             animator.SetBool("isWorking", true);
@@ -118,17 +122,6 @@ public class Worker : InteractableObject
         MoveToRandomPoint();
     }
 
-    private void OnEnable()
-    {
-        // register the action call so it triggers when destination is reached
-        destinationReachedNotifier.OnDestinationReached += ReachDestination;
-    }
-
-    private void OnDisable()
-    {
-        // de-register the action call so it won't crash by calling a disabled script
-        destinationReachedNotifier.OnDestinationReached -= ReachDestination;
-    }
     /// <summary>
     /// sends the worker to a specific patrol point on the level
     /// </summary>

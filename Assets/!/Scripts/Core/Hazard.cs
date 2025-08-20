@@ -6,6 +6,12 @@ using UnityEngine;
 /// </summary>
 public class Hazard : InteractableObject
 {
+    private void Awake()
+    {
+        viewportCamera = GetComponentInChildren<Camera>();
+        viewportCamera.gameObject.SetActive(false);
+    }
+
     /// <summary>
     /// It was solved correctly, score and go on with the game.
     /// </summary>

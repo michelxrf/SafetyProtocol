@@ -19,3 +19,6 @@ MonoBehaviour:
   - b
   - c
   - d
+  viewportTitle: "Z\xE9"
+  viewportUpperText: Um trabalhador
+  viewportLowerText: Trabalhando errado

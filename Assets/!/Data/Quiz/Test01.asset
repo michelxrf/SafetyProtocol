@@ -17,3 +17,6 @@ MonoBehaviour:
   - Sim
   wrongAnswers:
   - "N\xE3o"
+  viewportTitle: "J\xE3o"
+  viewportUpperText: Trabalador
+  viewportLowerText: Trabalhando agachado

@@ -126,6 +126,13 @@ public class UiQuizManager : MonoBehaviour
         // initialize timer to answer the question
         associatedObject = interactedObject;
 
+        interactedObject.viewportCamera.gameObject.SetActive(true);
+
+        uiDocument.rootVisualElement.Q<Label>("ViewportTitle").text = questionToShow.viewportTitle;
+        uiDocument.rootVisualElement.Q<Label>("UpperText").text = questionToShow.viewportUpperText;
+        uiDocument.rootVisualElement.Q<Label>("LowerText").text = questionToShow.viewportLowerText;
+
+
         uiDocument.rootVisualElement.Q<Label>("Question").text = questionToShow.question;
         uiDocument.rootVisualElement.Q<VisualElement>("AnswersContainer").Clear();
 

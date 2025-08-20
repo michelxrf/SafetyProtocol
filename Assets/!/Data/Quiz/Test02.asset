@@ -19,3 +19,6 @@ MonoBehaviour:
   wrongAnswers:
   - errada
   - errada
+  viewportTitle: Um buraco
+  viewportUpperText: "\xD3timo lugar para cair dentro"
+  viewportLowerText: "Q tal encher d'\xE1gua e chamar de lago?"

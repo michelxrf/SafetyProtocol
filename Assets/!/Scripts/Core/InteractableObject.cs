@@ -5,6 +5,8 @@ using UnityEngine;
     /// </summary>
 public class InteractableObject : MonoBehaviour
 {
+    [HideInInspector] public Camera viewportCamera;
+
     /// <summary>
     /// callback from quiz being answered.
     /// </summary>

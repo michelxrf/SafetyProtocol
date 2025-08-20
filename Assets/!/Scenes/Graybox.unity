@@ -2177,25 +2177,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 643705235}
     m_Modifications:
-    - target: {fileID: 1137990189337272617, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
-      propertyPath: workerManager
-      value: 
-      objectReference: {fileID: 2007603057}
-    - target: {fileID: 1137990189337272617, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
-      propertyPath: isAccidentTarget
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2428817643332909855, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.01538
+      value: 14.28
       objectReference: {fileID: 0}
     - target: {fileID: 2428817643332909855, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.04000002
+      value: 0.92
       objectReference: {fileID: 0}
     - target: {fileID: 2428817643332909855, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.30481
+      value: 1.61
       objectReference: {fileID: 0}
     - target: {fileID: 2428817643332909855, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2224,14 +2216,6 @@ PrefabInstance:
     - target: {fileID: 2428817643332909855, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3387374593447051408, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
-      propertyPath: QuizUi
-      value: 
-      objectReference: {fileID: 102192623}
-    - target: {fileID: 3387374593447051408, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
-      propertyPath: questionData
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5831327300163219856, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
       propertyPath: m_Name
@@ -2890,7 +2874,7 @@ PrefabInstance:
       objectReference: {fileID: 102192623}
     - target: {fileID: 2944574125477364198, guid: e6872dfb866c910429b5365602840a7d, type: 3}
       propertyPath: debugMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2944574125477364198, guid: e6872dfb866c910429b5365602840a7d, type: 3}
       propertyPath: idleChance
@@ -3199,9 +3183,9 @@ SceneRoots:
   - {fileID: 5276108377453257658}
   - {fileID: 1346339159}
   - {fileID: 643705235}
+  - {fileID: 1360002088}
   - {fileID: 245361502}
   - {fileID: 4257511513449265541}
-  - {fileID: 1360002088}
   - {fileID: 1255827582340729884}
   - {fileID: 8877546783609373925}
   - {fileID: 429149553}
