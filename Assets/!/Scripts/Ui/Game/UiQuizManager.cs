@@ -112,6 +112,7 @@ public class UiQuizManager : MonoBehaviour
     /// </summary>
     private void OnCloseClicked()
     {
+        associatedObject.viewportCamera.gameObject.SetActive(false);
         associatedObject = null;
         ScreenSelector.Instance.SwitchScreen(ScreenSelector.SCREENMODE.GAME);
 
@@ -126,7 +127,7 @@ public class UiQuizManager : MonoBehaviour
         // initialize timer to answer the question
         associatedObject = interactedObject;
 
-        interactedObject.viewportCamera.gameObject.SetActive(true);
+        associatedObject.viewportCamera.gameObject.SetActive(true);
 
         uiDocument.rootVisualElement.Q<Label>("ViewportTitle").text = questionToShow.viewportTitle;
         uiDocument.rootVisualElement.Q<Label>("UpperText").text = questionToShow.viewportUpperText;
