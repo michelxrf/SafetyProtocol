@@ -16,7 +16,7 @@ public class LeaderboardManager : MonoBehaviour
     public string playerID { get; private set; }
     public string playerName { get; private set; } = String.Empty;
     public int playerScore { get; private set; } = -1;
-    public string leaderboardName { get; private set; } = String.Empty; 
+    public string leaderboardName { get; private set; } = null; 
 
     [Header("Connection Settings")]
     [SerializeField] float forcedRetryInterval = 10f; // After an failed attempt to conect, tries again after this amount of seconds
@@ -48,6 +48,7 @@ public class LeaderboardManager : MonoBehaviour
     // Actions
     public Action<GetLeaderboardResult> OnLeaderboardReceived;
     public Action<GetLeaderboardAroundPlayerResult> OnPlayerScoreReceived;
+    public Action OnSignIn;
     public Action OnScoreSubmitted;
     public Action OnFailedToConnect;
     public Action OnEmptyLeadearboardReceived;
@@ -92,7 +93,11 @@ public class LeaderboardManager : MonoBehaviour
         var request = new LoginWithCustomIDRequest()
         {
             CustomId = SystemInfo.deviceUniqueIdentifier,
-            CreateAccount = true
+            CreateAccount = true,
+            InfoRequestParameters = new GetPlayerCombinedInfoRequestParams
+            {
+                GetPlayerProfile = true
+            }
         };
 
         PlayFabClientAPI.LoginWithCustomID(request, OnAuthSuccess, OnAuthError);
@@ -108,10 +113,17 @@ public class LeaderboardManager : MonoBehaviour
         // Updates conection flags and counters
         playerID = result.PlayFabId;
 
+        if(!result.NewlyCreated)
+        {
+            playerName = result.InfoResultPayload?.PlayerProfile.DisplayName;
+            nameSubmitted = true;
+        }
+        
         loggedIn = true;
         retryAuthCount = 0;
 
         Debug.Log("Succesfully signed in");
+        OnSignIn?.Invoke();
 
         // Calls to change player name after auth, used in reconections
         if (!nameSubmitted && playerName.Length > 0)
@@ -275,6 +287,9 @@ public class LeaderboardManager : MonoBehaviour
     /// <param name="score">The score to send.</param>
     public void SubmitCurrentScore(int score)
     {
+        if (playerScore > score)
+            return;
+
         playerScore = score;
 
         // retries to login, used when connection was lost
@@ -473,7 +488,7 @@ public class LeaderboardManager : MonoBehaviour
     /// A delayed score call, verify if it still fits the use. TODO: This might not make sense in the current project.
     /// </summary>
     /// <returns></returns>
-    private IEnumerator GetScoresAsync()
+    public IEnumerator GetScoresAsync()
     {
         yield return new WaitForSeconds(2);
 
@@ -547,6 +562,7 @@ public class LeaderboardManager : MonoBehaviour
     private void OnGetPlayerScoreSuccess(GetLeaderboardAroundPlayerResult result)
     {
         Debug.Log("best player score received");
+        playerScore = result.Leaderboard[0].StatValue;
         OnPlayerScoreReceived?.Invoke(result);
     }
 

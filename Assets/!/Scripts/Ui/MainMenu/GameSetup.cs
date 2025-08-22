@@ -1,9 +1,10 @@
 using System.Linq;
 using PlayFab.ClientModels;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
+using System.Collections.Generic;
+using Unity.VisualScripting;
 
 /// <summary>
 /// Controls the screen that will be used to set up the game.
@@ -24,6 +25,10 @@ public class GameSetup : MonoBehaviour
 
     Label playerScoreEntry = null;
 
+    [Header("Profanity Blocklist")]
+    [SerializeField] private TextAsset[] profaneListFiles;
+    private List<string> profanityList = new List<string>();
+
     private void Awake()
     {
         // set up game setup screen
@@ -42,13 +47,19 @@ public class GameSetup : MonoBehaviour
         usernameInput = uiDocument.rootVisualElement.Q<TextField>("UserName");
         usernameInput.isDelayed = true;
         usernameInput.RegisterValueChangedCallback(evt => { UsernameChanged(usernameInput.value); usernameInput.Blur(); });
+        usernameInput.RegisterCallback<FocusOutEvent>(evt => { VerifyAndAllowGameStart(); });
         usernameInput.RegisterCallback<FocusInEvent>(evt => { LockGameStartOnEdit(); });
+        usernameInput.RegisterCallback<KeyDownEvent>(FilterInputChars, TrickleDown.TrickleDown);
+        usernameInput.maxLength = 25;
 
         // init "nome da turma" input field
         leaderboardNameInput = uiDocument.rootVisualElement.Q<TextField>("LeaderboardName");
         leaderboardNameInput.isDelayed = true;
         leaderboardNameInput.RegisterValueChangedCallback(evt => { ClassNameChanged(leaderboardNameInput.value); leaderboardNameInput.Blur(); });
         leaderboardNameInput.RegisterCallback<FocusInEvent>(evt => { LockGameStartOnEdit(); });
+        leaderboardNameInput.RegisterCallback<FocusOutEvent>(evt => VerifyAndAllowGameStart());
+        leaderboardNameInput.RegisterCallback<KeyDownEvent>(FilterInputChars, TrickleDown.TrickleDown);
+        leaderboardNameInput.maxLength = 25;
 
         // init level select
         gameMap = uiDocument.rootVisualElement.Q<RadioButtonGroup>("Map");
@@ -60,10 +71,51 @@ public class GameSetup : MonoBehaviour
 
         header = uiDocument.rootVisualElement.Q<VisualElement>("Header");
         header.style.display = DisplayStyle.None;
+
+        // loads profanity blocklist
+        foreach(TextAsset profaneFile in profaneListFiles)
+        {
+            profanityList.AddRange(profaneFile.text.Split("\n"));
+        }
+        if(profanityList.Count > 0)
+            EnhanceProfanityByVariety();
     }
 
     private void Start()
     {
+        if (SettingsKeeper.Instance.classRoomName != null)
+        {
+            leaderboardNameInput.SetValueWithoutNotify(SettingsKeeper.Instance.classRoomName);
+            
+            foreach (string option in difficultySetting.choices.ToList())
+            {
+                if (option == SettingsKeeper.Instance.dificultyLevel)
+                {
+                    difficultySetting.SetValueWithoutNotify(difficultySetting.choices.ToList().IndexOf(option));
+                    break;
+                }
+            }
+            foreach (string option in gameMap.choices.ToList())
+            {
+                if (option == SettingsKeeper.Instance.gameMap)
+                {
+                    gameMap.SetValueWithoutNotify(gameMap.choices.ToList().IndexOf(option));
+                    break;
+                }
+            }
+
+            LeaderboardManager.Instance.GetTop10Scores();
+            LeaderboardManager.Instance.GetPlayerScore();
+        }
+
+        if(LeaderboardManager.Instance.playerName != null)
+        {
+            usernameInput.SetValueWithoutNotify(LeaderboardManager.Instance.playerName);
+        }
+
+
+
+        LeaderboardManager.Instance.OnSignIn += NameReceived;
         LeaderboardManager.Instance.OnLeaderboardReceived += PopulateLeaderboard;
         LeaderboardManager.Instance.OnEmptyLeadearboardReceived += ShowEmptyLeaderboard;
     }
@@ -75,6 +127,14 @@ public class GameSetup : MonoBehaviour
     {
         Hide();
         tittleScreen.Show();
+    }
+
+    /// <summary>
+    /// Auto fill player name
+    /// </summary>
+    private void NameReceived()
+    {
+        usernameInput.SetValueWithoutNotify(LeaderboardManager.Instance.playerName);
     }
 
     public void Show()
@@ -138,6 +198,32 @@ public class GameSetup : MonoBehaviour
     }
 
     /// <summary>
+    /// Configs the textfield to stop any symbols and empty spaces from being accepted
+    /// </summary>
+    private void FilterInputChars(KeyDownEvent evt)
+    {
+        // allow nav keys
+        if (evt.keyCode == KeyCode.Backspace ||
+            evt.keyCode == KeyCode.Delete ||
+            evt.keyCode == KeyCode.RightArrow ||
+            evt.keyCode == KeyCode.LeftArrow ||
+            evt.keyCode == KeyCode.Home ||
+            evt.keyCode == KeyCode.End ||
+            evt.keyCode == KeyCode.KeypadEnter ||
+            evt.keyCode == KeyCode.Return ||
+            evt.keyCode == KeyCode.Escape
+            ) { return; }
+
+        char typedChar = evt.character;
+
+        // prevent spaces and symbols
+        if (!char.IsLetterOrDigit(typedChar))
+        {
+            evt.StopPropagation();
+        }
+    }
+
+    /// <summary>
     /// Called when player inputs a new username, should filter for profanity and update username on the backend
     /// </summary>
     /// <param name="newName">New playername</param>
@@ -145,7 +231,7 @@ public class GameSetup : MonoBehaviour
     {
         if (!IsTextSafe(newName))
         {
-            leaderboardNameInput.value = string.Empty;
+            usernameInput.SetValueWithoutNotify(LeaderboardManager.Instance.playerName != null ? LeaderboardManager.Instance.playerName : string.Empty);
             VerifyAndAllowGameStart();
             return;
         }
@@ -182,10 +268,12 @@ public class GameSetup : MonoBehaviour
 
         VerifyAndAllowGameStart();
 
-
+        SettingsKeeper.Instance.HoldLevelData(difficultyName, newName, gameMapName);
         LeaderboardManager.Instance.ChangeLeaderboardName(ComposeLeaderboardName(difficultyName, newName, gameMapName));
         LeaderboardManager.Instance.GetTop10Scores();
-        LeaderboardManager.Instance.GetPlayerScore();
+
+        if(LeaderboardManager.Instance.playerScore < 0)
+            LeaderboardManager.Instance.GetPlayerScore();
     }
 
     /// <summary>
@@ -206,7 +294,6 @@ public class GameSetup : MonoBehaviour
     /// <returns></returns>
     string ComposeLeaderboardName(string dificultyLevel, string classRoomName, string gameMap)
     {
-        Debug.Log(classRoomName + "-" + gameMap + "-" + dificultyLevel);
         return classRoomName + "-" + gameMap + "-" + dificultyLevel;
     }
 
@@ -217,8 +304,17 @@ public class GameSetup : MonoBehaviour
     /// <returns>True for safe same, False otherwise</returns>
     bool IsTextSafe(string text)
     {
-        if (text.Length == 0)
+        if (text.Length < 3 || text.Length > 25)
             return false;
+
+        foreach (string s in profanityList)
+        {
+            if (string.Equals(s.Trim().ToLower(), text.Trim().ToLower()))
+            {
+                Debug.Log("profanity detected");
+                return false;
+            }
+        }
 
         return true;
     }
@@ -272,7 +368,54 @@ public class GameSetup : MonoBehaviour
     /// </summary>
     void VerifyAndAllowGameStart()
     {
-        startGameButton.SetEnabled((leaderboardNameInput.value.Length > 0));
+        startGameButton.SetEnabled(leaderboardNameInput.value.Length > 0 && usernameInput.value.Length > 0);
+    }
+
+    /// <summary>
+    /// Tries to prevent player's creative ways to pass the profanity protection
+    /// </summary>
+    public void EnhanceProfanityByVariety()
+    {
+        List<string> profaneWordsTemp = new List<string>(profanityList);
+
+        foreach (string word in profaneWordsTemp)
+        {
+            string temp;
+            temp = word.Replace("e", "3");
+            profanityList.Add(temp);
+            temp = word.Replace("a", "4");
+            profanityList.Add(temp);
+            temp = word.Replace("o", "0");
+            profanityList.Add(temp);
+            temp = word.Replace("e", "ee");
+            profanityList.Add(temp);
+            temp = word.Replace("a", "aa");
+            profanityList.Add(temp);
+            temp = word.Replace("a", "aaa");
+            profanityList.Add(temp);
+            temp = word.Replace("a", "aaaa");
+            profanityList.Add(temp);
+            temp = word.Replace("a", "aaaaa");
+            profanityList.Add(temp);
+            temp = word.Replace("l", "1");
+            profanityList.Add(temp);
+            temp = word.Replace("i", "1");
+            profanityList.Add(temp);
+            temp = word.Replace("t", "tt");
+            profanityList.Add(temp);
+            temp = word.Replace("e", "eee");
+            profanityList.Add(temp);
+            temp = word.Replace("b", "8");
+            profanityList.Add(temp);
+            temp = word.Replace("f", "ff");
+            profanityList.Add(temp);
+            temp = word.Replace("b", "3");
+            profanityList.Add(temp);
+            temp = word.Replace("t", "7");
+            profanityList.Add(temp);
+            temp = word.Replace("s", "5");
+            profanityList.Add(temp);
+        }
     }
 
     /// <summary>
@@ -280,7 +423,8 @@ public class GameSetup : MonoBehaviour
     /// </summary>
     private void OnDestroy()
     {
-        LeaderboardManager.Instance.OnLeaderboardReceived -= PopulateLeaderboard;
-        LeaderboardManager.Instance.OnEmptyLeadearboardReceived -= ClearLeaderboard;
+        LeaderboardManager.Instance.OnLeaderboardReceived = null;
+        LeaderboardManager.Instance.OnEmptyLeadearboardReceived = null;
+        LeaderboardManager.Instance.OnSignIn = null;
     }
 }

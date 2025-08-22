@@ -18,15 +18,10 @@
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="WorkerViewport" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/HudPanel.png?fileID=2800000&amp;guid=bb38e34d76261ce4087d9ff600dde8f0&amp;type=3#HudPanel&quot;); -unity-slice-left: 64; -unity-slice-top: 64; -unity-slice-right: 64; -unity-slice-bottom: 64; height: 750px; width: 600px; margin-right: 100px; margin-left: 100px; padding-left: 20px; padding-right: 20px; padding-top: 10px; padding-bottom: 10px;">
-            <ui:VisualElement name="QuestionContainer" style="flex-grow: 1; flex-direction: row;">
-                <ui:VisualElement style="flex-grow: 1;">
-                    <ui:Label text="Worker Viewport (WIP)" class="font-barlow-bold" style="height: auto; align-content: auto; -unity-text-align: upper-center; font-size: 32px;" />
-                    <ui:Label text="Aqui vai ficar um viewport para o jogador ver o trabalhador enqaunto ele trabalha para facilitar encontrar equipamentos errados." class="font-barlow-regular" style="font-size: 32px; white-space: pre-wrap;" />
-                </ui:VisualElement>
-            </ui:VisualElement>
-            <ui:VisualElement name="View" style="width: 500px; height: 500px; align-self: center; background-image: url(&quot;project://database/Assets/!/Sprites/Inventory%20Items/Boot.jpg?fileID=2800000&amp;guid=e16269b5450c634408acec58189f1849&amp;type=3#Boot&quot;);">
-                <ui:Label text="PLACEHOLDER" style="font-size: 64px; color: rgb(255, 10, 0); -unity-text-outline-width: 1px; -unity-text-outline-color: rgb(0, 0, 0);" />
-            </ui:VisualElement>
+            <ui:Label text="Label" name="ViewportTitle" style="font-size: 32px; -unity-font-definition: url(&quot;project://database/Assets/!/Fonts/Barlow/Barlow-Bold.ttf?fileID=12800000&amp;guid=b6fda5bf6e56b194da1cfd4a2a2dde5c&amp;type=3#Barlow-Bold&quot;);" />
+            <ui:Label text="Label" name="UpperText" style="-unity-font-definition: url(&quot;project://database/Assets/!/Fonts/Barlow/Barlow-Regular.ttf?fileID=12800000&amp;guid=6a4bdc0fad33a1040a0b506eb3b3ffd8&amp;type=3#Barlow-Regular&quot;); font-size: 32px;" />
+            <ui:VisualElement name="View" style="background-image: url(&quot;project://database/Assets/!/UI/QuizViewport.renderTexture?fileID=8400000&amp;guid=e7cd321d806280545bc34b022bc5aaa4&amp;type=2#QuizViewport&quot;); width: 550px; height: 550px;" />
+            <ui:Label text="Label" name="LowerText" style="-unity-font-definition: url(&quot;project://database/Assets/!/Fonts/Barlow/Barlow-Regular.ttf?fileID=12800000&amp;guid=6a4bdc0fad33a1040a0b506eb3b3ffd8&amp;type=3#Barlow-Regular&quot;); font-size: 32px;" />
         </ui:VisualElement>
         <ui:VisualElement name="Buttons" style="flex-grow: 1; flex-direction: row; position: absolute; top: 966px; justify-content: center; left: 0; right: 0;">
             <ui:Button text="Fechar" name="CloseButton" class="y-button" />

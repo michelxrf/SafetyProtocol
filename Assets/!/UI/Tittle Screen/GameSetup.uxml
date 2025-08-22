@@ -9,8 +9,8 @@
         <ui:VisualElement style="flex-grow: 0; justify-content: space-around; left: 102px; right: auto; flex-shrink: 0; position: absolute; bottom: auto; top: 169px; background-image: url(&quot;project://database/Assets/!/UI/Assets/MenuPanel.png?fileID=2800000&amp;guid=39e2698ca8449aa4d8f3720c01bfc962&amp;type=3#MenuPanel&quot;); width: 838px; height: 738px;">
             <ui:Label text="CONFIGURAÇÕES DA PARTIDA" name="Label" class="font-barlow-bold" style="-unity-text-align: upper-center; width: 370px; align-items: center; align-self: center; margin-top: 27px; margin-bottom: 21px; font-size: 28px;" />
             <ui:VisualElement name="InputFields" class="font-barlow-regular" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/!/UI/Assets/MenuPanel2.png?fileID=2800000&amp;guid=4b081b28c8adbe7478a0b4bf3482c87f&amp;type=3#MenuPanel2&quot;); width: 805px; align-self: center;">
-                <ui:TextField label="Aluno" placeholder-text="aluno123" name="UserName" max-length="21" />
-                <ui:TextField label="Turma" placeholder-text="turma123" name="LeaderboardName" hide-placeholder-on-focus="true" />
+                <ui:TextField label="Aluno" placeholder-text="digite o seu nome..." name="UserName" max-length="21" />
+                <ui:TextField label="Turma" placeholder-text="digite o nome da turma..." name="LeaderboardName" hide-placeholder-on-focus="true" />
             </ui:VisualElement>
             <ui:VisualElement name="LevelSetup" class="font-regular" style="flex-grow: 1; justify-content: flex-start; background-image: none; width: 805px; align-self: center; margin-bottom: 0; margin-top: 0; margin-right: 0; margin-left: 0; align-content: auto;">
                 <ui:RadioButtonGroup label="Dificuldade" choices="Normal,Difícil" value="0" name="Difficulty" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/MenuPanel2.png?fileID=2800000&amp;guid=4b081b28c8adbe7478a0b4bf3482c87f&amp;type=3#MenuPanel2&quot;); margin-top: 12px;" />
