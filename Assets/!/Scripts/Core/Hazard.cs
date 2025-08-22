@@ -6,10 +6,17 @@ using UnityEngine;
 /// </summary>
 public class Hazard : InteractableObject
 {
+    public bool dontDestroyOnRandomization = false;
+
     private void Awake()
     {
         viewportCamera = GetComponentInChildren<Camera>();
         viewportCamera.gameObject.SetActive(false);
+    }
+
+    private void Start()
+    {
+        WorkerManager.Instance.hazards.Add(this);
     }
 
     /// <summary>
@@ -36,7 +43,7 @@ public class Hazard : InteractableObject
     /// <summary>
     /// Prevents the player from interaction with it again.
     /// </summary>
-    private void DisableInteraction()
+    public void DisableInteraction()
     {
         Destroy(GetComponent<Clickable>());
     }

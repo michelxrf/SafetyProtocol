@@ -28,6 +28,8 @@ public class Worker : InteractableObject
     [HideInInspector] public PatrolPoint assignedPoint;
     [HideInInspector] public bool isAccidentTarget = false;
 
+    public bool dontDestroyOnRandomization = false;
+
     void Awake()
     {
         // disables worker quiz till it gets called to accident

@@ -24,6 +24,9 @@ public class WorkerManager : MonoBehaviour
     [SerializeField] int solveAccidentScore = 100;
     [SerializeField] int solveHazzardScore = 50;
     [SerializeField] int perSecondScore = 3;
+    [SerializeField] bool disableRandomization = false;
+    [Range(0f, 1f)]
+    [SerializeField] float randomizerDisablePercentage = .25f;
 
     [Header("Worker Behavior")]
     [Range(0f, 1f)]
@@ -48,6 +51,7 @@ public class WorkerManager : MonoBehaviour
     [HideInInspector] public List<PatrolPoint> patrolPoints = new();
     [HideInInspector] public List<Worker> workers = new();
     [HideInInspector] public List<Workstation> workstations = new();
+    [HideInInspector] public List<Hazard> hazards = new();
 
     [HideInInspector] public float gameTime = 0f;
 
@@ -62,27 +66,94 @@ public class WorkerManager : MonoBehaviour
         {
             Instance = this;
 
-            totalHazzards = FindObjectsByType<Hazard>(FindObjectsSortMode.None).Length;
-            totalAccidents = accidentEventsList.Count;
-
-            if (playerCamera == null)
-                playerCamera = FindFirstObjectByType<CameraController>();
-
-            if (hudManager == null)
-                hudManager = FindFirstObjectByType<HudManager>();
-
-            if (accidentScreen == null)
-                accidentScreen = FindFirstObjectByType<AccidentScreen>();
-
-            if (gameEndScreen == null)
-                gameEndScreen = FindFirstObjectByType<GameEndScreen>();
-
             // generate patrol points based on the navMesh
             if (gerenateRandomPoints > 0)
             {
                 patrolPoints.AddRange(GetComponent<TriangulationSampler>().GenerateRandomPatrolPoints(gerenateRandomPoints));
             }
         }
+    }
+
+    private void Start()
+    {
+        // ensures required refs were defined
+        if (playerCamera == null)
+            playerCamera = FindFirstObjectByType<CameraController>();
+
+        if (hudManager == null)
+            hudManager = FindFirstObjectByType<HudManager>();
+
+        if (accidentScreen == null)
+            accidentScreen = FindFirstObjectByType<AccidentScreen>();
+
+        if (gameEndScreen == null)
+            gameEndScreen = FindFirstObjectByType<GameEndScreen>();
+
+        // Randomly disables some of the hazzards and accidents
+        if(!disableRandomization)
+            RandomizeLevel();
+
+        // gets totals
+        totalHazzards = hazards.Count;
+        totalAccidents = accidentEventsList.Count;
+
+        InitAllWorkersMovement();
+        CallNextAccident();
+        hudManager.UpdateScores();
+    }
+
+    /// <summary>
+    /// Disable some of the hazzards and accidents to give the level some randomness
+    /// </summary>
+    private void RandomizeLevel()
+    {
+        // sets the seed using the classroom name, so every student in the class plays the same game
+        Random.InitState(SettingsKeeper.Instance.classRoomName.GetHashCode());
+
+        // deletes the defined percentage of accidents from the list, ignoring those marked for keeping
+        List<AccidentEvent> nonRequiredAccidents = accidentEventsList.FindAll(a => a.accidentData.dontDestroyOnRandomization == false);
+        int numberOfAccidentsToElminate = Mathf.FloorToInt(nonRequiredAccidents.Count * randomizerDisablePercentage);
+        Debug.Log($"Will eliminate {numberOfAccidentsToElminate} accidents of {accidentEventsList.Count}");
+
+        for( int i = 0; i < numberOfAccidentsToElminate; i++ )
+        {
+            AccidentEvent eliminateThis = nonRequiredAccidents[Random.Range(0, nonRequiredAccidents.Count - 1)];
+            accidentEventsList.Remove(eliminateThis);
+        }
+        // ---
+
+        // prevent the workers in the accident list from being deleted
+        foreach(AccidentEvent accident in accidentEventsList)
+        {
+            accident.worker.dontDestroyOnRandomization = true;
+        }
+
+        // removes the workers
+        List<Worker> nonEssentialWorkers = workers.FindAll(w => w.dontDestroyOnRandomization == false);
+
+        int NumberOfWorkersToDelete = Mathf.FloorToInt(nonEssentialWorkers.Count * randomizerDisablePercentage);
+        Debug.Log($"Will eliminate {NumberOfWorkersToDelete} workers of {workers.Count}");
+        for ( int i = 0; i < NumberOfWorkersToDelete; i++ )
+        {
+            Worker eliminateThis = nonEssentialWorkers[Random.Range(0, nonEssentialWorkers.Count - 1)];
+            workers.Remove(eliminateThis);
+            Destroy(eliminateThis.gameObject);
+        }
+        // ---
+
+        // removes the Hazzards
+        List<Hazard> nonEssentialHazzards = hazards.FindAll(h => h.dontDestroyOnRandomization == false);
+
+        int NumberOfHazzardsToDelete = Mathf.FloorToInt(nonEssentialHazzards.Count * randomizerDisablePercentage);
+        Debug.Log($"Will eliminate {NumberOfHazzardsToDelete} hazzards of {hazards.Count}");
+        for (int i = 0; i < NumberOfHazzardsToDelete; i++)
+        {
+            Hazard eliminateThis = nonEssentialHazzards[Random.Range(0, nonEssentialHazzards.Count - 1)];
+            hazards.Remove(eliminateThis);
+            eliminateThis.GetComponent<InventorySystem>().ReverseEquipment();
+            eliminateThis.DisableInteraction();
+        }
+        // ---
     }
 
     /// <summary>
@@ -103,11 +174,7 @@ public class WorkerManager : MonoBehaviour
         isCountingDown = false;
         workerInAccidentEvent = null;
     }
-    private void Start()
-    {
-        InitAllWorkersMovement();
-        CallNextAccident();
-    }
+    
 
     private void Update()
     {
