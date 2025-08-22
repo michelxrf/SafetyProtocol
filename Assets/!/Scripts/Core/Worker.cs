@@ -28,7 +28,6 @@ public class Worker : InteractableObject
     [HideInInspector] public PatrolPoint assignedPoint;
     [HideInInspector] public bool isAccidentTarget = false;
 
-
     void Awake()
     {
         // disables worker quiz till it gets called to accident
@@ -167,7 +166,7 @@ public class Worker : InteractableObject
     /// </summary>
     public void MoveToRandomPoint()
     {
-        PatrolPoint nextTarget = WorkerManager.Instance.GetRandomPoint(workerType);
+        PatrolPoint nextTarget = WorkerManager.Instance.GetRandomPoint(this);
                 
         if (nextTarget != null)
         {
@@ -175,7 +174,8 @@ public class Worker : InteractableObject
         }
         else
         {
-            MoveToRandomPoint();
+            Debug.LogWarning("Patrol Point is null, this mean there's not enough patrol points in the level");
+            StartCoroutine(WaitForSeconds(minIdleTime, maxIdleTime));
         }
     }
 

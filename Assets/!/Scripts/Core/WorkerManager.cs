@@ -181,30 +181,30 @@ public class WorkerManager : MonoBehaviour
     /// <summary>
     /// returns the Patrol Point of a random free workstation
     /// </summary>
-    public PatrolPoint GetRandomWorkstation(Worker.JOB_TYPE jobType)
+    public PatrolPoint GetRandomWorkstation(Worker workerWhoRequested)
     {
         // filter non empty workstations
         List<Workstation> freeWorkstations = workstations.FindAll(n => n.assossiatedPatrolPoint.assignedWorker == null);
 
-        // filter workstations of differnet job type
-        List<Workstation> sameTagWorkstations = freeWorkstations.FindAll(n => n.workerType == jobType);
+        // filter only the stations that allow this worker
+        List<Workstation> workerAllowed = freeWorkstations.FindAll(s => s.IsWorkerAllowed(workerWhoRequested));
 
-        if (sameTagWorkstations.Count > 0)
+        if (workerAllowed.Count > 0)
         {
             List<PatrolPoint> assossiatedPatrols = new List<PatrolPoint>();
 
-            foreach (Workstation workstation in sameTagWorkstations)
+            foreach (Workstation workstation in workerAllowed)
             {
                 assossiatedPatrols.Add(workstation.assossiatedPatrolPoint);
             }
 
-            return assossiatedPatrols[Random.Range(0, sameTagWorkstations.Count)];
+            return assossiatedPatrols[Random.Range(0, workerAllowed.Count)];
         }
 
         else
         {
-            Debug.LogWarning("no free workstation found. Too few workstations for this worker population?");
-            return null;
+            Debug.LogWarning($"{workerWhoRequested.transform.name} couln't find a free workstation.");
+            return GetRandomPatrolPoint();
         }
     }
 
@@ -212,7 +212,7 @@ public class WorkerManager : MonoBehaviour
     /// Returns a random free patrol point, either a workstation or simple patrol point.
     /// Worsktation chance is defined by idleChance variable.
     /// </summary>
-    public PatrolPoint GetRandomPoint(Worker.JOB_TYPE jobType)
+    public PatrolPoint GetRandomPoint(Worker workerWhoRequested)
     {
         if (Random.Range(0f, 1f) <= idleChance)
         {
@@ -220,7 +220,7 @@ public class WorkerManager : MonoBehaviour
         }
         else
         {
-            return GetRandomWorkstation(jobType);
+            return GetRandomWorkstation(workerWhoRequested);
         }
     }
 
