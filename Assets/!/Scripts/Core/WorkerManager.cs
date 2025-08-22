@@ -107,6 +107,9 @@ public class WorkerManager : MonoBehaviour
     /// </summary>
     private void RandomizeLevel()
     {
+        if (SettingsKeeper.Instance == null || SettingsKeeper.Instance.classRoomName == null)
+            return;
+
         // sets the seed using the classroom name, so every student in the class plays the same game
         Random.InitState(SettingsKeeper.Instance.classRoomName.GetHashCode());
 
