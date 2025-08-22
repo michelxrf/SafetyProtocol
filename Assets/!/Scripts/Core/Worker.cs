@@ -61,12 +61,12 @@ public class Worker : InteractableObject
             return;
 
         animator.SetBool("isWalking", false);
+        viewportCamera = assignedPoint.viewPortCamera;
 
         bool isDestinationAWorkstation = assignedPoint.GetComponent<Workstation>() != null ? true : false;
         if (isDestinationAWorkstation)
         {
             // if the spot the worker arrived is a workstation, do the following
-            viewportCamera = assignedPoint.GetComponent<Workstation>().viewPortCamera;
 
             currentState = STATE.WORKING;
             animator.SetBool("isWorking", true);

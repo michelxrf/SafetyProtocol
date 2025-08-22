@@ -64,7 +64,7 @@ public class LeaderboardManager : MonoBehaviour
         else
         {
             Instance = this;
-            DontDestroyOnLoad(Instance);
+            DontDestroyOnLoad(gameObject);
             AuthAsGuest();
         }
     }

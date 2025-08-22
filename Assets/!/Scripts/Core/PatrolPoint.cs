@@ -7,6 +7,7 @@ public class PatrolPoint : MonoBehaviour
 {
     [HideInInspector] public Worker assignedWorker;
     [HideInInspector] public bool isWorkerHere = false;
+    [HideInInspector] public Camera viewPortCamera;
 
     private void Start()
     {
@@ -20,6 +21,9 @@ public class PatrolPoint : MonoBehaviour
         {
             WorkerManager.Instance.patrolPoints.Add(this);
         }
+
+        viewPortCamera = GetComponentInChildren<Camera>();
+        viewPortCamera.gameObject.SetActive(false);
     }
 
 
