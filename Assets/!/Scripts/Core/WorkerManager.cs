@@ -19,12 +19,13 @@ public class WorkerManager : MonoBehaviour
     GameEndScreen gameEndScreen;
 
     [Header("Settings")]
-    public bool debugMode = true;
+    //public bool debugMode = true;
     [SerializeField] private bool generateRandomPatrolPoints;
     private bool isGamePaused = false;
     [SerializeField] int solveAccidentScore = 100;
     [SerializeField] int solveHazzardScore = 50;
     [SerializeField] int perSecondScore = 3;
+    [SerializeField] int points = 100;
 
     [Header("Worker Behavior")]
     [Range(0f, 1f)]

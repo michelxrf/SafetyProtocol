@@ -11,8 +11,6 @@ public class PatrolPoint : MonoBehaviour
     private void Start()
     {
         // hides the markers
-        GetComponent<MeshRenderer>().enabled = WorkerManager.Instance.debugMode;
-
         Workstation workstation = GetComponent<Workstation>();
         if (workstation != null )
         {
@@ -44,5 +42,14 @@ public class PatrolPoint : MonoBehaviour
 
         assignedWorker.assignedPoint = null;
         assignedWorker = null;
+    }
+
+    /// <summary>
+    /// visual debugging of generated points
+    /// </summary>
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(transform.position, 0.5f);
     }
 }
