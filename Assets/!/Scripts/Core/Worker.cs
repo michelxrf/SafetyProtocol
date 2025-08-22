@@ -21,10 +21,8 @@ public class Worker : InteractableObject
     [Header("Work")]
     [SerializeField] private float minWorkTime = 5f;
     [SerializeField] private float maxWorkTime = 20f;
-    [SerializeField] public JOB_TYPE workerType;
     [HideInInspector] public STATE currentState;
     public enum STATE { IDLING, MOVING, WORKING };
-    public enum JOB_TYPE { CONSTRUCTION, ELECTRICAL, HEIGHT, PLUMBING, SOLDERING };
     [HideInInspector] public PatrolPoint assignedPoint;
     [HideInInspector] public bool isAccidentTarget = false;
 
