@@ -105,7 +105,7 @@ public class GameEndLeaderboard : MonoBehaviour
 
     private void OnBackToMenuClicked()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("MainMenu");
     }
 
     private void OnDestroy()

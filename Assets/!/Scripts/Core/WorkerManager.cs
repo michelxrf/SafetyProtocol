@@ -1,9 +1,5 @@
-using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Drawing;
-using UnityEditor.SearchService;
-using UnityEngine.SceneManagement;
 
 /// <summary>
 /// Directs the workers on a level, sending them to random patrols, workstations and accident events.

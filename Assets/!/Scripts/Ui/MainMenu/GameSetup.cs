@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 /// <summary>
 /// Controls the screen that will be used to set up the game.
@@ -13,6 +12,7 @@ public class GameSetup : MonoBehaviour
 {
     UIDocument uiDocument;
     [SerializeField] TitleScreen tittleScreen;
+
     VisualElement header;
 
     TextField leaderboardNameInput;
@@ -341,7 +341,8 @@ public class GameSetup : MonoBehaviour
     /// </summary>
     private void StartGame()
     {
-        SceneManager.LoadScene(1);
+
+        SceneManager.LoadScene(gameMap.choices.ToList()[gameMap.value]);
     }
 
     /// <summary>

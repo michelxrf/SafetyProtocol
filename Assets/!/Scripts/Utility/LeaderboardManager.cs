@@ -562,6 +562,10 @@ public class LeaderboardManager : MonoBehaviour
     private void OnGetPlayerScoreSuccess(GetLeaderboardAroundPlayerResult result)
     {
         Debug.Log("best player score received");
+
+        if (result.Leaderboard.Count == 0)
+            return;
+        
         playerScore = result.Leaderboard[0].StatValue;
         OnPlayerScoreReceived?.Invoke(result);
     }

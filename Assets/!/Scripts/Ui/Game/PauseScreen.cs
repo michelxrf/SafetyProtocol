@@ -34,6 +34,6 @@ public class PauseScreen : MonoBehaviour
     /// </summary>
     private void QuitClicked()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene("MainMenu");
     }
 }

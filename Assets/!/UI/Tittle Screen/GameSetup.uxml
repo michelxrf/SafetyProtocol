@@ -14,7 +14,7 @@
             </ui:VisualElement>
             <ui:VisualElement name="LevelSetup" class="font-regular" style="flex-grow: 1; justify-content: flex-start; background-image: none; width: 805px; align-self: center; margin-bottom: 0; margin-top: 0; margin-right: 0; margin-left: 0; align-content: auto;">
                 <ui:RadioButtonGroup label="Dificuldade" choices="Normal,Difícil" value="0" name="Difficulty" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/MenuPanel2.png?fileID=2800000&amp;guid=4b081b28c8adbe7478a0b4bf3482c87f&amp;type=3#MenuPanel2&quot;); margin-top: 12px;" />
-                <ui:RadioButtonGroup label="Mapa" choices="Canteiro de Obras" value="0" name="Map" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/MenuPanel2.png?fileID=2800000&amp;guid=4b081b28c8adbe7478a0b4bf3482c87f&amp;type=3#MenuPanel2&quot;); margin-top: 12px;" />
+                <ui:RadioButtonGroup label="Mapa" choices="GrayBox,Level_1" value="0" name="Map" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/MenuPanel2.png?fileID=2800000&amp;guid=4b081b28c8adbe7478a0b4bf3482c87f&amp;type=3#MenuPanel2&quot;); margin-top: 12px;" />
             </ui:VisualElement>
         </ui:VisualElement>
         <ui:VisualElement name="Leaderboard" class="font-regular" style="left: 980px; right: auto; position: absolute; top: 171px; background-image: url(&quot;project://database/Assets/!/UI/Assets/MenuPanel.png?fileID=2800000&amp;guid=39e2698ca8449aa4d8f3720c01bfc962&amp;type=3#MenuPanel&quot;); height: 738px; width: 838px;">

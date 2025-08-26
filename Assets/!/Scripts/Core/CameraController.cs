@@ -38,11 +38,6 @@ public class CameraController : MonoBehaviour
 
     private Vector3 direction = Vector3.zero;
 
-    private void Awake()
-    {
-        CalculeMapBorders();
-    }
-
     /// <summary>
     /// Calculates camera movement limits based on two limiters points
     /// </summary>
@@ -57,6 +52,7 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
+        CalculeMapBorders();
         SetupOnScreenControls();
     }
 
