@@ -83,6 +83,7 @@ public class GameSetup : MonoBehaviour
 
     private void Start()
     {
+        // loads the screen with the held data of the session
         if (SettingsKeeper.Instance.classRoomName != null)
         {
             leaderboardNameInput.SetValueWithoutNotify(SettingsKeeper.Instance.classRoomName);
@@ -113,7 +114,7 @@ public class GameSetup : MonoBehaviour
             usernameInput.SetValueWithoutNotify(LeaderboardManager.Instance.playerName);
         }
 
-
+        VerifyAndAllowGameStart();
 
         LeaderboardManager.Instance.OnSignIn += NameReceived;
         LeaderboardManager.Instance.OnLeaderboardReceived += PopulateLeaderboard;

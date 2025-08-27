@@ -1,0 +1,10 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="VisualElement" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/Background2.png?fileID=2800000&amp;guid=a33c67b5e0593384598298aa970ac800&amp;type=3#Background2&quot;); justify-content: center; align-items: center; flex-grow: 1;">
+        <ui:VisualElement name="VisualElement" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/!/UI/Assets/MenuPanel.png?fileID=2800000&amp;guid=39e2698ca8449aa4d8f3720c01bfc962&amp;type=3#MenuPanel&quot;); width: 750px; height: 400px;">
+            <ui:Label text="Volumes" />
+            <ui:Slider label="Geral" value="100" high-value="100" />
+            <ui:Slider label="Músicas" value="100" high-value="100" />
+            <ui:Slider label="Soms" value="100" high-value="100" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
