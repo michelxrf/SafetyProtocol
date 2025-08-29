@@ -6,6 +6,7 @@
             <ui:VisualElement name="Buttons" class="font-barlow-bold" style="align-items: center; padding-bottom: 0; padding-top: 0; padding-right: 0; padding-left: 0; margin-bottom: 0; font-size: 32px;">
                 <ui:Button text="Modo Carreira&#10;(Em desenvolvimento)" name="Carrer" enabled="false" class="y-button custombutton" style="width: 360px; height: 130px; margin-top: 0; margin-right: 0; margin-bottom: 16px; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
                 <ui:Button text="Multijogador" name="Multiplayer" class="custombutton y-button" style="width: 360px; height: 130px; margin-top: 0; margin-right: 0; margin-bottom: 16px; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+                <ui:Button text="Configurações" name="Settings" class="custombutton y-button" style="width: 360px; height: 130px; margin-top: 0; margin-right: 0; margin-bottom: 16px; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
                 <ui:Button text="Sair" name="Quit" class="custombutton button g-button" style="width: 360px; height: 84px; margin-top: 0; margin-right: 0; margin-bottom: 16px; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
             </ui:VisualElement>
         </ui:VisualElement>

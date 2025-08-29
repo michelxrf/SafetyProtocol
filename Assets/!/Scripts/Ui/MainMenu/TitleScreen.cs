@@ -8,14 +8,22 @@ public class TitleScreen : MonoBehaviour
 {
     UIDocument ui;
     [SerializeField] GameSetup gameSetupScreen;
+    [SerializeField] SettingsScreen settingsScreen;
 
     private void Awake()
     {
         ui = GetComponent<UIDocument>();
 
         ui.rootVisualElement.Q<Button>("Multiplayer").clicked += ShowGameSetup;
+        ui.rootVisualElement.Q<Button>("Settings").clicked += ShowSettings;
     }
 
+
+    private void ShowSettings()
+    {
+        Hide();
+        settingsScreen.Show();
+    }
 
     /// <summary>
     /// Shows the game set up screen
