@@ -26,6 +26,7 @@ public class Hazard : InteractableObject
     {
         base.Solve();
 
+        GetComponent<InventorySystem>().ReverseEquipment();
         WorkerManager.Instance.HazzardSolved();
         DisableInteraction();
     }

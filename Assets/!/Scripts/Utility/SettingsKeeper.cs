@@ -7,7 +7,7 @@ public class SettingsKeeper: MonoBehaviour
 {
     public static SettingsKeeper Instance { get; private set; }
 
-    public string dificultyLevel { get; private set; }
+    public int dificultyLevel { get; private set; }
     public string classRoomName {get; private set; }
     public string gameMap { get; private set; }
 
@@ -24,7 +24,7 @@ public class SettingsKeeper: MonoBehaviour
         }
     }
 
-    public void HoldLevelData(string _dificultyLevel, string _classRoomName, string _gameMap)
+    public void HoldLevelData(int _dificultyLevel, string _classRoomName, string _gameMap)
     {
         dificultyLevel = _dificultyLevel;
         classRoomName = _classRoomName;

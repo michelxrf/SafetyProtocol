@@ -87,15 +87,19 @@ public class GameSetup : MonoBehaviour
         if (SettingsKeeper.Instance.classRoomName != null)
         {
             leaderboardNameInput.SetValueWithoutNotify(SettingsKeeper.Instance.classRoomName);
-            
+
+            difficultySetting.value = SettingsKeeper.Instance.dificultyLevel;
+
+            /*
             foreach (string option in difficultySetting.choices.ToList())
             {
-                if (option == SettingsKeeper.Instance.dificultyLevel)
+                if (difficultySetting.value == SettingsKeeper.Instance.dificultyLevel)
                 {
                     difficultySetting.SetValueWithoutNotify(difficultySetting.choices.ToList().IndexOf(option));
                     break;
                 }
             }
+            */
             foreach (string option in gameMap.choices.ToList())
             {
                 if (option == SettingsKeeper.Instance.gameMap)
@@ -269,7 +273,7 @@ public class GameSetup : MonoBehaviour
 
         VerifyAndAllowGameStart();
 
-        SettingsKeeper.Instance.HoldLevelData(difficultyName, newName, gameMapName);
+        SettingsKeeper.Instance.HoldLevelData(difficultySetting.value, newName, gameMapName);
         LeaderboardManager.Instance.ChangeLeaderboardName(ComposeLeaderboardName(difficultyName, newName, gameMapName));
         LeaderboardManager.Instance.GetTop10Scores();
 

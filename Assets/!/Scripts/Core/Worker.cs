@@ -42,6 +42,8 @@ public class Worker : InteractableObject
 
         // saves navMeshAgent speed for pausing and resuming worker movement
         navMeshAgentSpeed = navMeshAgent.speed;
+
+        GetComponent<InventorySystem>().FullyEquip(true);
     }
 
     private void Start()
@@ -89,6 +91,7 @@ public class Worker : InteractableObject
         if (isAccidentTarget)
         {
             WorkerManager.Instance.StartAccidentCountdown();
+            GetComponent<InventorySystem>().FullyEquip(false);
             GetComponent<Clickable>().isEnabled = true;
             isAccidentTarget = false;
         }
@@ -205,6 +208,7 @@ public class Worker : InteractableObject
     {
         base.Solve();
 
+        GetComponent<InventorySystem>().FullyEquip(true);
         WorkerManager.Instance.AccidentSolved();
         StartCoroutine(WaitForSeconds(minWorkTime, maxWorkTime));
     }

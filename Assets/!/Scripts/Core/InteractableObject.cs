@@ -30,8 +30,6 @@ public class InteractableObject : MonoBehaviour
     protected virtual void Solve()
     {
         // TODO: update GameManager and UI
-
-        GetComponent<InventorySystem>().ReverseEquipment();
         GetComponent<Clickable>().questionData = null;
     }
 

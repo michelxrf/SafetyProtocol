@@ -18,6 +18,11 @@ public class TitleScreen : MonoBehaviour
         ui.rootVisualElement.Q<Button>("Settings").clicked += ShowSettings;
     }
 
+    private void Start()
+    {
+        if (SettingsKeeper.Instance.classRoomName != null)
+            ShowGameSetup();
+    }
 
     private void ShowSettings()
     {

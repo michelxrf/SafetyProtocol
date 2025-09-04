@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
 
 /// <summary>
@@ -85,6 +86,9 @@ public class WorkerManager : MonoBehaviour
         if (gameEndScreen == null)
             gameEndScreen = FindFirstObjectByType<GameEndScreen>();
 
+        // sets the level dificullty
+        ConfigureDificulty();
+
         // Randomly disables some of the hazzards and accidents
         if(!disableRandomization)
             RandomizeLevel();
@@ -96,6 +100,33 @@ public class WorkerManager : MonoBehaviour
         InitAllWorkersMovement();
         CallNextAccident();
         hudManager.UpdateScores();
+    }
+
+    /// <summary>
+    /// Initializes the game's variables according to the set difficulty level
+    /// </summary>
+    private void ConfigureDificulty()
+    {
+        Debug.Log($"dificulty value: {SettingsKeeper.Instance.dificultyLevel}");
+        switch (SettingsKeeper.Instance.dificultyLevel)
+        {
+            // easiest
+            case 0:
+                accidentCountdownTime = 60f;
+                randomizerDisablePercentage = .5f;
+                break;
+            case 1:
+                accidentCountdownTime = 30f;
+                randomizerDisablePercentage = .25f;
+                break;
+            
+            // just in case someone make new dificulty
+            default:
+                Debug.LogWarning("This level of difficulty was not accounted for");
+                accidentCountdownTime = 60f - 10f * SettingsKeeper.Instance.dificultyLevel;
+                randomizerDisablePercentage = Mathf.Clamp(1f - .1f * SettingsKeeper.Instance.dificultyLevel, .5f, 1f);
+                break;
+        }
     }
 
     /// <summary>
