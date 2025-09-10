@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d85a4d825dcc448a4d01912edf8284, type: 3}
+  m_Name: RiscoAmbiental_Geradores
+  m_EditorClassIdentifier: 
+  question: "No canteiro de obras h\xE1 um gerador de energia de alta tens\xE3o em
+    funcionamento, sem prote\xE7\xE3o f\xEDsica ou sinaliza\xE7\xE3o de seguran\xE7a
+    vis\xEDvel. Alguns trabalhadores circulam pr\xF3ximos ao equipamento.\L Pergunta:
+    Qual \xE9 o risco mais imediato dessa situa\xE7\xE3o?"
+  rightAnswers:
+  - "Choque el\xE9trico grave ou at\xE9 morte por contato direto"
+  wrongAnswers:
+  - "Fadiga muscular pelo esfor\xE7o f\xEDsico no transporte de materiais"
+  - "Problemas respirat\xF3rios causados pela poeira da obra"
+  - Perda auditiva devido ao barulho de conversas no canteiro
+  viewportTitle: "Geradores El\xE9tricos"
+  viewportUpperText: 
+  viewportLowerText: 
