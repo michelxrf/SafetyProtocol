@@ -46,19 +46,16 @@ public class SettingsScreen : MonoBehaviour
 
     private void SetSfxVolume(float volume)
     {
-        Debug.Log(volume);
         AudioManager.Instance.audioMixer.SetFloat("SfxVolume", Mathf.Log10(volume) * 20f);
     }
 
     private void SetBgmVolume(float volume)
     {
-        Debug.Log(volume);
         AudioManager.Instance.audioMixer.SetFloat("BgmVolume", Mathf.Log10(volume) * 20f);
     }
 
     private void SetMasterVolume(float volume)
     {
-        Debug.Log(volume);
         AudioManager.Instance.audioMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20f);
     }
 }

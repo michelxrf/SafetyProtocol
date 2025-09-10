@@ -1,7 +1,7 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/!/UI/Game/OnScrenStyle.uss?fileID=7433441132597879392&amp;guid=2f2a4629da41dd44db7a769753405117&amp;type=3#OnScrenStyle" />
     <ui:VisualElement picking-mode="Ignore" style="flex-grow: 1;">
-        <ui:VisualElement name="MisclickPrevention" style="background-color: rgba(0, 0, 0, 0); width: 500px; height: 300px; position: absolute; top: auto; left: auto; right: 0; bottom: 0;" />
+        <ui:VisualElement name="MisclickPrevention" style="background-color: rgba(0, 0, 0, 0); width: 25%; height: 29%; position: absolute; top: auto; left: auto; right: 0; bottom: 0;" />
         <ui:Button text="-" name="Back" class="navigationButton" style="position: absolute; top: auto; left: auto; bottom: 20px; right: 168px;" />
         <ui:Button text="&lt;" name="MoveLeft" class="navigationButton" style="position: absolute; right: 316px; bottom: 20px;" />
         <ui:Button text="&gt;" name="MoveRight" class="navigationButton" style="position: absolute; top: auto; left: auto; right: 20px; bottom: 20px;" />

@@ -1,8 +1,8 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/!/UI/Styles/hud.uss?fileID=7433441132597879392&amp;guid=14658ea3cb143bb44b24f49884e7c02f&amp;type=3#hud" />
     <Style src="project://database/Assets/!/UI/Styles/Menus.uss?fileID=7433441132597879392&amp;guid=733d1cbb52089e94ba0a1b470523af93&amp;type=3#Menus" />
-    <ui:VisualElement name="Background" picking-mode="Ignore" style="flex-grow: 1; flex-direction: row; width: auto; justify-content: space-around; align-items: stretch; align-content: center; margin-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0;">
-        <ui:VisualElement name="Stats" picking-mode="Ignore" class="font-regular font-ropasans-regular" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/!/UI/Assets/HudPanel.png?fileID=2800000&amp;guid=bb38e34d76261ce4087d9ff600dde8f0&amp;type=3#HudPanel&quot;); position: absolute; width: 152px; height: 202px; top: 0; left: 0; right: 0; bottom: 0; -unity-text-outline-width: 1.5px; -unity-text-outline-color: rgb(0, 0, 0); font-size: 32px;">
+    <ui:VisualElement name="Background" picking-mode="Ignore" style="flex-grow: 1; width: auto; justify-content: flex-start; margin-left: 0; margin-top: 0; margin-right: 0; margin-bottom: 0;">
+        <ui:VisualElement name="Stats" picking-mode="Ignore" class="font-regular font-ropasans-regular" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/!/UI/Assets/HudPanel.png?fileID=2800000&amp;guid=bb38e34d76261ce4087d9ff600dde8f0&amp;type=3#HudPanel&quot;); width: 10%; height: 20%; -unity-text-outline-width: 1.5px; -unity-text-outline-color: rgb(0, 0, 0); font-size: 32px; margin-left: 2%; margin-top: 1%;">
             <ui:VisualElement name="Gametime" picking-mode="Ignore" class="font-regular" style="flex-grow: 1; flex-direction: row; height: 44px;">
                 <ui:VisualElement name="GameTimeIcon" style="flex-grow: 0; background-image: url(&quot;project://database/Assets/!/UI/Assets/icon_timer.png?fileID=2800000&amp;guid=793659985fe6d99459fa2ddf077ede1e&amp;type=3#icon_timer&quot;); -unity-background-scale-mode: scale-to-fit; width: 44px; height: 44px; background-position-x: left 0; margin-left: 12px; align-content: center; align-self: center;" />
                 <ui:Label text="00:00" name="GameTimeLabel" picking-mode="Ignore" style="height: 44px; flex-grow: 1; -unity-text-align: upper-center; flex-direction: column; margin-top: 4px; margin-right: 4px; margin-bottom: 4px; margin-left: 4px; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px; align-self: center; align-content: center; color: rgb(251, 131, 17);" />
@@ -16,6 +16,6 @@
                 <ui:Label text="x/x" name="SolvedHazards" picking-mode="Ignore" style="height: 44px; flex-grow: 1; -unity-text-align: upper-center; padding-top: 4px; padding-right: 4px; padding-bottom: 4px; padding-left: 4px; margin-top: 4px; margin-right: 4px; margin-bottom: 4px; margin-left: 4px; align-self: center; align-content: center; color: rgb(255, 198, 92);" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Button text="Pausar Jogo" name="PauseButton" enabled="true" class="r-button" style="position: absolute; left: 20px; bottom: 20px;" />
+        <ui:Button text="Menu" name="PauseButton" enabled="true" class="r-button" style="position: absolute; left: 2%; bottom: 1%;" />
     </ui:VisualElement>
 </ui:UXML>
