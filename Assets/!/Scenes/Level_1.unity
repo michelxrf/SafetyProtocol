@@ -37268,6 +37268,10 @@ PrefabInstance:
       propertyPath: isAccidentTarget
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1137990189337272617, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
+      propertyPath: dontDestroyOnRandomization
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2428817643332909855, guid: 0d4c6f53591fbf04fb9023c086a5cdd4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.01538

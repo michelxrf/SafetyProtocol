@@ -2,11 +2,11 @@
     <Style src="project://database/Assets/!/UI/Styles/QuizStyle.uss?fileID=7433441132597879392&amp;guid=2fea6905a37fb094abafcca64d333662&amp;type=3#QuizStyle" />
     <Style src="project://database/Assets/!/UI/Styles/Menus.uss?fileID=7433441132597879392&amp;guid=733d1cbb52089e94ba0a1b470523af93&amp;type=3#Menus" />
     <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-color: rgba(123, 123, 123, 0.78); flex-direction: row; align-items: center; justify-content: space-around;">
-        <ui:VisualElement name="Quiz" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/HudPanel.png?fileID=2800000&amp;guid=bb38e34d76261ce4087d9ff600dde8f0&amp;type=3#HudPanel&quot;); -unity-slice-left: 64; -unity-slice-top: 64; -unity-slice-right: 64; -unity-slice-bottom: 64; height: 750px; width: 900px; margin-right: 100px; margin-left: 100px; padding-left: 20px; padding-right: 20px; padding-bottom: 10px; padding-top: 10px;">
+        <ui:VisualElement name="Quiz" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/HudPanel.png?fileID=2800000&amp;guid=bb38e34d76261ce4087d9ff600dde8f0&amp;type=3#HudPanel&quot;); -unity-slice-left: 64; -unity-slice-top: 64; -unity-slice-right: 64; -unity-slice-bottom: 64; height: 69%; width: 47%; margin-right: 100px; margin-left: 100px; padding-left: 20px; padding-right: 20px; padding-bottom: 10px; padding-top: 10px;">
             <ui:VisualElement name="QuestionContainer" style="flex-grow: 1; flex-direction: row;">
                 <ui:VisualElement style="flex-grow: 1;">
-                    <ui:Label text="Lorem Ipsum Dolorem?" name="Question" class="font-barlow-bold" style="height: auto; align-content: auto; -unity-text-align: upper-center; font-size: 64px;" />
-                    <ui:Label text="Responda!" name="Instruction" class="font-barlow-regular" style="font-size: 32px;" />
+                    <ui:Label text="Lorem Ipsum Dolorem?" name="Instruction" class="font-barlow-bold" style="height: auto; align-content: auto; -unity-text-align: upper-center; font-size: 64px;" />
+                    <ui:Label text="The purpose of lorem ipsum is to create a natural looking block of text (sentence, paragraph, page, etc.) that doesn&apos;t distract from the layout. A practice not without controversy, laying out pages with meaningless filler text can be very useful when the focus is meant to be on design, not content.&#10;&#10;McClintock’s eye for detail certainly helped narrow the whereabouts of lorem ipsum’s origin, however, the “how and when” still remain something of a mystery, with competing theories and timelines." name="Question" class="font-barlow-regular" style="font-size: 24px; flex-grow: 1; white-space: normal;" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="AnswersContainer" style="flex-grow: 1; align-content: auto; justify-content: center;">
@@ -17,13 +17,13 @@
                 <ui:RadioButton label="Radio Button" class="Answers answers" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement name="WorkerViewport" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/HudPanel.png?fileID=2800000&amp;guid=bb38e34d76261ce4087d9ff600dde8f0&amp;type=3#HudPanel&quot;); -unity-slice-left: 64; -unity-slice-top: 64; -unity-slice-right: 64; -unity-slice-bottom: 64; height: 750px; width: 600px; margin-right: 100px; margin-left: 100px; padding-left: 20px; padding-right: 20px; padding-top: 10px; padding-bottom: 10px;">
+        <ui:VisualElement name="WorkerViewport" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/HudPanel.png?fileID=2800000&amp;guid=bb38e34d76261ce4087d9ff600dde8f0&amp;type=3#HudPanel&quot;); -unity-slice-left: 64; -unity-slice-top: 64; -unity-slice-right: 64; -unity-slice-bottom: 64; height: 69%; width: 31%; margin-right: 100px; margin-left: 100px; padding-left: 20px; padding-right: 20px; padding-top: 10px; padding-bottom: 10px;">
             <ui:Label text="Label" name="ViewportTitle" style="font-size: 32px; -unity-font-definition: url(&quot;project://database/Assets/!/Fonts/Barlow/Barlow-Bold.ttf?fileID=12800000&amp;guid=b6fda5bf6e56b194da1cfd4a2a2dde5c&amp;type=3#Barlow-Bold&quot;);" />
             <ui:Label text="Label" name="UpperText" style="-unity-font-definition: url(&quot;project://database/Assets/!/Fonts/Barlow/Barlow-Regular.ttf?fileID=12800000&amp;guid=6a4bdc0fad33a1040a0b506eb3b3ffd8&amp;type=3#Barlow-Regular&quot;); font-size: 32px;" />
             <ui:VisualElement name="View" style="background-image: url(&quot;project://database/Assets/!/UI/QuizViewport.renderTexture?fileID=8400000&amp;guid=e7cd321d806280545bc34b022bc5aaa4&amp;type=2#QuizViewport&quot;); width: 550px; height: 550px;" />
             <ui:Label text="Label" name="LowerText" style="-unity-font-definition: url(&quot;project://database/Assets/!/Fonts/Barlow/Barlow-Regular.ttf?fileID=12800000&amp;guid=6a4bdc0fad33a1040a0b506eb3b3ffd8&amp;type=3#Barlow-Regular&quot;); font-size: 32px;" />
         </ui:VisualElement>
-        <ui:VisualElement name="Buttons" style="flex-grow: 1; flex-direction: row; position: absolute; top: 966px; justify-content: center; left: 0; right: 0;">
+        <ui:VisualElement name="Buttons" style="flex-grow: 1; flex-direction: row; position: absolute; top: 89%; justify-content: center; left: 0; right: 0;">
             <ui:Button text="Fechar" name="CloseButton" class="y-button" />
             <ui:Button text="Responder" name="SubmitButton" class="g-button" />
         </ui:VisualElement>

@@ -22,8 +22,6 @@ public class WorkerManager : MonoBehaviour
     [SerializeField] int solveHazzardScore = 50;
     [SerializeField] int perSecondScore = 3;
     [SerializeField] bool disableRandomization = false;
-    [Range(0f, 1f)]
-    [SerializeField] float randomizerDisablePercentage = .25f;
 
     [Header("Worker Behavior")]
     [Range(0f, 1f)]
@@ -43,7 +41,8 @@ public class WorkerManager : MonoBehaviour
     [HideInInspector] public int solvedHazzards = 0;
     [HideInInspector] public int totalHazzards = 0;
     private enum ACCIDENTORDER { RANDOM, SEQUENCE };
-    private int score = 0;
+    private int score = -1;
+    private int numberOfAccidentsToTrigger = -1;
 
     [HideInInspector] public List<PatrolPoint> patrolPoints = new();
     [HideInInspector] public List<Worker> workers = new();
@@ -90,8 +89,7 @@ public class WorkerManager : MonoBehaviour
         ConfigureDificulty();
 
         // Randomly disables some of the hazzards and accidents
-        if(!disableRandomization)
-            RandomizeLevel();
+        ReduceNumberOfAccidents();
 
         // gets totals
         totalHazzards = hazards.Count;
@@ -110,39 +108,62 @@ public class WorkerManager : MonoBehaviour
         Debug.Log($"dificulty value: {SettingsKeeper.Instance.dificultyLevel}");
         switch (SettingsKeeper.Instance.dificultyLevel)
         {
-            // easiest
+            // facil
             case 0:
-                accidentCountdownTime = 60f;
-                randomizerDisablePercentage = .5f;
+                accidentCountdownTime = 40f;
+                numberOfAccidentsToTrigger = 7;
                 break;
+
+            // moderado
             case 1:
                 accidentCountdownTime = 30f;
-                randomizerDisablePercentage = .25f;
+                numberOfAccidentsToTrigger = 9;
                 break;
-            
+
+            // dificil
+            case 2:
+                accidentCountdownTime = 22f;
+                numberOfAccidentsToTrigger = 11;
+                break;
+
             // just in case someone make new dificulty
             default:
                 Debug.LogWarning("This level of difficulty was not accounted for");
                 accidentCountdownTime = 60f - 10f * SettingsKeeper.Instance.dificultyLevel;
-                randomizerDisablePercentage = Mathf.Clamp(1f - .1f * SettingsKeeper.Instance.dificultyLevel, .5f, 1f);
+                numberOfAccidentsToTrigger = -1;
                 break;
         }
     }
 
     /// <summary>
-    /// Disable some of the hazzards and accidents to give the level some randomness
+    /// Disable some of the accidents to give the level some randomness and trim to difficulty settings
     /// </summary>
-    private void RandomizeLevel()
+    private void ReduceNumberOfAccidents()
     {
+        if (disableRandomization)
+            return;
+
         if (SettingsKeeper.Instance == null || SettingsKeeper.Instance.classRoomName == null)
             return;
 
-        // sets the seed using the classroom name, so every student in the class plays the same game
+        // sets the random seed using the classroom name, so every student in the class plays the same game
         Random.InitState(SettingsKeeper.Instance.classRoomName.GetHashCode());
 
-        // deletes the defined percentage of accidents from the list, ignoring those marked for keeping
+        // deletes accidents from the list depending on level's dificulty
         List<AccidentEvent> nonRequiredAccidents = accidentEventsList.FindAll(a => a.accidentData.dontDestroyOnRandomization == false);
-        int numberOfAccidentsToElminate = Mathf.FloorToInt(nonRequiredAccidents.Count * randomizerDisablePercentage);
+        int numberOfAccidentsToElminate = accidentEventsList.Count - numberOfAccidentsToTrigger;
+        if (nonRequiredAccidents.Count < numberOfAccidentsToElminate)
+        {
+            Debug.LogWarning("Too many accidents are set to not be deleted. Level will have more accidents than the intended for this difficulty level");
+            return;
+        }
+
+        if (numberOfAccidentsToElminate < 0)
+        {
+            Debug.LogWarning("Level already have less accidents than intended for this difficulty setting. None will be deleted.");
+            return;
+        }
+        
         Debug.Log($"Will eliminate {numberOfAccidentsToElminate} accidents of {accidentEventsList.Count}");
 
         for( int i = 0; i < numberOfAccidentsToElminate; i++ )
@@ -150,40 +171,6 @@ public class WorkerManager : MonoBehaviour
             AccidentEvent eliminateThis = nonRequiredAccidents[Random.Range(0, nonRequiredAccidents.Count - 1)];
             accidentEventsList.Remove(eliminateThis);
         }
-        // ---
-
-        // prevent the workers in the accident list from being deleted
-        foreach(AccidentEvent accident in accidentEventsList)
-        {
-            accident.worker.dontDestroyOnRandomization = true;
-        }
-
-        // removes the workers
-        List<Worker> nonEssentialWorkers = workers.FindAll(w => w.dontDestroyOnRandomization == false);
-
-        int NumberOfWorkersToDelete = Mathf.FloorToInt(nonEssentialWorkers.Count * randomizerDisablePercentage);
-        Debug.Log($"Will eliminate {NumberOfWorkersToDelete} workers of {workers.Count}");
-        for ( int i = 0; i < NumberOfWorkersToDelete; i++ )
-        {
-            Worker eliminateThis = nonEssentialWorkers[Random.Range(0, nonEssentialWorkers.Count - 1)];
-            workers.Remove(eliminateThis);
-            Destroy(eliminateThis.gameObject);
-        }
-        // ---
-
-        // removes the Hazzards
-        List<Hazard> nonEssentialHazzards = hazards.FindAll(h => h.dontDestroyOnRandomization == false);
-
-        int NumberOfHazzardsToDelete = Mathf.FloorToInt(nonEssentialHazzards.Count * randomizerDisablePercentage);
-        Debug.Log($"Will eliminate {NumberOfHazzardsToDelete} hazzards of {hazards.Count}");
-        for (int i = 0; i < NumberOfHazzardsToDelete; i++)
-        {
-            Hazard eliminateThis = nonEssentialHazzards[Random.Range(0, nonEssentialHazzards.Count - 1)];
-            hazards.Remove(eliminateThis);
-            eliminateThis.GetComponent<InventorySystem>().ReverseEquipment();
-            eliminateThis.DisableInteraction();
-        }
-        // ---
     }
 
     /// <summary>
@@ -219,7 +206,8 @@ public class WorkerManager : MonoBehaviour
     {
         foreach(Worker worker in workers)
         {
-            worker.MoveToRandomPoint();
+            if(!worker.initialized)
+                worker.MoveToRandomPoint();
         }
     }
 

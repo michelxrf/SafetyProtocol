@@ -90,16 +90,6 @@ public class GameSetup : MonoBehaviour
 
             difficultySetting.value = SettingsKeeper.Instance.dificultyLevel;
 
-            /*
-            foreach (string option in difficultySetting.choices.ToList())
-            {
-                if (difficultySetting.value == SettingsKeeper.Instance.dificultyLevel)
-                {
-                    difficultySetting.SetValueWithoutNotify(difficultySetting.choices.ToList().IndexOf(option));
-                    break;
-                }
-            }
-            */
             foreach (string option in gameMap.choices.ToList())
             {
                 if (option == SettingsKeeper.Instance.gameMap)

@@ -1,5 +1,10 @@
 .y-button:hover {
     background-image: url("project://database/Assets/!/UI/Assets/YButtonHover.png?fileID=2800000&guid=bbd6ade600effc040a04525a1b3883f9&type=3#YButtonHover");
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .r-button:active {
@@ -17,13 +22,8 @@
     -unity-font-definition: url("project://database/Assets/!/Fonts/Barlow/Barlow-Bold.ttf?fileID=12800000&guid=b6fda5bf6e56b194da1cfd4a2a2dde5c&type=3#Barlow-Bold");
 }
 
-.y-button:disabled {
-    background-image: url("project://database/Assets/!/UI/Assets/YButtonDisabled.png?fileID=2800000&guid=d72597518ea26574898be444bb2bb7f9&type=3#YButtonDisabled");
-    color: rgb(69, 69, 69);
-}
-
 .y-button {
-    background-image: url("project://database/Assets/!/UI/Assets/YButtonNormal.png?fileID=2800000&guid=8780cf7d0b89d134caad4cab9d7a469f&type=3#YButtonNormal");
+    background-image: url("project://database/Assets/!/UI/Assets/button_primary_large.png?fileID=21300000&guid=54c3e079c07620744a58b38b5d955887&type=3#button_primary_large");
     -unity-slice-type: sliced;
     color: rgb(173, 62, 2);
     font-size: 32px;
@@ -31,21 +31,42 @@
     align-self: center;
     width: 360px;
     height: 84px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    -unity-background-scale-mode: stretch-to-fill;
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .g-button {
-    background-image: url("project://database/Assets/!/UI/Assets/GButtonNormal.png?fileID=2800000&guid=69fcbd44a4351ef4a9fe45d958c6ce80&type=3#GButtonNormal");
-    -unity-slice-type: sliced;
+    background-image: url("project://database/Assets/!/UI/Assets/button_secondary_large.png?fileID=21300000&guid=16c737a37c974824f9ad7a3dcfa642f8&type=3#button_secondary_large");
     color: rgb(3, 49, 9);
     font-size: 32px;
     -unity-font-definition: url("project://database/Assets/!/Fonts/Barlow/Barlow-Bold.ttf?fileID=12800000&guid=b6fda5bf6e56b194da1cfd4a2a2dde5c&type=3#Barlow-Bold");
     align-self: center;
     width: 360px;
     height: 84px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .g-button:hover {
     background-image: url("project://database/Assets/!/UI/Assets/GButtonHover.png?fileID=2800000&guid=06ce44ce133715445a23be6098ff488b&type=3#GButtonHover");
+    background-color: rgba(0, 0, 0, 0);
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+}
+
+.y-button:disabled {
+    background-image: url("project://database/Assets/!/UI/Assets/YButtonDisabled.png?fileID=2800000&guid=d72597518ea26574898be444bb2bb7f9&type=3#YButtonDisabled");
+    color: rgb(69, 69, 69);
 }
 
 .g-button:disabled {
@@ -64,6 +85,7 @@
 .r-button:disabled {
     background-image: url("project://database/Assets/!/UI/Assets/RButtonDisabled.png?fileID=2800000&guid=14bc191143705bd40b558366efd66f7a&type=3#RButtonDisabled");
     color: rgb(69, 69, 69);
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .r-button:hover {
@@ -71,7 +93,7 @@
 }
 
 .r-button {
-    background-image: url("project://database/Assets/!/UI/Assets/RButtonNormal.png?fileID=2800000&guid=9a635da8d6720e44784d8cfe0a6a4f04&type=3#RButtonNormal");
+    background-image: url("project://database/Assets/!/UI/Assets/button_cancel_large.png?fileID=21300000&guid=e016702b50195b14b9da97c9167d4c98&type=3#button_cancel_large");
     -unity-slice-type: sliced;
     color: rgb(92, 8, 8);
     font-size: 32px;
@@ -79,4 +101,30 @@
     align-self: center;
     width: 360px;
     height: 84px;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+Slider {
+    font-size: 20px;
+    -unity-font-definition: url("project://database/Assets/!/Fonts/Barlow/Barlow-Regular.ttf?fileID=12800000&guid=6a4bdc0fad33a1040a0b506eb3b3ffd8&type=3#Barlow-Regular");
+    -unity-font-style: normal;
+}
+
+Slider #unity-dragger {
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+    background-color: rgba(255, 255, 255, 0);
+    background-image: url("project://database/Assets/!/UI/Assets/toggle.png?fileID=21300000&guid=fc7944894c937444b81f0c53b2911ffe&type=3#toggle");
+    border-top-width: 0;
+    border-right-width: 0;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    scale: 1.8 1.5;
+}
+
+Slider #unity-tracker {
+    scale: 1 0.5;
 }

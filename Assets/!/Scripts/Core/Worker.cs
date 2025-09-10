@@ -26,7 +26,7 @@ public class Worker : InteractableObject
     [HideInInspector] public PatrolPoint assignedPoint;
     [HideInInspector] public bool isAccidentTarget = false;
 
-    public bool dontDestroyOnRandomization = false;
+    public bool initialized = false;
 
     void Awake()
     {
@@ -49,6 +49,11 @@ public class Worker : InteractableObject
     private void Start()
     {
         WorkerManager.Instance.workers.Add(this);
+        if (!isAccidentTarget)
+        {
+            MoveToRandomPoint();
+            initialized = true;
+        }
     }
 
     /// <summary>
