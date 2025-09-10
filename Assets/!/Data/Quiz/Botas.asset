@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d85a4d825dcc448a4d01912edf8284, type: 3}
+  m_Name: Botas
+  m_EditorClassIdentifier: 
+  question: "Um trabalhador executa suas atividades cal\xE7ando t\xEAnis de passeio
+    em um ambiente com piso irregular e materiais pesados ao redor. Pergunta: Qual
+    EPI est\xE1 sendo negligenciado nessa situa\xE7\xE3o?"
+  rightAnswers:
+  - "Botina com biqueira de a\xE7o"
+  wrongAnswers:
+  - Protetor auricular
+  - Luvas de vaqueta
+  - "M\xE1scara de solda"
+  viewportTitle: "Trabalhador J\xE3o"
+  viewportUpperText: 
+  viewportLowerText: 

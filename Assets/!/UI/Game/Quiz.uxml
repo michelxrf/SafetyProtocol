@@ -2,11 +2,11 @@
     <Style src="project://database/Assets/!/UI/Styles/QuizStyle.uss?fileID=7433441132597879392&amp;guid=2fea6905a37fb094abafcca64d333662&amp;type=3#QuizStyle" />
     <Style src="project://database/Assets/!/UI/Styles/Menus.uss?fileID=7433441132597879392&amp;guid=733d1cbb52089e94ba0a1b470523af93&amp;type=3#Menus" />
     <ui:VisualElement name="VisualElement" style="flex-grow: 1; background-color: rgba(123, 123, 123, 0.78); flex-direction: row; align-items: center; justify-content: space-around;">
-        <ui:VisualElement name="Quiz" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/HudPanel.png?fileID=2800000&amp;guid=bb38e34d76261ce4087d9ff600dde8f0&amp;type=3#HudPanel&quot;); -unity-slice-left: 64; -unity-slice-top: 64; -unity-slice-right: 64; -unity-slice-bottom: 64; height: 750px; width: 900px; margin-right: 100px; margin-left: 100px; padding-left: 20px; padding-right: 20px; padding-bottom: 10px; padding-top: 10px;">
+        <ui:VisualElement name="Quiz" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/HudPanel.png?fileID=2800000&amp;guid=bb38e34d76261ce4087d9ff600dde8f0&amp;type=3#HudPanel&quot;); -unity-slice-left: 64; -unity-slice-top: 64; -unity-slice-right: 64; -unity-slice-bottom: 64; height: 750px; width: 923px; margin-right: 100px; margin-left: 100px; padding-left: 20px; padding-right: 20px; padding-bottom: 10px; padding-top: 10px;">
             <ui:VisualElement name="QuestionContainer" style="flex-grow: 1; flex-direction: row;">
-                <ui:VisualElement style="flex-grow: 1;">
-                    <ui:Label text="Lorem Ipsum Dolorem?" name="Question" class="font-barlow-bold" style="height: auto; align-content: auto; -unity-text-align: upper-center; font-size: 64px;" />
-                    <ui:Label text="Responda!" name="Instruction" class="font-barlow-regular" style="font-size: 32px;" />
+                <ui:VisualElement style="flex-grow: 1; flex-wrap: wrap-reverse;">
+                    <ui:Label text="Titulo" name="Instruction" class="font-barlow-bold" style="height: auto; align-content: auto; -unity-text-align: upper-center; font-size: 64px;" />
+                    <ui:Label text="Texto do Quiz" name="Question" language-direction="Inherit" selectable="true" class="font-barlow-regular" style="font-size: 32px; -unity-text-align: upper-left; white-space: normal; text-overflow: clip; flex-wrap: nowrap; width: 878px; height: 237px; flex-grow: initial; flex-direction: column; flex-shrink: 0; flex-basis: auto; -unity-font-style: normal;" />
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="AnswersContainer" style="flex-grow: 1; align-content: auto; justify-content: center;">

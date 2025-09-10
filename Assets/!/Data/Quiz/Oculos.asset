@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d85a4d825dcc448a4d01912edf8284, type: 3}
+  m_Name: Oculos
+  m_EditorClassIdentifier: 
+  question: "Voc\xEA v\xEA um trabalhador usando uma esmerilhadeira para cortar a\xE7o,
+    sem \xF3culos de prote\xE7\xE3o. Pergunta: Qual das alternativas n\xE3o corresponde
+    ao risco imediato dessa situa\xE7\xE3o?"
+  rightAnswers:
+  - "Perda auditiva imediata exclusivamente pela falta de \xF3culos"
+  wrongAnswers:
+  - "Proje\xE7\xE3o de part\xEDculas causando les\xE3o ocular grave"
+  - "Escoria\xE7\xF5es e pequenos cortes no rosto devido \xE0s fa\xEDscas"
+  - "Possibilidade de queimaduras superficiais na pele pela proje\xE7\xE3o de fagulhas"
+  viewportTitle: Trabalhador Jackson
+  viewportUpperText: 
+  viewportLowerText: 

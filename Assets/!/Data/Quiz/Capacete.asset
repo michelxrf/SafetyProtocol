@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d85a4d825dcc448a4d01912edf8284, type: 3}
+  m_Name: Capacete
+  m_EditorClassIdentifier: 
+  question: "Durante a execu\xE7\xE3o de servi\xE7os em um canteiro de obras, um
+    trabalhador circula na \xE1rea de carga e descarga de materiais sem utilizar
+    capacete de prote\xE7\xE3o.\L Pergunta: Quais riscos esse trabalhador est\xE1
+    exposto por n\xE3o usar o EPI adequado?"
+  rightAnswers:
+  - "Impacto de objetos que possam cair de n\xEDveis superiores"
+  - "Choque el\xE9trico acidental em redes a\xE9reas energizadas"
+  - "Escoria\xE7\xF5es e cortes na cabe\xE7a em contato com materiais fixos"
+  - "Insola\xE7\xE3o direta devido \xE0 exposi\xE7\xE3o prolongada ao sol"
+  wrongAnswers:
+  - "Les\xF5es auditivas por exposi\xE7\xE3o a ru\xEDdos intensos"
+  viewportTitle: Trabalhadora Larissa
+  viewportUpperText: 
+  viewportLowerText: 
