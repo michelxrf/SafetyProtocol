@@ -64,10 +64,13 @@ public class GameSetup : MonoBehaviour
         // init level select
         gameMap = uiDocument.rootVisualElement.Q<RadioButtonGroup>("Map");
         gameMap.RegisterValueChangedCallback(evt => { ClassNameChanged(leaderboardNameInput.value); });
+        gameMap.RegisterValueChangedCallback(evt => HighlightOption((RadioButtonGroup)evt.target));        
 
         // init difficulty select
         difficultySetting = uiDocument.rootVisualElement.Q<RadioButtonGroup>("Difficulty");
         difficultySetting.RegisterValueChangedCallback(evt => { ClassNameChanged(leaderboardNameInput.value); });
+        difficultySetting.RegisterValueChangedCallback(evt => HighlightOption((RadioButtonGroup)evt.target));
+        
 
         header = uiDocument.rootVisualElement.Q<VisualElement>("Header");
         header.style.display = DisplayStyle.None;
@@ -83,6 +86,9 @@ public class GameSetup : MonoBehaviour
 
     private void Start()
     {
+        InitLevelSelect(difficultySetting);
+        InitLevelSelect(gameMap);
+
         // loads the screen with the held data of the session
         if (SettingsKeeper.Instance.classRoomName != null)
         {
@@ -143,6 +149,37 @@ public class GameSetup : MonoBehaviour
     }
 
     /// <summary>
+    /// Workaround to force the first option to be highlighted by default, couldn't get it to work in a conventional way
+    /// </summary>
+    /// <param name="radioGroup"></param>
+    private void InitLevelSelect(RadioButtonGroup radioGroup)
+    {
+        List<VisualElement> radioButtons = radioGroup.Q<VisualElement>("choicesContentContainer").Children().ToList();
+        radioButtons[0].AddToClassList("selected");
+    }
+
+    /// <summary>
+    /// Highlights the selected option
+    /// </summary>
+    /// <param name="radioGroup"></param>
+    private void HighlightOption(RadioButtonGroup radioGroup)
+    {
+        List<VisualElement> radioButtons = radioGroup.Q<VisualElement>("choicesContentContainer").Children().ToList();
+
+        foreach (RadioButton radioButton in radioButtons)
+        {
+            if(radioButton.value == true)
+            {
+                radioButton.AddToClassList("selected");
+            }
+            else
+            {
+                radioButton.RemoveFromClassList("selected");
+            }
+        }
+    }
+
+    /// <summary>
     /// Instantiate lines in the leaderboard, each line is a rank/player/score entry
     /// </summary>
     private void PopulateLeaderboard(GetLeaderboardResult playfabData)
@@ -161,7 +198,7 @@ public class GameSetup : MonoBehaviour
             entryParent.name = "PlayerEntry";
 
             Label rank = new Label();
-            rank.text = (entry.Position + 1).ToString();
+            rank.text = (entry.Position + 1).ToString() + "º";
             rank.AddToClassList("RankColumm");
             entryParent.Add(rank);
 
@@ -336,7 +373,6 @@ public class GameSetup : MonoBehaviour
     /// </summary>
     private void StartGame()
     {
-
         SceneManager.LoadScene(gameMap.choices.ToList()[gameMap.value]);
     }
 

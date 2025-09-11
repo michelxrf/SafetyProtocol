@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UIElements;
 
 /// <summary>
@@ -70,6 +71,24 @@ public class UiQuizManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Changes the visual of the answer button
+    /// </summary>
+    /// <param name="answer"></param>
+    private void OnSelectedAnswer(VisualElement answer, bool newState)
+    {
+        if (newState == true)
+        {
+            answer.RemoveFromClassList("answers");
+            answer.AddToClassList("selectedAnswers");
+        }
+        else
+        {
+            answer.RemoveFromClassList("selectedAnswers");
+            answer.AddToClassList("answers");
+        }
+    }
+
+    /// <summary>
     /// verify if the player answered correctly
     /// </summary>
     private bool VerifyAnswers()
@@ -135,6 +154,7 @@ public class UiQuizManager : MonoBehaviour
 
 
         uiDocument.rootVisualElement.Q<Label>("Question").text = questionToShow.question;
+        uiDocument.rootVisualElement.Q<Label>("Question").style.whiteSpace = WhiteSpace.Normal;
         uiDocument.rootVisualElement.Q<VisualElement>("AnswersContainer").Clear();
 
         // use toggle buttons for multiple right answers
@@ -183,12 +203,13 @@ public class UiQuizManager : MonoBehaviour
         VisualElement answersList = uiDocument.rootVisualElement.Q<VisualElement>("AnswersContainer");
 
         RadioButton newButton = new RadioButton();
-        newButton.text = text;
-        newButton.value = false;
         newButton.AddToClassList("answers");
+        newButton.value = false;
+        newButton.text = text;
         answersList.Add(newButton);
         answerButtons.Add(newButton, desiredAnswer);
         
+        newButton.RegisterValueChangedCallback(evt => OnSelectedAnswer((VisualElement)evt.target, evt.newValue));
         newButton.RegisterCallback<ChangeEvent<bool>>(evt => OnAnswerSelected());
     }
 
@@ -205,10 +226,11 @@ public class UiQuizManager : MonoBehaviour
         newButton.AddToClassList("answers");
         newButton.text = text;
         newButton.value = false;
-        newButton.Children();
+
         answersList.Add(newButton);
         answerButtons.Add(newButton, desiredAnswer);
 
+        newButton.RegisterValueChangedCallback(evt => OnSelectedAnswer((VisualElement)evt.target, evt.newValue));
         newButton.RegisterCallback<ChangeEvent<bool>>(evt => OnAnswerSelected());
     }
 

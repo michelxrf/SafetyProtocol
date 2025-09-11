@@ -40,7 +40,7 @@ public class AccidentAlert : MonoBehaviour
         if (WorkerManager.Instance.isCountingDown)
         {
             // updates timer ui
-            timer.text = (WorkerManager.Instance.accidentRemainingTime).ToString($"#0.0" + "s");
+            timer.text = (WorkerManager.Instance.accidentRemainingTime).ToString($"#0" + "s");
             uiDocument.rootVisualElement.style.display = DisplayStyle.Flex;
         }
         else

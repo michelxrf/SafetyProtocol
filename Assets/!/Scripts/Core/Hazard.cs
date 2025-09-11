@@ -6,8 +6,6 @@ using UnityEngine;
 /// </summary>
 public class Hazard : InteractableObject
 {
-    public bool dontDestroyOnRandomization = false;
-
     private void Awake()
     {
         viewportCamera = GetComponentInChildren<Camera>();
@@ -17,6 +15,8 @@ public class Hazard : InteractableObject
     private void Start()
     {
         WorkerManager.Instance.hazards.Add(this);
+        WorkerManager.Instance.totalHazzards++;
+        WorkerManager.Instance.ForceHudUpdate();
     }
 
     /// <summary>

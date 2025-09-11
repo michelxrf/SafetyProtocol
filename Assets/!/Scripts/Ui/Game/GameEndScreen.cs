@@ -1,5 +1,7 @@
-using System.Xml.Serialization;
+using System.Linq;
+using PlayFab.ClientModels;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 /// <summary>
@@ -9,6 +11,9 @@ public class GameEndScreen : MonoBehaviour
 {
     UIDocument uiDocument;
 
+    VisualElement header;
+    Label playerScoreEntry = null;
+
     Label scoreLabel;
     Label timeLabel;
     Label accidentsLabel;
@@ -17,14 +22,22 @@ public class GameEndScreen : MonoBehaviour
     private void Awake()
     {
         uiDocument = GetComponent<UIDocument>();
-        uiDocument.rootVisualElement.Q<Button>("ContinueButton").clicked += OnContinueClicked;
+        uiDocument.rootVisualElement.Q<Button>("ContinueButton").clicked += OnBackToMenuClicked;
 
         scoreLabel = uiDocument.rootVisualElement.Q<Label>("Score");
         timeLabel = uiDocument.rootVisualElement.Q<Label>("Time");
         accidentsLabel = uiDocument.rootVisualElement.Q<Label>("Accidents");
         hazzardsLabel = uiDocument.rootVisualElement.Q<Label>("Hazzards");
+
+        header = uiDocument.rootVisualElement.Q<VisualElement>("Header");
+        header.style.display = DisplayStyle.None;
     }
 
+    private void Start()
+    {
+        LeaderboardManager.Instance.OnLeaderboardReceived += PopulateLeaderboard;
+        LeaderboardManager.Instance.OnScoreSubmitted += GetScores;
+    }
 
     /// <summary>
     /// Loads the data that will be shown
@@ -40,17 +53,102 @@ public class GameEndScreen : MonoBehaviour
         // prevents click handling bug as it was destroied during scene change
         ClickHandler.Instance.canClick = false;
 
-        scoreLabel.text = $"Sua pontuação: {score.ToString()}";
-        timeLabel.text = $"Tempo total: {time.ToString($"#0.0")} seconds";
-        accidentsLabel.text = $"Acidentes prevenidos: {accidentsSolved.ToString()}/{totalAccidents.ToString()}";
-        hazzardsLabel.text = $"Riscos eliminados: {hazzardsSolved.ToString()}/{totalHazzards.ToString()}";
+        scoreLabel.text = $"SUA PONTUAÇÃO: {score.ToString()}";
+        timeLabel.text = $"TEMPO TOTAL: {time.ToString($"#0.0")} Segundos";
+        accidentsLabel.text = $"ACIDENTES PREVENIDOS: {accidentsSolved.ToString()}/{totalAccidents.ToString()}";
+        hazzardsLabel.text = $"RISCOS ELIMINADOS: {hazzardsSolved.ToString()}/{totalHazzards.ToString()}";
     }
 
     /// <summary>
-    /// Shows the next screen: the leaderboard
+    /// Calls Playfab for scores
     /// </summary>
-    private void OnContinueClicked()
+    private void GetScores()
     {
-        ScreenSelector.Instance.SwitchScreen(ScreenSelector.SCREENMODE.HIGHSCORES);
+        LeaderboardManager.Instance.StartCoroutine(LeaderboardManager.Instance.GetScoresAsync());
+    }
+
+    /// <summary>
+    /// Clears all entries from the leaderboard.
+    /// </summary>
+    private void ClearLeaderboard()
+    {
+        VisualElement leaderboardParent = uiDocument.rootVisualElement.Q<VisualElement>("Leaderboard");
+
+        VisualElement[] allEntries = leaderboardParent.Children().ToArray();
+        foreach (VisualElement entry in allEntries)
+        {
+            if (entry.name == "PlayerEntry")
+                leaderboardParent.Remove(entry);
+        }
+
+        playerScoreEntry = null;
+    }
+
+    /// <summary>
+    /// Instantiate lines in the leaderboard, each line is a rank/player/score entry
+    /// </summary>
+    private void PopulateLeaderboard(GetLeaderboardResult playfabData)
+    {
+        ClearLeaderboard();
+
+        VisualElement leaderboardParent = uiDocument.rootVisualElement.Q<VisualElement>("Leaderboard");
+
+        // show header
+        header.style.display = DisplayStyle.Flex;
+
+        // Instantiate each score entry
+        foreach (var entry in playfabData.Leaderboard)
+        {
+            VisualElement entryParent = new VisualElement();
+            entryParent.name = "PlayerEntry";
+
+            Label rank = new Label();
+            rank.text = (entry.Position + 1).ToString() + "º";
+            rank.AddToClassList("RankColumm");
+            entryParent.Add(rank);
+
+            Label playerName = new Label();
+            playerName.text = entry.DisplayName;
+            playerName.AddToClassList("NameColumm");
+            entryParent.Add(playerName);
+
+            Label score = new Label();
+            score.text = entry.StatValue.ToString();
+            score.AddToClassList("ScoreColumm");
+            entryParent.Add(score);
+
+            // highlights the entry for this player's score
+            if (entry.PlayFabId == LeaderboardManager.Instance.playerID)
+            {
+                entryParent.AddToClassList("PlayerScoreEntry");
+                playerScoreEntry = playerName;
+            }
+            else
+            {
+                entryParent.AddToClassList("ScoreEntry");
+            }
+
+            leaderboardParent.Add(entryParent);
+
+            uiDocument.rootVisualElement.Q<Label>("Notice").style.display = DisplayStyle.None;
+        }
+    }
+
+    /// <summary>
+    /// Goes back to menus
+    /// </summary>
+    private void OnBackToMenuClicked()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    /// <summary>
+    /// Clears callbacks on Leaderboard Manager Singleton
+    /// </summary>
+    private void OnDestroy()
+    {
+        LeaderboardManager.Instance.OnLeaderboardReceived = null;
+        LeaderboardManager.Instance.OnEmptyLeadearboardReceived = null;
+        LeaderboardManager.Instance.OnScoreSubmitted = null;
     }
 }

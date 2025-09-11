@@ -1,13 +1,13 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/!/UI/Styles/hud.uss?fileID=7433441132597879392&amp;guid=14658ea3cb143bb44b24f49884e7c02f&amp;type=3#hud" />
     <ui:VisualElement name="Timer" picking-mode="Ignore" style="flex-grow: 1;">
-        <ui:VisualElement name="AlertIcon" picking-mode="Ignore" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/AlertPanel.png?fileID=2800000&amp;guid=f3cb9601a1e5fcf4ba0e3b7a3fd99adf&amp;type=3#AlertPanel&quot;); -unity-background-scale-mode: scale-to-fit; background-position-x: center 0; width: 671px; height: 10%; align-items: center; align-self: center; position: relative; left: auto; top: 2%; flex-direction: row; padding-right: 1%; padding-left: 1%;">
-            <ui:VisualElement name="VisualElement" style="flex-grow: 1;">
-                <ui:Label text="Alguém está em risco" class="font-barlow-bold" style="color: rgb(109, 0, 0); -unity-text-outline-color: rgb(255, 200, 200); -unity-text-outline-width: 1.5px; font-size: 25.33px; -unity-text-align: upper-center;" />
-                <ui:Label text="Identifique o trabalhor que está correndo risco de se acidentar" class="font-barlow-semibold" style="-unity-text-outline-color: rgb(109, 0, 0); -unity-text-outline-width: 1.5px; color: rgb(255, 255, 255); font-size: 20px;" />
+        <ui:VisualElement name="AlertIcon" picking-mode="Ignore" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/AlertPanel.png?fileID=2800000&amp;guid=f3cb9601a1e5fcf4ba0e3b7a3fd99adf&amp;type=3#AlertPanel&quot;); width: 37%; height: 18%; align-items: center; align-self: center; position: relative; left: auto; top: 2%; flex-direction: row; padding-right: 1%; padding-left: 1%; background-size: 100% 100%; border-left-width: 24px; border-right-width: 24px; border-top-width: 24px; border-bottom-width: 24px;">
+            <ui:VisualElement name="VisualElement" style="flex-grow: 0; height: 106px; width: 500px;">
+                <ui:Label text="Alguém está em risco" class="font-barlow-bold" style="color: rgb(109, 0, 0); font-size: 32px; -unity-text-align: upper-left; height: 40px;" />
+                <ui:Label text="Identifique o trabalhor que está correndo risco de se acidentar." class="font-barlow-semibold" style="color: rgb(45, 45, 45); font-size: 20px; -unity-font-definition: url(&quot;project://database/Assets/!/Fonts/Barlow/Barlow-SemiBold.ttf?fileID=12800000&amp;guid=67fd5a4e0f9695646bbf5993f65da75e&amp;type=3#Barlow-SemiBold&quot;); -unity-text-outline-width: 0; white-space: pre-wrap; height: 50px; -unity-text-align: middle-left;" />
             </ui:VisualElement>
-            <ui:VisualElement style="flex-grow: 1;">
-                <ui:Label text="30s" name="Countdown" picking-mode="Ignore" class="font-regular font-ropasans-regular" style="-unity-text-align: upper-center; font-size: 80px; color: rgb(255, 42, 42); -unity-text-outline-color: rgb(109, 0, 0); -unity-text-outline-width: 3px; right: auto; top: auto; position: relative;" />
+            <ui:VisualElement style="flex-grow: 0;">
+                <ui:Label text="30s" name="Countdown" picking-mode="Ignore" class="font-regular font-ropasans-regular" style="-unity-text-align: middle-center; font-size: 80px; color: rgb(255, 42, 42); -unity-text-outline-color: rgb(109, 0, 0); -unity-text-outline-width: 3px; right: auto; top: auto; position: relative;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

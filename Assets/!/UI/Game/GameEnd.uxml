@@ -1,27 +1,37 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/!/UI/Styles/Menus.uss?fileID=7433441132597879392&amp;guid=733d1cbb52089e94ba0a1b470523af93&amp;type=3#Menus" />
-    <ui:VisualElement style="flex-grow: 1; background-color: rgba(137, 137, 137, 0.78); align-items: center; justify-content: center;">
-        <ui:VisualElement class="font-barlow-regular" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/HudPanel.png?fileID=2800000&amp;guid=bb38e34d76261ce4087d9ff600dde8f0&amp;type=3#HudPanel&quot;); -unity-slice-left: 64; -unity-slice-top: 64; -unity-slice-right: 64; -unity-slice-bottom: 64; width: 900px; height: 750px;">
-            <ui:Label text="Fim da Partida" name="Tittle" class="font-barlow-bold" style="font-size: 64px; -unity-text-align: upper-center; -unity-font-style: normal;" />
-            <ui:VisualElement name="VisualElement" style="flex-grow: 1; align-items: center; justify-content: center; font-size: 32px;">
-                <ui:VisualElement style="flex-direction: row; height: 44px;">
-                    <ui:VisualElement style="background-image: url(&quot;project://database/Assets/!/UI/Assets/icon_timer.png?fileID=2800000&amp;guid=793659985fe6d99459fa2ddf077ede1e&amp;type=3#icon_timer&quot;); width: 44px; height: 44px;" />
-                    <ui:Label text="Tempo Total: 00:00" name="Time" style="align-self: center; align-items: center;" />
+    <Style src="project://database/Assets/!/UI/Styles/Leaderboard.uss?fileID=7433441132597879392&amp;guid=cb9193efaf9345e47847c38266f3b8f2&amp;type=3#Leaderboard" />
+    <ui:VisualElement style="flex-grow: 1; align-items: center; justify-content: center; flex-direction: row; background-image: url(&quot;project://database/Assets/!/UI/Assets/Background2.png?fileID=2800000&amp;guid=a33c67b5e0593384598298aa970ac800&amp;type=3#Background2&quot;);">
+        <ui:Label text="Fim da Partida" name="Tittle" class="font-barlow-bold" style="font-size: 64px; -unity-text-align: upper-center; -unity-font-style: normal; position: absolute; -unity-font-definition: url(&quot;project://database/Assets/!/Fonts/Barlow/Barlow-Bold.ttf?fileID=12800000&amp;guid=b6fda5bf6e56b194da1cfd4a2a2dde5c&amp;type=3#Barlow-Bold&quot;); top: 3%; left: auto;" />
+        <ui:VisualElement name="Summary" class="font-barlow-regular" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/MenuPanel.png?fileID=21300000&amp;guid=39e2698ca8449aa4d8f3720c01bfc962&amp;type=3#MenuPanel&quot;); -unity-slice-left: 64; -unity-slice-top: 64; -unity-slice-right: 64; -unity-slice-bottom: 64; width: 44%; height: 750px; position: absolute; left: 96px; top: 173px; justify-content: space-between;">
+            <ui:Label text="Sua Pontuação: 666" name="Score" class="font-barlow-bold" style="top: 4%; -unity-text-align: upper-center; font-size: 28px;" />
+            <ui:VisualElement name="VisualElement" style="justify-content: center; font-size: 20px; background-image: url(&quot;project://database/Assets/!/UI/Assets/Intern_Box_Big.png?fileID=21300000&amp;guid=06ea0afd3cbac0a4aaa63a5feee2258b&amp;type=3#Intern_Box_Big&quot;); margin-left: 2%; margin-right: 2%; -unity-slice-type: sliced; margin-bottom: 2%; height: 84%;">
+                <ui:VisualElement style="flex-direction: row; align-self: stretch; justify-content: center; border-top-width: 0; border-right-width: 0; border-bottom-width: 1px; border-left-width: 0; border-left-color: rgb(175, 179, 170); border-right-color: rgb(175, 179, 170); border-top-color: rgb(175, 179, 170); border-bottom-color: rgb(175, 179, 170); margin-left: 5%; margin-right: 5%; height: 64px; align-items: center;">
+                    <ui:VisualElement name="Icon" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/icon_timer.png?fileID=2800000&amp;guid=793659985fe6d99459fa2ddf077ede1e&amp;type=3#icon_timer&quot;); width: 88px; height: 44px; flex-grow: 0; -unity-background-scale-mode: scale-to-fit;" />
+                    <ui:Label text="Tempo Total: 00:00" name="Time" style="align-self: center; align-items: center; flex-grow: 0; color: rgb(61, 61, 61);" />
                 </ui:VisualElement>
-                <ui:VisualElement style="flex-direction: row;">
-                    <ui:VisualElement style="background-image: url(&quot;project://database/Assets/!/UI/Assets/icon_accident.png?fileID=2800000&amp;guid=8fd6367134bf7b84cb6e877269f2df44&amp;type=3#icon_accident&quot;); width: 44px; height: 44px;" />
-                    <ui:Label text="Acidentes Evitados: X/Y" name="Accidents" />
+                <ui:VisualElement style="flex-direction: row; justify-content: center; align-self: stretch; margin-left: 5%; margin-right: 5%; border-bottom-width: 1px; border-left-color: rgb(175, 179, 170); border-right-color: rgb(175, 179, 170); border-top-color: rgb(175, 179, 170); border-bottom-color: rgb(175, 179, 170); height: 64px; align-items: center;">
+                    <ui:VisualElement name="Icon" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/icon_accident.png?fileID=2800000&amp;guid=8fd6367134bf7b84cb6e877269f2df44&amp;type=3#icon_accident&quot;); width: 88px; height: 44px; -unity-background-scale-mode: scale-to-fit;" />
+                    <ui:Label text="Acidentes Evitados: X/Y" name="Accidents" style="color: rgb(61, 61, 61);" />
                 </ui:VisualElement>
-                <ui:VisualElement style="flex-direction: row;">
-                    <ui:VisualElement style="background-image: url(&quot;project://database/Assets/!/UI/Assets/icon_risk.png?fileID=2800000&amp;guid=2e7bb4c270948fb45b2694321e4bb325&amp;type=3#icon_risk&quot;); width: 44px; height: 44px;" />
-                    <ui:Label text="Riscos Eliminados: X/Y" name="Hazzards" />
+                <ui:VisualElement style="flex-direction: row; align-self: stretch; justify-content: center; margin-left: 5%; margin-right: 5%; border-bottom-width: 1px; border-left-color: rgb(175, 179, 170); border-right-color: rgb(175, 179, 170); border-top-color: rgb(175, 179, 170); border-bottom-color: rgb(175, 179, 170); height: 64px; align-items: center;">
+                    <ui:VisualElement name="Icon" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/icon_risk.png?fileID=2800000&amp;guid=2e7bb4c270948fb45b2694321e4bb325&amp;type=3#icon_risk&quot;); width: 88px; height: 44px; -unity-background-scale-mode: scale-to-fit;" />
+                    <ui:Label text="Riscos Eliminados: X/Y" name="Hazzards" style="color: rgb(61, 61, 61);" />
                 </ui:VisualElement>
-                <ui:VisualElement style="flex-direction: row;">
-                    <ui:VisualElement style="background-image: none; width: 44px; height: 44px;" />
-                    <ui:Label text="Pontuação Total: 0000" name="Score" class="font-barlow-bold" style="border-top-width: 5px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); margin-top: 32px;" />
-                </ui:VisualElement>
+                <ui:VisualElement style="flex-direction: row;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Button text="Continuar" name="ContinueButton" class="y-button" style="font-size: 48px; top: 966px; position: absolute;" />
+        <ui:VisualElement style="margin-right: 0; margin-left: 0; margin-top: auto; margin-bottom: auto; justify-content: space-between; left: 51%; right: auto; position: absolute; background-image: url(&quot;project://database/Assets/!/UI/Assets/MenuPanel.png?fileID=2800000&amp;guid=39e2698ca8449aa4d8f3720c01bfc962&amp;type=3#MenuPanel&quot;); -unity-slice-left: 64; -unity-slice-top: 64; -unity-slice-right: 64; -unity-slice-bottom: 64; width: 44%; height: 750px; top: 16%;">
+            <ui:Label text="PLACAR DA TURMA" name="Title" class="font-barlow-bold" style="-unity-text-align: upper-center; font-size: 28px; -unity-font-style: normal; height: auto; flex-grow: 0; border-top-width: 10px; border-bottom-width: 10px; top: 4%;" />
+            <ui:VisualElement name="Leaderboard" style="justify-content: flex-start; font-size: 20px; background-image: url(&quot;project://database/Assets/!/UI/Assets/Intern_Box_Big.png?fileID=21300000&amp;guid=06ea0afd3cbac0a4aaa63a5feee2258b&amp;type=3#Intern_Box_Big&quot;); margin-left: 2%; margin-right: 2%; -unity-slice-type: sliced; margin-bottom: 2%; height: 84%; align-items: stretch;">
+                <ui:VisualElement name="Header" class="ScoreEntry" style="align-items: center; justify-content: space-between; border-bottom-width: 1px; width: auto; align-self: stretch; flex-grow: 0; flex-shrink: 0; border-left-color: rgb(162, 162, 162); border-right-color: rgb(162, 162, 162); border-top-color: rgb(162, 162, 162); border-bottom-color: rgb(162, 162, 162); margin-left: 1%; margin-right: 1%; font-size: 20px;">
+                    <ui:Label text="#" name="Rank" class="RankColumm" style="width: 10%; flex-grow: 0; color: rgb(162, 162, 162); -unity-text-align: upper-center;" />
+                    <ui:Label text="Jogador" name="Name" class="NameColumm" style="color: rgb(162, 162, 162);" />
+                    <ui:Label text="Pontuação" name="Score" class="ScoreColumm" style="color: rgb(162, 162, 162);" />
+                </ui:VisualElement>
+                <ui:Label name="Notice" text="Carregando placar..." class="font-barlow-regular" style="flex-grow: 1; -unity-text-align: middle-center; font-size: 32px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Button text="Voltar ao Menu" name="ContinueButton" class="r-button" style="position: absolute; top: 966px;" />
     </ui:VisualElement>
 </ui:UXML>

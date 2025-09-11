@@ -128,3 +128,33 @@ Slider #unity-dragger {
 Slider #unity-tracker {
     scale: 1 0.5;
 }
+
+.selected {
+    background-image: url("project://database/Assets/!/UI/Assets/Selected_Option.png?fileID=2800000&guid=c0b3938d71164164cb7d27fdd5cad306&type=3#Selected_Option");
+    border-top-width: 2px;
+    border-right-width: 2px;
+    border-bottom-width: 2px;
+    border-left-width: 2px;
+    padding-left: 1%;
+    padding-right: 1%;
+}
+
+.answers {
+    flex-direction: row-reverse;
+    font-size: 20px;
+    -unity-text-align: middle-left;
+    justify-content: center;
+    align-self: auto;
+    align-content: auto;
+    align-items: center;
+    margin-right: 0;
+    margin-left: 0;
+    background-image: url("project://database/Assets/!/UI/Assets/Default_Option.png?fileID=21300000&guid=cec87e3af3b688a48912a17c178b82c3&type=3#Default_Option");
+    margin-top: 0;
+    margin-bottom: 0;
+    -unity-font-definition: url("project://database/Assets/!/Fonts/Barlow/Barlow-Regular.ttf?fileID=12800000&guid=6a4bdc0fad33a1040a0b506eb3b3ffd8&type=3#Barlow-Regular");
+    padding-bottom: 1%;
+    padding-top: 1%;
+    flex-grow: 1;
+    padding-left: 3%;
+}

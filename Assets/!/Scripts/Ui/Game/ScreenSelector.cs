@@ -19,7 +19,6 @@ public class ScreenSelector : MonoBehaviour
     [SerializeField] UIDocument pause;
     [SerializeField] UIDocument accident;
     [SerializeField] UIDocument gameEnd;
-    [SerializeField] UIDocument highscores;
 
     private void Awake()
     {
@@ -55,7 +54,6 @@ public class ScreenSelector : MonoBehaviour
                 pause.rootVisualElement.style.display = DisplayStyle.None;
                 accident.rootVisualElement.style.display = DisplayStyle.None;
                 gameEnd.rootVisualElement.style.display = DisplayStyle.None;
-                highscores.rootVisualElement.style.display = DisplayStyle.None;
 
                 ClickHandler.Instance.canClick = true;
 
@@ -67,7 +65,6 @@ public class ScreenSelector : MonoBehaviour
                 pause.rootVisualElement.style.display = DisplayStyle.Flex;
                 accident.rootVisualElement.style.display = DisplayStyle.None;
                 gameEnd.rootVisualElement.style.display = DisplayStyle.None;
-                highscores.rootVisualElement.style.display = DisplayStyle.None;
 
                 ClickHandler.Instance.canClick = false;
 
@@ -80,7 +77,6 @@ public class ScreenSelector : MonoBehaviour
                 pause.rootVisualElement.style.display = DisplayStyle.None;
                 accident.rootVisualElement.style.display = DisplayStyle.None;
                 gameEnd.rootVisualElement.style.display = DisplayStyle.None;
-                highscores.rootVisualElement.style.display = DisplayStyle.None;
 
                 ClickHandler.Instance.canClick = false;
                 break;
@@ -92,7 +88,6 @@ public class ScreenSelector : MonoBehaviour
                 pause.rootVisualElement.style.display = DisplayStyle.None;
                 accident.rootVisualElement.style.display = DisplayStyle.Flex;
                 gameEnd.rootVisualElement.style.display = DisplayStyle.None;
-                highscores.rootVisualElement.style.display = DisplayStyle.None;
 
                 ClickHandler.Instance.canClick = false;
                 break;
@@ -103,7 +98,6 @@ public class ScreenSelector : MonoBehaviour
                 pause.rootVisualElement.style.display = DisplayStyle.None;
                 accident.rootVisualElement.style.display = DisplayStyle.None;
                 gameEnd.rootVisualElement.style.display = DisplayStyle.Flex;
-                highscores.rootVisualElement.style.display = DisplayStyle.None;
 
                 ClickHandler.Instance.canClick = false;
                 break;
@@ -114,7 +108,6 @@ public class ScreenSelector : MonoBehaviour
                 pause.rootVisualElement.style.display = DisplayStyle.None;
                 accident.rootVisualElement.style.display = DisplayStyle.None;
                 gameEnd.rootVisualElement.style.display = DisplayStyle.None;
-                highscores.rootVisualElement.style.display = DisplayStyle.Flex;
 
                 ClickHandler.Instance.canClick = false;
                 break;
@@ -125,7 +118,6 @@ public class ScreenSelector : MonoBehaviour
                 pause.rootVisualElement.style.display = DisplayStyle.None;
                 accident.rootVisualElement.style.display = DisplayStyle.None;
                 gameEnd.rootVisualElement.style.display = DisplayStyle.None;
-                highscores.rootVisualElement.style.display = DisplayStyle.None;
                 
                 Debug.LogError("invalid screen mode.");
                 ClickHandler.Instance.canClick = false;

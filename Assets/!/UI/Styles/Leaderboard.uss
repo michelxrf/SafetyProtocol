@@ -6,7 +6,10 @@
     width: 805px;
     align-self: center;
     -unity-font-definition: url("project://database/Assets/!/Fonts/Barlow/Barlow-Regular.ttf?fileID=12800000&guid=6a4bdc0fad33a1040a0b506eb3b3ffd8&type=3#Barlow-Regular");
-    font-size: 24px;
+    font-size: 20px;
+    margin-right: 1%;
+    margin-left: 1%;
+    color: rgb(27, 27, 27);
 }
 
 .NameColumm {
@@ -26,6 +29,7 @@
 .RankColumm {
     flex-grow: 1;
     width: 10%;
+    -unity-text-align: upper-center;
 }
 
 .PlayerScoreEntry {
@@ -34,5 +38,19 @@
     align-self: center;
     -unity-font-definition: url("project://database/Assets/!/Fonts/Barlow/Barlow-Regular.ttf?fileID=12800000&guid=6a4bdc0fad33a1040a0b506eb3b3ffd8&type=3#Barlow-Regular");
     color: rgb(173, 62, 2);
-    font-size: 24px;
+    font-size: 20px;
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+VisualElement > VisualElement > #LevelSetup > #Difficulty > .unity-base-field__input > #choicesContentContainer > .unity-radio-button > .unity-radio-button__input > .unity-radio-button__checkmark-background {
+    display: none;
+}
+
+VisualElement > VisualElement > #LevelSetup > #Map > .unity-base-field__input > #choicesContentContainer > .unity-radio-button > .unity-radio-button__input > .unity-radio-button__checkmark-background {
+    display: none;
+}
+
+RadioButton {
+    display: flex;
 }

@@ -27,7 +27,8 @@ public class AccidentScreen : MonoBehaviour
         // sets the accident screen
         uiDocument.rootVisualElement.Q<Label>("Tittle").text = accidentData.accidentTitle;
         uiDocument.rootVisualElement.Q<Label>("Description").text = accidentData.accidentDescription;
-      
+        uiDocument.rootVisualElement.Q<Label>("Description").style.whiteSpace = WhiteSpace.Normal;
+
         if (accidentData.accidentImage != null)
             uiDocument.rootVisualElement.Q<VisualElement>("Image").style.backgroundImage = accidentData.accidentImage;
 

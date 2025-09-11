@@ -13,19 +13,19 @@
                 <ui:TextField label="Turma" placeholder-text="digite o nome da turma..." name="LeaderboardName" hide-placeholder-on-focus="true" />
             </ui:VisualElement>
             <ui:VisualElement name="LevelSetup" class="font-regular" style="flex-grow: 1; background-image: none; margin-bottom: 0; margin-top: 0; margin-right: 0; margin-left: 0;">
-                <ui:RadioButtonGroup label="Dificuldade" choices="Fácil,Normal,Difícil" value="0" name="Difficulty" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/inner_box.png?fileID=21300000&amp;guid=0588f3df2cdf3944a989a206b7ef7809&amp;type=3#inner_box&quot;);" />
-                <ui:RadioButtonGroup label="Mapa" choices="Level_1" value="0" name="Map" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/inner_box.png?fileID=21300000&amp;guid=0588f3df2cdf3944a989a206b7ef7809&amp;type=3#inner_box&quot;); margin-top: 12px;" />
+                <ui:RadioButtonGroup label="Dificuldade" choices="Fácil,Normal,Difícil" name="Difficulty" value="0" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/inner_box.png?fileID=21300000&amp;guid=0588f3df2cdf3944a989a206b7ef7809&amp;type=3#inner_box&quot;);" />
+                <ui:RadioButtonGroup label="Mapa" choices="Canteiro de Obras" name="Map" value="0" style="background-image: url(&quot;project://database/Assets/!/UI/Assets/inner_box.png?fileID=21300000&amp;guid=0588f3df2cdf3944a989a206b7ef7809&amp;type=3#inner_box&quot;); margin-top: 12px;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:VisualElement class="font-regular" style="left: 51%; right: auto; position: absolute; top: 16%; background-image: url(&quot;project://database/Assets/!/UI/Assets/MenuPanel.png?fileID=2800000&amp;guid=39e2698ca8449aa4d8f3720c01bfc962&amp;type=3#MenuPanel&quot;); height: 68%; width: 44%; padding-top: 2%; padding-right: 1%; padding-bottom: 2%; padding-left: 1%;">
-            <ui:Label text="PLACAR DA TURMA" name="Title" class="font-barlow-bold" style="-unity-text-align: upper-center; font-size: 28px; flex-grow: 0; border-top-width: 10px; border-bottom-width: 10px; margin-top: 27px; margin-bottom: 21px;" />
-            <ui:VisualElement name="Leaderboard" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/!/UI/Assets/inner_box.png?fileID=21300000&amp;guid=0588f3df2cdf3944a989a206b7ef7809&amp;type=3#inner_box&quot;);">
-                <ui:VisualElement name="Header" class="ScoreEntry" style="flex-direction: row; border-bottom-width: 2px; border-left-color: rgb(0, 0, 0); border-right-color: rgb(0, 0, 0); border-top-color: rgb(0, 0, 0); border-bottom-color: rgb(0, 0, 0); width: auto; align-self: stretch;">
-                    <ui:Label text="#" name="Rank" class="RankColumm" style="width: 10%; flex-grow: 0; -unity-text-align: upper-center;" />
-                    <ui:Label text="Jogador" name="Name" class="NameColumm" />
-                    <ui:Label text="Pontuação" name="Score" class="ScoreColumm" />
+        <ui:VisualElement style="margin-right: 0; margin-left: 0; margin-top: auto; margin-bottom: auto; justify-content: space-between; left: 51%; right: auto; position: absolute; background-image: url(&quot;project://database/Assets/!/UI/Assets/MenuPanel.png?fileID=2800000&amp;guid=39e2698ca8449aa4d8f3720c01bfc962&amp;type=3#MenuPanel&quot;); -unity-slice-left: 64; -unity-slice-top: 64; -unity-slice-right: 64; -unity-slice-bottom: 64; width: 44%; height: 750px; top: 16%;">
+            <ui:Label text="PLACAR DA TURMA" name="Title" class="font-barlow-bold" style="-unity-text-align: upper-center; font-size: 28px; -unity-font-style: normal; height: auto; flex-grow: 0; border-top-width: 10px; border-bottom-width: 10px; top: 4%;" />
+            <ui:VisualElement name="Leaderboard" style="justify-content: flex-start; font-size: 20px; background-image: url(&quot;project://database/Assets/!/UI/Assets/Intern_Box_Big.png?fileID=21300000&amp;guid=06ea0afd3cbac0a4aaa63a5feee2258b&amp;type=3#Intern_Box_Big&quot;); margin-left: 2%; margin-right: 2%; -unity-slice-type: sliced; margin-bottom: 2%; height: 84%; align-items: stretch;">
+                <ui:VisualElement name="Header" class="ScoreEntry" style="align-items: center; justify-content: space-between; border-bottom-width: 1px; width: auto; align-self: stretch; flex-grow: 0; flex-shrink: 0; border-left-color: rgb(162, 162, 162); border-right-color: rgb(162, 162, 162); border-top-color: rgb(162, 162, 162); border-bottom-color: rgb(162, 162, 162); margin-left: 1%; margin-right: 1%; font-size: 20px;">
+                    <ui:Label text="#" name="Rank" class="RankColumm" style="width: 10%; flex-grow: 0; color: rgb(162, 162, 162);" />
+                    <ui:Label text="Jogador" name="Name" class="NameColumm" style="color: rgb(162, 162, 162);" />
+                    <ui:Label text="Pontuação" name="Score" class="ScoreColumm" style="color: rgb(162, 162, 162);" />
                 </ui:VisualElement>
-                <ui:Label text="Digite o código da turma para ver o placar." name="Notice" style="-unity-text-align: middle-center; font-size: 48px; flex-grow: 1; border-top-width: 10px; border-bottom-width: 10px; white-space: pre-wrap;" />
+                <ui:Label name="Notice" text="A pontuação da turma irá aparecer aqui." class="font-barlow-regular" style="flex-grow: 1; -unity-text-align: middle-center; font-size: 32px;" />
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

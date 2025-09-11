@@ -47,7 +47,7 @@ public class WorkerManager : MonoBehaviour
     [HideInInspector] public List<PatrolPoint> patrolPoints = new();
     [HideInInspector] public List<Worker> workers = new();
     [HideInInspector] public List<Workstation> workstations = new();
-    [HideInInspector] public List<Hazard> hazards = new();
+    public List<Hazard> hazards = new();
 
     [HideInInspector] public float gameTime = 0f;
 
@@ -92,11 +92,22 @@ public class WorkerManager : MonoBehaviour
         ReduceNumberOfAccidents();
 
         // gets totals
-        totalHazzards = hazards.Count;
         totalAccidents = accidentEventsList.Count;
 
         InitAllWorkersMovement();
         CallNextAccident();
+    }
+
+
+
+    /// <summary>
+    /// Makes the Hud manager updates all it's scores
+    /// </summary>
+    public void ForceHudUpdate()
+    {
+        if (hudManager == null)
+            hudManager = FindFirstObjectByType<HudManager>();
+
         hudManager.UpdateScores();
     }
 
@@ -105,7 +116,6 @@ public class WorkerManager : MonoBehaviour
     /// </summary>
     private void ConfigureDificulty()
     {
-        Debug.Log($"dificulty value: {SettingsKeeper.Instance.dificultyLevel}");
         switch (SettingsKeeper.Instance.dificultyLevel)
         {
             // facil
