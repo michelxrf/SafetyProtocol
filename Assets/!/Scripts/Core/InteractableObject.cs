@@ -36,7 +36,7 @@ public class InteractableObject : MonoBehaviour
     /// <summary>
     /// The Quiz was wrongly answered.
     /// </summary>
-    protected virtual void AnswereWrong()
+    public virtual void AnswereWrong()
     {
 
     }

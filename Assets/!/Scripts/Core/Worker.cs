@@ -221,7 +221,7 @@ public class Worker : InteractableObject
     /// <summary>
     /// Treats a wrong call to the quiz.
     /// </summary>
-    protected override void AnswereWrong()
+    public override void AnswereWrong()
     {
         base.AnswereWrong();
         

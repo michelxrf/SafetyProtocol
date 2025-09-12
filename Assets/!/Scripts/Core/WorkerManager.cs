@@ -93,6 +93,7 @@ public class WorkerManager : MonoBehaviour
         // gets totals
         totalAccidents = accidentEventsList.Count;
 
+        ForceHudUpdate();
         InitAllWorkersMovement();
         CallNextAccident();
     }
@@ -390,7 +391,7 @@ public class WorkerManager : MonoBehaviour
 
         if (accidentRemainingTime < 0)
         {
-            AccidentHappened();
+            workerInAccidentEvent.AnswereWrong();
         }
     }
 

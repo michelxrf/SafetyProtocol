@@ -34,7 +34,7 @@ public class Hazard : InteractableObject
     /// <summary>
     /// Wrong answer! Just go on with the game and disables it.
     /// </summary>
-    protected override void AnswereWrong()
+    public override void AnswereWrong()
     {
         base.AnswereWrong();
         ScreenSelector.Instance.SwitchScreen(ScreenSelector.SCREENMODE.GAME);
