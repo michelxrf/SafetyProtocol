@@ -392,8 +392,6 @@ public class GameSetup : MonoBehaviour
     /// </summary>
     void LockGameStartOnEdit()
     {
-        keyboard = TouchScreenKeyboard.Open("", TouchScreenKeyboardType.Default);
-
         startGameButton.SetEnabled(false);
     }
 
