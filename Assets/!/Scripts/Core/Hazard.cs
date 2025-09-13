@@ -6,6 +6,8 @@ using UnityEngine;
 /// </summary>
 public class Hazard : InteractableObject
 {
+    [SerializeField] AudioClip failSFX;
+
     private void Awake()
     {
         viewportCamera = GetComponentInChildren<Camera>();
@@ -37,6 +39,7 @@ public class Hazard : InteractableObject
     public override void AnswereWrong()
     {
         base.AnswereWrong();
+        AudioManager.Instance.PlaySFX(failSFX, transform);
         ScreenSelector.Instance.SwitchScreen(ScreenSelector.SCREENMODE.GAME);
         DisableInteraction();
     }

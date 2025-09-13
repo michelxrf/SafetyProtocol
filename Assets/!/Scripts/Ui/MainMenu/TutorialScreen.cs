@@ -32,7 +32,12 @@ public class TutorialScreen : MonoBehaviour
         pageIndex = ui.rootVisualElement.Q<Label>("Index");
 
         ui.rootVisualElement.Q<Button>("Next").clicked += OnNextPageClicked;
+        ui.rootVisualElement.Q<Button>("Next").RegisterCallback<MouseEnterEvent>(evt =>
+            AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.HOVER, transform));
+
         ui.rootVisualElement.Q<Button>("Menu").clicked += OnBackClicked;
+        ui.rootVisualElement.Q<Button>("Menu").RegisterCallback<MouseEnterEvent>(evt =>
+            AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.HOVER, transform));
 
         if (pages.Length < 1)
             Debug.LogError("No tutorial pages set");
@@ -67,6 +72,7 @@ public class TutorialScreen : MonoBehaviour
     /// </summary>
     private void OnBackClicked()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.CLICK, transform);
         ui.rootVisualElement.style.display = DisplayStyle.None;
         titleScreen.Show();
     }
@@ -76,6 +82,7 @@ public class TutorialScreen : MonoBehaviour
     /// </summary>
     private void OnNextPageClicked()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.CLICK, transform);
         currentIndex = (int)Mathf.Repeat(currentIndex + 1, pages.Length);
         ShowPage(currentIndex);
     }

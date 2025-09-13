@@ -26,7 +26,11 @@ public class Worker : InteractableObject
     [HideInInspector] public PatrolPoint assignedPoint;
     [HideInInspector] public bool isAccidentTarget = false;
 
-    public bool initialized = false;
+    [Header("Audio")]
+    [SerializeField] AudioClip[] workSFXs;
+    AudioSource workAudioSource;
+
+    [HideInInspector] public bool initialized = false;
 
     void Awake()
     {
@@ -39,6 +43,7 @@ public class Worker : InteractableObject
         navMeshAgent = GetComponent<NavMeshAgent>();
         destinationReachedNotifier = GetComponent<AgentDestinationReachedNotifier>();
         destinationReachedNotifier.OnDestinationReached += ReachDestination;
+        workAudioSource = GetComponent<AudioSource>();
 
         // saves navMeshAgent speed for pausing and resuming worker movement
         navMeshAgentSpeed = navMeshAgent.speed;
@@ -76,6 +81,9 @@ public class Worker : InteractableObject
 
             currentState = STATE.WORKING;
             animator.SetBool("isWorking", true);
+            workAudioSource.clip = workSFXs[Random.Range(0, workSFXs.Length - 1)];
+            workAudioSource.Play();
+
 
             RotateTo(assignedPoint.GetComponent<Workstation>().workerLookAt);
 
@@ -88,6 +96,7 @@ public class Worker : InteractableObject
 
             currentState = STATE.IDLING;
             animator.SetBool("isWorking", false);
+            workAudioSource.Stop();
 
             if (!isAccidentTarget)
                 StartCoroutine(WaitForSeconds(minIdleTime, maxIdleTime));

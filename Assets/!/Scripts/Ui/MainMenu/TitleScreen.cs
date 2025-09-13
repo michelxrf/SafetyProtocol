@@ -16,8 +16,16 @@ public class TitleScreen : MonoBehaviour
         ui = GetComponent<UIDocument>();
 
         ui.rootVisualElement.Q<Button>("Multiplayer").clicked += ShowGameSetup;
+        ui.rootVisualElement.Q<Button>("Multiplayer").RegisterCallback<MouseEnterEvent>(evt =>
+            AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.HOVER, transform));
+
         ui.rootVisualElement.Q<Button>("Settings").clicked += ShowSettings;
+        ui.rootVisualElement.Q<Button>("Settings").RegisterCallback<MouseEnterEvent>(evt =>
+            AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.HOVER, transform));
+
         ui.rootVisualElement.Q<Button>("Tutorial").clicked += ShowTutorial;
+        ui.rootVisualElement.Q<Button>("Tutorial").RegisterCallback<MouseEnterEvent>(evt =>
+            AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.HOVER, transform));
     }
 
     private void Start()
@@ -28,12 +36,14 @@ public class TitleScreen : MonoBehaviour
 
     private void ShowTutorial()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.CLICK, transform);
         Hide();
         tutorialScreen.Show();
     }
 
     private void ShowSettings()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.CLICK, transform);
         Hide();
         settingsScreen.Show();
     }
@@ -43,6 +53,7 @@ public class TitleScreen : MonoBehaviour
     /// </summary>
     private void ShowGameSetup()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.CLICK, transform);
         Hide();
         gameSetupScreen.Show();
     }

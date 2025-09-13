@@ -19,10 +19,15 @@ public class GameEndScreen : MonoBehaviour
     Label accidentsLabel;
     Label hazzardsLabel;
 
+    [Header("Audio")]
+    [SerializeField] AudioClip showGameEndSFX;
+
     private void Awake()
     {
         uiDocument = GetComponent<UIDocument>();
         uiDocument.rootVisualElement.Q<Button>("ContinueButton").clicked += OnBackToMenuClicked;
+        uiDocument.rootVisualElement.Q<Button>("ContinueButton").RegisterCallback<MouseEnterEvent>(evt =>
+            AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.HOVER, transform));
 
         scoreLabel = uiDocument.rootVisualElement.Q<Label>("Score");
         timeLabel = uiDocument.rootVisualElement.Q<Label>("Time");
@@ -52,6 +57,7 @@ public class GameEndScreen : MonoBehaviour
     {
         // prevents click handling bug as it was destroied during scene change
         ClickHandler.Instance.canClick = false;
+        AudioManager.Instance.PlaySFX(showGameEndSFX, transform);
 
         scoreLabel.text = $"SUA PONTUAÇÃO: {score.ToString()}";
         timeLabel.text = $"TEMPO TOTAL: {time.ToString($"#0.0")} Segundos";
@@ -139,6 +145,7 @@ public class GameEndScreen : MonoBehaviour
     /// </summary>
     private void OnBackToMenuClicked()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.CLICK, transform);
         SceneManager.LoadScene("MainMenu");
     }
 

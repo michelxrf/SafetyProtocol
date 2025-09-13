@@ -16,5 +16,5 @@ MonoBehaviour:
   accidentImage: {fileID: 2800000, guid: d341788410f12d74ab3085637a241146, type: 3}
   accidentTitle: Um Acidente Aconteceu!
   accidentDescription: "O cal\xE7ado inadequado compromete a prote\xE7\xE3o dos p\xE9s.
-    Botinas com biqueira de a\xE7o evitam esmagamentos e perfura\xE7\xF5es."
+    Botinas com biqueira de a\xE7o <b>evitam esmagamentos e perfura\xE7\xF5es</b>."
   accidentAudio: {fileID: 0}

@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21d85a4d825dcc448a4d01912edf8284, type: 3}
   m_Name: Oculos
   m_EditorClassIdentifier: 
-  question: "Voc\xEA v\xEA um trabalhador usando uma esmerilhadeira para cortar a\xE7o,
-    sem \xF3culos de prote\xE7\xE3o. Pergunta: Qual das alternativas n\xE3o corresponde
-    ao risco imediato dessa situa\xE7\xE3o?"
+  question: "Voc\xEA v\xEA um trabalhador <b>usando uma esmerilhadeira</b> para cortar
+    a\xE7o, <b>sem \xF3culos de prote\xE7\xE3o</b>. Qual das alternativas <b>n\xE3o</b>
+    corresponde ao risco imediato dessa situa\xE7\xE3o?"
   rightAnswers:
   - "Perda auditiva imediata exclusivamente pela falta de \xF3culos"
   wrongAnswers:

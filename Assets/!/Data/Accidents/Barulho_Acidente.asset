@@ -16,5 +16,5 @@ MonoBehaviour:
   accidentImage: {fileID: 2800000, guid: d341788410f12d74ab3085637a241146, type: 3}
   accidentTitle: Um Acidente Aconteceu!
   accidentDescription: "A exposi\xE7\xE3o cont\xEDnua a ru\xEDdo intenso sem protetor
-    auricular pode causar perda auditiva permanente. O uso de EPI \xE9 obrigat\xF3rio."
+    auricular pode causar perda auditiva permanente. <b>O uso de EPI \xE9 obrigat\xF3rio.</b>"
   accidentAudio: {fileID: 0}

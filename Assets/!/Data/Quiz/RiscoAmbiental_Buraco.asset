@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21d85a4d825dcc448a4d01912edf8284, type: 3}
   m_Name: RiscoAmbiental_Buraco
   m_EditorClassIdentifier: 
-  question: "Durante uma escava\xE7\xE3o profunda, nota-se a aus\xEAncia de qualquer
-    tipo de prote\xE7\xE3o lateral. Pergunta: Qual acidente pode ocorrer nesse local
-    se nenhuma medida for adotada?"
+  question: "Durante uma escava\xE7\xE3o profunda, nota-se a <b>aus\xEAncia</b> de
+    qualquer tipo de prote\xE7\xE3o lateral. Qual <b>acidente</b> pode ocorrer nesse
+    local se nenhuma medida for adotada?"
   rightAnswers:
   - Queda com risco de soterramento
   wrongAnswers:

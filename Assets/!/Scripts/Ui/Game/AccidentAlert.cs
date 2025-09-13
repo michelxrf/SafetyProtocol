@@ -12,8 +12,11 @@ public class AccidentAlert : MonoBehaviour
     VisualElement accidentAlertIcon;
     Label timer;
 
+    [Header("Settings")]
     [SerializeField] float alertBlinkInterval = .5f;
     [SerializeField] bool blinkAlert = true;
+
+    AudioSource audioSource;
 
     private void Awake()
     {
@@ -22,6 +25,8 @@ public class AccidentAlert : MonoBehaviour
 
         timer = uiDocument.rootVisualElement.Q<Label>("Countdown");
         accidentAlertIcon = uiDocument.rootVisualElement.Q<VisualElement>("AlertIcon");
+
+        audioSource = GetComponent<AudioSource>();
 
         if (blinkAlert)
             StartCoroutine(BlinkAlert());
@@ -42,10 +47,14 @@ public class AccidentAlert : MonoBehaviour
             // updates timer ui
             timer.text = (WorkerManager.Instance.accidentRemainingTime).ToString($"#0" + "s");
             uiDocument.rootVisualElement.style.display = DisplayStyle.Flex;
+
+            if(!audioSource.isPlaying)
+                audioSource.Play();
         }
         else
         {
             uiDocument.rootVisualElement.style.display = DisplayStyle.None;
+            audioSource.Stop();
         }
     }
 

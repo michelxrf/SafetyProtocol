@@ -271,6 +271,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   viewportCamera: {fileID: 0}
+  successSFX: {fileID: 8300000, guid: 902d4d2475324494999d45068ac13826, type: 3}
+  failSFX: {fileID: 8300000, guid: 4407630a06d3a0c4693fbe70d2e29764, type: 3}
 --- !u!1001 &48311047531806811
 PrefabInstance:
   m_ObjectHideFlags: 0

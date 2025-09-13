@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Capacete
   m_EditorClassIdentifier: 
   question: "Durante a execu\xE7\xE3o de servi\xE7os em um canteiro de obras, um
-    trabalhador circula na \xE1rea de carga e descarga de materiais sem utilizar
-    capacete de prote\xE7\xE3o.\L Pergunta: Quais riscos esse trabalhador est\xE1
+    trabalhador circula na \xE1rea de carga e descarga de materiais <b>sem utilizar
+    capacete</b> de prote\xE7\xE3o. Quais <b>riscos</b> esse trabalhador est\xE1
     exposto por n\xE3o usar o EPI adequado?"
   rightAnswers:
   - "Impacto de objetos que possam cair de n\xEDveis superiores"

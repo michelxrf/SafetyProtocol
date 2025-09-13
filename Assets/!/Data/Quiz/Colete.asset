@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Colete
   m_EditorClassIdentifier: 
   question: "Um trabalhador realiza atividades pr\xF3ximo ao tr\xE1fego de caminh\xF5es
-    e m\xE1quinas no canteiro de obras, mas n\xE3o est\xE1 utilizando o colete refletivo
-    de seguran\xE7a.\L Pergunta: Quais riscos imediatos essa situa\xE7\xE3o pode
-    causar?"
+    e m\xE1quinas no canteiro de obras, mas <b>n\xE3o est\xE1 utilizando o colete
+    refletivo</b> de seguran\xE7a. Quais <b>riscos imediatos</b> essa situa\xE7\xE3o
+    pode causar?"
   rightAnswers:
   - "N\xE3o ser visualizado por operadores de m\xE1quinas e ve\xEDculos"
   - "Maior chance de atropelamento ou colis\xE3o com equipamentos em movimento"

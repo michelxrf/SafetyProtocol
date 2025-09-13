@@ -12,7 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21d85a4d825dcc448a4d01912edf8284, type: 3}
   m_Name: Test01
   m_EditorClassIdentifier: 
-  question: "Sim ou N\xE3o?"
+  question: '1. Lorem Ipsum Dolorem
+
+
+    2. Lorem Ipsum <b>Dolorem</b>\n3. Lorem
+    Ipsum Dolorem'
   rightAnswers:
   - Sim
   wrongAnswers:

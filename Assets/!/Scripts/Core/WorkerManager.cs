@@ -50,7 +50,6 @@ public class WorkerManager : MonoBehaviour
 
     [HideInInspector] public float gameTime = 0f;
 
-
     private void Awake()
     {
         if (Instance != null && Instance != this)

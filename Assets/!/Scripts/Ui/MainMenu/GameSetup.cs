@@ -37,11 +37,15 @@ public class GameSetup : MonoBehaviour
 
         // init "voltar" button
         uiDocument.rootVisualElement.Q<Button>("Back").clicked += ShowTitle;
+        uiDocument.rootVisualElement.Q<Button>("Back").RegisterCallback<MouseEnterEvent>(evt =>
+            AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.HOVER, transform));
 
         // init "jogar" button
         startGameButton = uiDocument.rootVisualElement.Q<Button>("Play");
         startGameButton.SetEnabled(false);
         startGameButton.clicked += StartGame;
+        startGameButton.RegisterCallback<MouseEnterEvent>(evt =>
+            AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.HOVER, transform));
 
         // init username inputfield
         usernameInput = uiDocument.rootVisualElement.Q<TextField>("UserName");
@@ -126,6 +130,7 @@ public class GameSetup : MonoBehaviour
     /// </summary>
     private void ShowTitle()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.CLICK, transform);
         Hide();
         tittleScreen.Show();
     }
@@ -373,6 +378,7 @@ public class GameSetup : MonoBehaviour
     /// </summary>
     private void StartGame()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.CLICK, transform);
         SceneManager.LoadScene(gameMap.choices.ToList()[gameMap.value]);
     }
 

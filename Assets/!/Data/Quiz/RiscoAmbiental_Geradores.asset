@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21d85a4d825dcc448a4d01912edf8284, type: 3}
   m_Name: RiscoAmbiental_Geradores
   m_EditorClassIdentifier: 
-  question: "No canteiro de obras h\xE1 um gerador de energia de alta tens\xE3o em
-    funcionamento, sem prote\xE7\xE3o f\xEDsica ou sinaliza\xE7\xE3o de seguran\xE7a
-    vis\xEDvel. Alguns trabalhadores circulam pr\xF3ximos ao equipamento.\L Pergunta:
-    Qual \xE9 o risco mais imediato dessa situa\xE7\xE3o?"
+  question: "No canteiro de obras h\xE1 um <b>gerador de energia</b> de alta tens\xE3o
+    em funcionamento, <b>sem prote\xE7\xE3o</b> f\xEDsica ou sinaliza\xE7\xE3o de
+    seguran\xE7a vis\xEDvel. Alguns trabalhadores circulam pr\xF3ximos ao equipamento.
+    Qual \xE9 o <b>risco</b> mais imediato dessa situa\xE7\xE3o?"
   rightAnswers:
   - "Choque el\xE9trico grave ou at\xE9 morte por contato direto"
   wrongAnswers:

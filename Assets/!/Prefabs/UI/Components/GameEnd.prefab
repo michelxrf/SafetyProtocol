@@ -64,3 +64,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bf13993a4d05e14c85ced79e7b1a818, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showGameEndSFX: {fileID: 8300000, guid: 319256d12bb7a2040af9876250637b35, type: 3}

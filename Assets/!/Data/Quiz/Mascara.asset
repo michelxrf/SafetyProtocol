@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21d85a4d825dcc448a4d01912edf8284, type: 3}
   m_Name: Mascara
   m_EditorClassIdentifier: 
-  question: "Um trabalhador est\xE1 aplicando tinta \xE0 base de solvente em um ambiente
-    pouco ventilado, sem utilizar m\xE1scara de prote\xE7\xE3o adequada. Pergunta:
-    Quais riscos imediatos essa situa\xE7\xE3o pode causar ao trabalhador?"
+  question: "Um trabalhador est\xE1 <b>aplicando tinta \xE0 base de solvente</b>
+    em um ambiente pouco ventilado, <b>sem utilizar m\xE1scara</b> de prote\xE7\xE3o
+    adequada. Quais <b>riscos imediatos</b> essa situa\xE7\xE3o pode causar ao trabalhador?"
   rightAnswers:
   - "Tontura, n\xE1usea e intoxica\xE7\xE3o por inala\xE7\xE3o de vapores"
   - "Desmaio ou perda de consci\xEAncia em casos de exposi\xE7\xE3o prolongada"

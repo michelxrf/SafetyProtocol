@@ -21,7 +21,12 @@ public class UiQuizManager : MonoBehaviour
         uiDocument.rootVisualElement.style.display = DisplayStyle.None;
 
         uiDocument.rootVisualElement.Q<Button>("SubmitButton").clicked += OnSubmitClicked;
+        uiDocument.rootVisualElement.Q<Button>("SubmitButton").RegisterCallback<MouseEnterEvent>(evt =>
+            AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.HOVER, transform));
+
         uiDocument.rootVisualElement.Q<Button>("CloseButton").clicked += OnCloseClicked;
+        uiDocument.rootVisualElement.Q<Button>("CloseButton").RegisterCallback<MouseEnterEvent>(evt =>
+            AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.HOVER, transform));
     }
 
     /// <summary>
@@ -63,6 +68,7 @@ public class UiQuizManager : MonoBehaviour
     /// </summary>
     private void OnSubmitClicked()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.CLICK, transform);
         bool isCorrect = VerifyAnswers();
         associatedObject.OnQuizEnd(isCorrect);
         associatedObject = null;
@@ -131,6 +137,7 @@ public class UiQuizManager : MonoBehaviour
     /// </summary>
     private void OnCloseClicked()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.CLICK, transform);
         associatedObject.viewportCamera.gameObject.SetActive(false);
         associatedObject = null;
         ScreenSelector.Instance.SwitchScreen(ScreenSelector.SCREENMODE.GAME);

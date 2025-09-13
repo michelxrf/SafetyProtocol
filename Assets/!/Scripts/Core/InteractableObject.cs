@@ -6,6 +6,7 @@ using UnityEngine;
 public class InteractableObject : MonoBehaviour
 {
     [HideInInspector] public Camera viewportCamera;
+    [SerializeField] AudioClip successSFX;
 
     /// <summary>
     /// callback from quiz being answered.
@@ -29,7 +30,7 @@ public class InteractableObject : MonoBehaviour
     /// </summary>
     protected virtual void Solve()
     {
-        // TODO: update GameManager and UI
+        AudioManager.Instance.PlaySFX(successSFX, transform);
         GetComponent<Clickable>().questionData = null;
     }
 

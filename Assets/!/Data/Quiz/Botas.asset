@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21d85a4d825dcc448a4d01912edf8284, type: 3}
   m_Name: Botas
   m_EditorClassIdentifier: 
-  question: "Um trabalhador executa suas atividades cal\xE7ando t\xEAnis de passeio
-    em um ambiente com piso irregular e materiais pesados ao redor. Pergunta: Qual
-    EPI est\xE1 sendo negligenciado nessa situa\xE7\xE3o?"
+  question: "Um trabalhador executa suas atividades <b>cal\xE7ando t\xEAnis de passeio</b>
+    em um ambiente com piso irregular e materiais pesados ao redor. <b>Qual EPI est\xE1
+    sendo negligenciado</b> nessa situa\xE7\xE3o?"
   rightAnswers:
   - "Botina com biqueira de a\xE7o"
   wrongAnswers:

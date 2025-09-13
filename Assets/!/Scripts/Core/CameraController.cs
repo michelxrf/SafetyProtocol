@@ -17,6 +17,7 @@ public class CameraController : MonoBehaviour
     [SerializeField] private Button moveBackButton;
     [SerializeField] private Button pauseButton;
     [SerializeField] private PlayerControls playerControls;
+    AudioSource moveSFX;
     
     [Header("Settings")]
     [SerializeField] private float speed = 10f;
@@ -37,6 +38,11 @@ public class CameraController : MonoBehaviour
     private bool canMoveBackward = false;
 
     private Vector3 direction = Vector3.zero;
+
+    private void Awake()
+    {
+        moveSFX = GetComponent<AudioSource>();
+    }
 
     /// <summary>
     /// Calculates camera movement limits based on two limiters points
@@ -175,9 +181,20 @@ public class CameraController : MonoBehaviour
         if ((!canMoveBackward && direction.z < 0f) || (!canMoveForward && direction.z > 0f)) // skip if out of bounds
             direction.z = 0f;
 
-        playerCamera.transform.position = new Vector3(playerCamera.transform.position.x + speed * direction.x * Time.deltaTime,
-                playerCamera.transform.position.y,
-                playerCamera.transform.position.z + speed * direction.z * Time.deltaTime);
+        // plays the move sound
+        if (direction.magnitude > 0f)
+        {
+            if (!moveSFX.isPlaying)
+                moveSFX.Play();
+        }
+        else
+        {
+            moveSFX.Stop();
+        }
+
+            playerCamera.transform.position = new Vector3(playerCamera.transform.position.x + speed * direction.x * Time.deltaTime,
+                    playerCamera.transform.position.y,
+                    playerCamera.transform.position.z + speed * direction.z * Time.deltaTime);
     }
 
     /// <summary>

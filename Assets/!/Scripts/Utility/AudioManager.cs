@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -12,6 +13,15 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private GameObject sfxObjectPrefab;
     public AudioMixer audioMixer;
 
+    public enum DEFAULT_UISFX { CLICK, HOVER }
+
+    [SerializeField] AudioClip clickSFX;
+    [SerializeField] AudioClip hoverSFX;
+
+    Dictionary<DEFAULT_UISFX, AudioClip> defaultUiSfxs = new Dictionary<DEFAULT_UISFX, AudioClip>();
+
+
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -22,6 +32,9 @@ public class AudioManager : MonoBehaviour
         {
             Instance = this;
             DontDestroyOnLoad(gameObject);
+
+            defaultUiSfxs[DEFAULT_UISFX.CLICK] = clickSFX;
+            defaultUiSfxs[DEFAULT_UISFX.HOVER] = hoverSFX;
         }
     }
 
@@ -31,11 +44,11 @@ public class AudioManager : MonoBehaviour
     /// <param name="audioclip">The clip list that will play, one will picked at random.</param>
     /// <param name="playAt">the spot where it'll be played</param>
     /// <param name="volume">volume override</param>
-    public void PlaySFX(AudioClip[] audioclips, Transform playAt, float volume = 1f)
+    public void PlaySFX(AudioClip[] audioclips, Transform playAt)
     {
         int rand = Random.Range(0, audioclips.Length);
 
-        PlaySFX(audioclips[rand], playAt, volume);
+        PlaySFX(audioclips[rand], playAt);
     }
 
     /// <summary>
@@ -44,14 +57,29 @@ public class AudioManager : MonoBehaviour
     /// <param name="audioclip">The clip that will play</param>
     /// <param name="playAt">the spot where it'll be played</param>
     /// <param name="volume">volume override</param>
-    public void PlaySFX(AudioClip audioclip, Transform playAt, float volume = 1f)
+    public void PlaySFX(AudioClip audioclip, Transform playAt)
     {
         AudioSource audioSource = Instantiate(sfxObjectPrefab, playAt.position, Quaternion.identity).GetComponent<AudioSource>();
 
         audioSource.clip = audioclip;
-        audioSource.volume = volume;
         audioSource.Play();
 
         Destroy(audioSource.gameObject, audioclip.length);
+    }
+
+    /// <summary>
+    /// Spawns a default Ui sound
+    /// </summary>
+    /// <param name="sfxCode">enum to identify what sound to play</param>
+    /// <param name="playAt"></param>
+    /// <param name="volume"></param>
+    public void PlaySFX(DEFAULT_UISFX sfxCode, Transform playAt)
+    {
+        AudioSource audioSource = Instantiate(sfxObjectPrefab, playAt.position, Quaternion.identity).GetComponent<AudioSource>();
+
+        audioSource.clip = defaultUiSfxs[sfxCode];
+        audioSource.Play();
+
+        Destroy(audioSource.gameObject, defaultUiSfxs[sfxCode].length);
     }
 }

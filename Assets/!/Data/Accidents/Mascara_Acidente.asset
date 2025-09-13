@@ -15,7 +15,7 @@ MonoBehaviour:
   dontDestroyOnRandomization: 0
   accidentImage: {fileID: 2800000, guid: d341788410f12d74ab3085637a241146, type: 3}
   accidentTitle: Um Acidente Aconteceu!
-  accidentDescription: "A aus\xEAncia de m\xE1scara com filtro qu\xEDmico adequado
-    exp\xF5e o trabalhador aos vapores t\xF3xicos da tinta, podendo causar tontura,
-    intoxica\xE7\xE3o e at\xE9 desmaios em locais mal ventilados."
+  accidentDescription: "A <b>aus\xEAncia de m\xE1scara com filtro qu\xEDmico adequado</b>
+    exp\xF5e o trabalhador aos vapores t\xF3xicos da tinta, podendo causar <b>tontura,
+    intoxica\xE7\xE3o e at\xE9 desmaios em locais mal ventilados</b>."
   accidentAudio: {fileID: 0}

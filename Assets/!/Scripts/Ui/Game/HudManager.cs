@@ -16,13 +16,14 @@ public class HudManager : MonoBehaviour
     private void Awake()
     {
         // gets references
-        if (uiDocument ==  null)
-            uiDocument = GetComponent<UIDocument>();
+        uiDocument = GetComponent<UIDocument>();
 
         pauseButton = uiDocument.rootVisualElement.Q<Button>("PauseButton");
 
-        if(pauseButton != null )
-            pauseButton.clicked += OnPauseClicked;
+        pauseButton.clicked += OnPauseClicked;
+        pauseButton.RegisterCallback<MouseEnterEvent>(evt =>
+            AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.HOVER, transform));
+
 
         accidentsCount = uiDocument.rootVisualElement.Q<Label>("SolvedAccidents");
         hazardCount = uiDocument.rootVisualElement.Q<Label>("SolvedHazards");
@@ -68,6 +69,7 @@ public class HudManager : MonoBehaviour
     /// </summary>
     private void OnPauseClicked()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.CLICK, transform);
         WorkerManager.Instance.PauseGame();
         ScreenSelector.Instance.SwitchScreen(ScreenSelector.SCREENMODE.PAUSE);
     }

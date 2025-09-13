@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 public class AccidentScreen : MonoBehaviour
 {
     private UIDocument uiDocument;
-    private AudioSource accidentSfx;
+    [SerializeField] AudioClip accidentSfx;
 
     private void Awake()
     {
@@ -16,6 +16,8 @@ public class AccidentScreen : MonoBehaviour
         uiDocument.rootVisualElement.style.display = DisplayStyle.None;
 
         uiDocument.rootVisualElement.Q<Button>("Continue").clicked += ContinueClicked;
+        uiDocument.rootVisualElement.Q<Button>("Continue").RegisterCallback<MouseEnterEvent>(evt =>
+            AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.HOVER, transform));
     }
 
     /// <summary>
@@ -35,8 +37,11 @@ public class AccidentScreen : MonoBehaviour
         // play the SFX
         if (accidentData.accidentAudio != null)
         {
-            accidentSfx.clip = accidentData.accidentAudio;
-            accidentSfx.Play();
+            AudioManager.Instance.PlaySFX(accidentData.accidentAudio, transform);
+        }
+        else
+        {
+            AudioManager.Instance.PlaySFX(accidentSfx, transform);
         }
 
         ScreenSelector.Instance.SwitchScreen(ScreenSelector.SCREENMODE.ACCIDENT);
@@ -49,5 +54,6 @@ public class AccidentScreen : MonoBehaviour
     {
         ScreenSelector.Instance.SwitchScreen(ScreenSelector.SCREENMODE.GAME);
         WorkerManager.Instance.CallNextAccident();
+        AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.CLICK, transform);
     }
 }

@@ -46,3 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 0}
   canClick: 1
+  missclickSFX: {fileID: 8300000, guid: fcf77559b4c484b4bb499c9a95c32e21, type: 3}
+  workerClick: {fileID: 8300000, guid: b1b66aee24c9df148b5955c736735fcb, type: 3}

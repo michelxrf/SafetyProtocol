@@ -16,6 +16,6 @@ MonoBehaviour:
   accidentImage: {fileID: 2800000, guid: d341788410f12d74ab3085637a241146, type: 3}
   accidentTitle: Um Acidente Aconteceu!
   accidentDescription: "A aus\xEAncia do colete refletivo compromete a visibilidade
-    do trabalhador, aumentando significativamente o risco de atropelamento ou colis\xE3o
-    com equipamentos."
+    do trabalhador, aumentando significativamente o <b>risco de atropelamento ou
+    colis\xE3o com equipamentos</b>."
   accidentAudio: {fileID: 0}

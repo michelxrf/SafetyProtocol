@@ -17,9 +17,16 @@ public class PauseScreen : MonoBehaviour
 
         uiDocument.rootVisualElement.style.display = DisplayStyle.None;
         uiDocument.rootVisualElement.Q<Button>("UnpauseButton").clicked += UnpauseClicked;
+        uiDocument.rootVisualElement.Q<Button>("UnpauseButton").RegisterCallback<MouseEnterEvent>(evt =>
+            AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.HOVER, transform));
+
         uiDocument.rootVisualElement.Q<Button>("RestartButton").clicked += RestartGame;
+        uiDocument.rootVisualElement.Q<Button>("RestartButton").RegisterCallback<MouseEnterEvent>(evt =>
+            AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.HOVER, transform));
 
         uiDocument.rootVisualElement.Q<Button>("QuitButton").clicked += QuitClicked;
+        uiDocument.rootVisualElement.Q<Button>("QuitButton").RegisterCallback<MouseEnterEvent>(evt =>
+            AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.HOVER, transform));
     }
 
     /// <summary>
@@ -29,6 +36,7 @@ public class PauseScreen : MonoBehaviour
     {
         WorkerManager.Instance.UnpauseGame();
         ScreenSelector.Instance.SwitchScreen(ScreenSelector.SCREENMODE.GAME);
+        AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.CLICK, transform);
     }
 
     /// <summary>
@@ -36,6 +44,7 @@ public class PauseScreen : MonoBehaviour
     /// </summary>
     private void QuitClicked()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.CLICK, transform);
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -44,6 +53,7 @@ public class PauseScreen : MonoBehaviour
     /// </summary>
     private void RestartGame()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.CLICK, transform);
         SceneManager.LoadScene(SettingsKeeper.Instance.gameMap);
     }
 }

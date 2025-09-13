@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Baraulho
   m_EditorClassIdentifier: 
   question: "Durante a inspe\xE7\xE3o, voc\xEA percebe que um trabalhador usa uma
-    serra de concreto sem nenhum tipo de prote\xE7\xE3o auditiva. Pergunta:\L O que
-    pode acontecer com esse trabalhador a longo prazo se esse risco n\xE3o for corrigido?"
+    serra de concreto <b>sem nenhum tipo de prote\xE7\xE3o auditiva</b>. <b>O que
+    pode acontecer com esse trabalhador a longo</b> prazo se esse risco n\xE3o for
+    corrigido?"
   rightAnswers:
   - "Perda auditiva irrevers\xEDvel"
   wrongAnswers:

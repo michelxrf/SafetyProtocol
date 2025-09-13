@@ -19,6 +19,8 @@ public class SettingsScreen : MonoBehaviour
         // register action callbacks
         Button closeButton = ui.rootVisualElement.Q<Button>("CloseButton");
         closeButton.clicked += Hide;
+        closeButton.RegisterCallback<MouseEnterEvent>(evt =>
+            AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.HOVER, transform));
 
         Slider sfxSlider = ui.rootVisualElement.Q<Slider>("SfxSlider");
         sfxSlider.RegisterValueChangedCallback(evt => { SetSfxVolume(sfxSlider.value); });
@@ -35,6 +37,7 @@ public class SettingsScreen : MonoBehaviour
     /// </summary>
     private void Hide()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.CLICK, transform);
         ui.rootVisualElement.style.display = DisplayStyle.None;
         title.Show();
     }

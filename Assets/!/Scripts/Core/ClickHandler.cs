@@ -15,6 +15,10 @@ public class ClickHandler : MonoBehaviour
     private PlayerControls controls;
     [HideInInspector] public bool canClick = true;
 
+    [Header("Audio")]
+    [SerializeField] AudioClip missclickSFX;
+    [SerializeField] AudioClip workerClick;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -79,11 +83,25 @@ public class ClickHandler : MonoBehaviour
         {
             if (hit.collider.TryGetComponent(out Clickable clickable) && canClick)
             {
+
+                if (hit.collider.gameObject.GetComponent<Worker>() != null)
+                {
+                    AudioManager.Instance.PlaySFX(workerClick, hit.collider.gameObject.transform);
+                }
+                else
+                {
+                    AudioManager.Instance.PlaySFX(missclickSFX, transform);
+                }
+
                 if(clickable.isEnabled)
                 {
                     canClick = false;
                     clickable.OnClick();
                 }
+            }
+            else
+            {
+                AudioManager.Instance.PlaySFX(missclickSFX, transform);
             }
         }
     }

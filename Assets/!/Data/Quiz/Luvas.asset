@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Luvas
   m_EditorClassIdentifier: 
   question: "Um trabalhador est\xE1 carregando vergalh\xF5es e ferragens pesadas
-    sem nenhuma luva de prote\xE7\xE3o.\L Pergunta: Quais riscos esse trabalhador
+    <b>sem nenhuma luva</b> de prote\xE7\xE3o. Quais <b>riscos</b> esse trabalhador
     est\xE1 exposto por n\xE3o usar o EPI adequado?"
   rightAnswers:
   - "Exposi\xE7\xE3o a cortes, perfura\xE7\xF5es e esmagamento das m\xE3os"

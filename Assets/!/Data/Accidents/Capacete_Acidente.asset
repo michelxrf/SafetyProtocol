@@ -15,7 +15,7 @@ MonoBehaviour:
   dontDestroyOnRandomization: 0
   accidentImage: {fileID: 2800000, guid: d341788410f12d74ab3085637a241146, type: 3}
   accidentTitle: Um Acidente Aconteceu!
-  accidentDescription: "O capacete de seguran\xE7a (NR-6 e NR-18) protege contra
-    impactos de queda de objetos, choques el\xE9tricos, contato acidental com estruturas
-    fixas e at\xE9 exposi\xE7\xE3o solar."
+  accidentDescription: "O <b>capacete de seguran\xE7a</b> (NR-6 e NR-18) protege
+    contra impactos de queda de objetos, choques el\xE9tricos, contato acidental
+    com estruturas fixas e at\xE9 exposi\xE7\xE3o solar."
   accidentAudio: {fileID: 0}

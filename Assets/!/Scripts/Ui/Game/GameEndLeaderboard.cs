@@ -18,6 +18,8 @@ public class GameEndLeaderboard : MonoBehaviour
     {
         uiDocument = GetComponent<UIDocument>();
         uiDocument.rootVisualElement.Q<Button>("ContinueButton").clicked += OnBackToMenuClicked;
+        uiDocument.rootVisualElement.Q<Button>("ContinueButton").RegisterCallback<MouseEnterEvent>(evt =>
+            AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.HOVER, transform));
 
         header = uiDocument.rootVisualElement.Q<VisualElement>("Header");
         header.style.display = DisplayStyle.None;
@@ -105,6 +107,7 @@ public class GameEndLeaderboard : MonoBehaviour
 
     private void OnBackToMenuClicked()
     {
+        AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.CLICK, transform);
         SceneManager.LoadScene("MainMenu");
     }
 
