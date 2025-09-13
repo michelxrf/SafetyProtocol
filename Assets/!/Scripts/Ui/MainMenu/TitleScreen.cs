@@ -9,6 +9,7 @@ public class TitleScreen : MonoBehaviour
     UIDocument ui;
     [SerializeField] GameSetup gameSetupScreen;
     [SerializeField] SettingsScreen settingsScreen;
+    [SerializeField] TutorialScreen tutorialScreen;
 
     private void Awake()
     {
@@ -16,12 +17,19 @@ public class TitleScreen : MonoBehaviour
 
         ui.rootVisualElement.Q<Button>("Multiplayer").clicked += ShowGameSetup;
         ui.rootVisualElement.Q<Button>("Settings").clicked += ShowSettings;
+        ui.rootVisualElement.Q<Button>("Tutorial").clicked += ShowTutorial;
     }
 
     private void Start()
     {
         if (SettingsKeeper.Instance.classRoomName != null)
             ShowGameSetup();
+    }
+
+    private void ShowTutorial()
+    {
+        Hide();
+        tutorialScreen.Show();
     }
 
     private void ShowSettings()

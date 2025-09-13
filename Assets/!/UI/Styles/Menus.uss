@@ -157,4 +157,5 @@ Slider #unity-tracker {
     padding-top: 1%;
     flex-grow: 1;
     padding-left: 3%;
+    -unity-font-style: bold;
 }

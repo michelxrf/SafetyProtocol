@@ -10,7 +10,7 @@
                 </ui:VisualElement>
             </ui:VisualElement>
             <ui:VisualElement name="AnswersContainer" style="flex-grow: 1; align-content: auto; justify-content: center;">
-                <ui:Toggle label=" gwsese gseewsssssswesgseess ge eegw wegge gnwlegn elgnlwse ngegi egi weigjweig wegawef gmawef maif mwfaf iwaf " name="Answer1" class="Answers answers" />
+                <ui:Toggle label=" gwsese gseewsssssswesgseess ge eegw wegge gnwlegn elgnlwse ngegi egi weigjweig wegawef gmawef maif mwfaf iwaf " name="Answer1" class="Answers answers" style="-unity-font-style: normal;" />
                 <ui:Toggle label="Ipsum" name="Answer2" class="Answers answers font-barlow-regular" style="flex-direction: row-reverse;" />
                 <ui:Toggle label="Dolorem" name="Answer3" class="Answers answers font-barlow-regular" style="flex-direction: row-reverse;" />
                 <ui:RadioButton label="Radio Button" class="Answers answers" />
@@ -24,8 +24,8 @@
             <ui:Label text="Label" name="LowerText" style="-unity-font-definition: url(&quot;project://database/Assets/!/Fonts/Barlow/Barlow-Regular.ttf?fileID=12800000&amp;guid=6a4bdc0fad33a1040a0b506eb3b3ffd8&amp;type=3#Barlow-Regular&quot;); font-size: 32px;" />
         </ui:VisualElement>
         <ui:VisualElement name="Buttons" style="flex-grow: 1; flex-direction: row; position: absolute; top: 89%; justify-content: center; left: 0; right: 0;">
-            <ui:Button text="Fechar" name="CloseButton" class="y-button" />
-            <ui:Button text="Responder" name="SubmitButton" class="g-button" />
+            <ui:Button text="FECHAR" name="CloseButton" class="y-button" />
+            <ui:Button text="RESPONDER" name="SubmitButton" class="g-button" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

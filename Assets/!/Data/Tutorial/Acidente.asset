@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edb57f15223fa564eb53e3e73f448a11, type: 3}
+  m_Name: Acidente
+  m_EditorClassIdentifier: 
+  title: 'Desafios da Partida: Acidentes'
+  body: "1. Supervisione o mapa, atento aos <b>riscos</b> que podem existir no cen\xE1rio
+    e vigiando para que nenhum <b>acidente</b> aconte\xE7a.\n\n2. Eventualmente algum
+    <b>trabalhador</b> poder\xE1 sofrer um <b>acidente</b>. Voc\xEA ser\xE1 notificado
+    com uma mensagem de alerta, com o <b>tempo restante</b> para voc\xEA identificar
+    qual trabalhador est\xE1 amea\xE7ado e evitar que o pior aconte\xE7a.\n\n3. Ao
+    clicar no trabalhador amea\xE7ado, surgir\xE1 uma <b>janela</b> com uma <b>pergunta</b>
+    sobre as condi\xE7\xF5es em que esse trabalhador se encontra. Acerte na <b>resposta</b>
+    para evitar o desastre e marcar ponto no <b>Placar Final</b>."

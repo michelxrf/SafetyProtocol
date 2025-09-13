@@ -5,7 +5,7 @@
     width: 128px;
     height: 128px;
     -unity-font-definition: url("project://database/Assets/!/Fonts/Ropa_Sans/RopaSans-Regular.ttf?fileID=12800000&guid=fe4c67fea5eb61d48baee455d4557852&type=3#RopaSans-Regular");
-    font-size: 128px;
+    font-size: 66px;
     background-image: url("project://database/Assets/!/UI/Assets/button_primary_square.png?fileID=21300000&guid=8f84de81ff7ce72448dae1af476ed4d0&type=3#button_primary_square");
     background-color: rgba(0, 0, 0, 0);
     border-top-width: 0;
@@ -16,4 +16,5 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
+    -unity-font-style: bold;
 }

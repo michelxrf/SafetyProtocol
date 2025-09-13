@@ -32,6 +32,6 @@
                 <ui:Label name="Notice" text="Carregando placar..." class="font-barlow-regular" style="flex-grow: 1; -unity-text-align: middle-center; font-size: 32px;" />
             </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Button text="Voltar ao Menu" name="ContinueButton" class="r-button" style="position: absolute; top: 966px;" />
+        <ui:Button text="VOLTAR AO MENU" name="ContinueButton" class="y-button" style="position: absolute; top: 966px;" />
     </ui:VisualElement>
 </ui:UXML>

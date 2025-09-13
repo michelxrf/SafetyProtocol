@@ -6,6 +6,6 @@
             <ui:VisualElement name="Image" enabled="true" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/!/Sprites/Accidents/Placeholder.jpg?fileID=2800000&amp;guid=d341788410f12d74ab3085637a241146&amp;type=3#Placeholder&quot;); -unity-background-scale-mode: scale-to-fit; background-color: rgba(0, 0, 0, 0); margin-left: 3%; margin-top: 1%; margin-right: 3%; margin-bottom: 1%;" />
             <ui:Label text="Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum&#10;Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum&#10;Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum&#10;Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum Lorem Ipsum" name="Description" class="font-barlow-regular" style="font-size: 32px; -unity-text-align: upper-center; margin-top: 15px; margin-right: 15px; margin-bottom: 15px; margin-left: 15px; white-space: pre-wrap;" />
         </ui:VisualElement>
-        <ui:Button text="Continue" name="Continue" class="y-button" style="width: 360px; height: 84px; bottom: 1%; position: absolute; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
+        <ui:Button text="CONTINUAR" name="Continue" class="y-button" style="width: 360px; height: 84px; bottom: 1%; position: absolute; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0;" />
     </ui:VisualElement>
 </ui:UXML>
