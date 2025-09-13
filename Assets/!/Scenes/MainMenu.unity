@@ -281,6 +281,8 @@ MonoBehaviour:
   titleScreen: {fileID: 1801734748}
   pages:
   - {fileID: 11400000, guid: 9b94784ba19db71438454e01b5f3493e, type: 2}
+  - {fileID: 11400000, guid: fce3badeeefa0bb4aad4ba053b48a988, type: 2}
+  - {fileID: 11400000, guid: 5cc6c6f8b90a18e4cbb06c72d3ca89ae, type: 2}
 --- !u!114 &863189667
 MonoBehaviour:
   m_ObjectHideFlags: 0
