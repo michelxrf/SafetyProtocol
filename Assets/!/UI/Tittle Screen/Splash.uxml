@@ -1,9 +1,36 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ui:UXML
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:ui="UnityEngine.UIElements"
-    xmlns:uie="UnityEditor.UIElements"
-    xsi:noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd"
->
-    
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/!/UI/Styles/Team.uss?fileID=7433441132597879392&amp;guid=b282121f1f9258f44bede8d56b43cccc&amp;type=3#Team" />
+    <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/!/UI/Assets/TeamBackground.png?fileID=2800000&amp;guid=af10242193b52b94e835bfd93f29b519&amp;type=3#TeamBackground&quot;); background-color: rgb(255, 255, 255);">
+        <ui:VisualElement style="flex-grow: 1; margin-top: 5%; flex-direction: row;">
+            <ui:VisualElement style="flex-grow: 1.5;">
+                <ui:VisualElement name="Logo" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/!/UI/Assets/logo_safety_protocol.png?fileID=2800000&amp;guid=b15f55c6d36b2d14eaff119a3f2a9d71&amp;type=3#logo_safety_protocol&quot;); -unity-background-scale-mode: scale-to-fit;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="Team" style="flex-grow: 1; flex-direction: row; margin-bottom: 5%;">
+            <ui:VisualElement style="flex-grow: 1.5;">
+                <ui:VisualElement name="Logo" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/!/UI/Assets/PostClass%20Team.png?fileID=2800000&amp;guid=9416732ef916f8c4493d685c24903849&amp;type=3#PostClass Team&quot;); -unity-background-scale-mode: scale-to-fit;" />
+                <ui:Label text="Postclass Team" name="Name" style="font-size: 48px; -unity-text-align: middle-center; -unity-font-definition: url(&quot;project://database/Assets/!/Fonts/Kaushan_Script/KaushanScript-Regular.ttf?fileID=12800000&amp;guid=afdaa37ec7c5268469b5f11e58b78d7e&amp;type=3#KaushanScript-Regular&quot;);" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Member" style="flex-grow: 1;">
+                <ui:VisualElement name="Picture" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/!/UI/Assets/Luiz.png?fileID=2800000&amp;guid=52163e0daedad624cb694bb9d0a003c9&amp;type=3#Luiz&quot;); -unity-background-scale-mode: scale-to-fit;" />
+                <ui:Label text="Luiz P M&#10;Guarize" name="Name" style="font-size: 48px; -unity-text-align: middle-center; -unity-font-definition: url(&quot;project://database/Assets/!/Fonts/Kaushan_Script/KaushanScript-Regular.ttf?fileID=12800000&amp;guid=afdaa37ec7c5268469b5f11e58b78d7e&amp;type=3#KaushanScript-Regular&quot;);" />
+                <ui:Label text="Produtor&#10;Game Designer" name="Role" style="-unity-text-align: middle-center; font-size: 24px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Member" style="flex-grow: 1;">
+                <ui:VisualElement name="Picture" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/!/UI/Assets/Jatoba.png?fileID=2800000&amp;guid=79cd2a92101a1f14dabf7e73cbefc66d&amp;type=3#Jatoba&quot;); -unity-background-scale-mode: scale-to-fit;" />
+                <ui:Label text="Felipe&#10;Jatobá" name="Name" style="font-size: 48px; -unity-text-align: middle-center; -unity-font-definition: url(&quot;project://database/Assets/!/Fonts/Kaushan_Script/KaushanScript-Regular.ttf?fileID=12800000&amp;guid=afdaa37ec7c5268469b5f11e58b78d7e&amp;type=3#KaushanScript-Regular&quot;);" />
+                <ui:Label text="Direção de arte UI" name="Role" style="-unity-text-align: middle-center; font-size: 24px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Member" style="flex-grow: 1;">
+                <ui:VisualElement name="Picture" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/!/UI/Assets/Michel.png?fileID=2800000&amp;guid=7c2be9e82790afa43a58d0e0b811b559&amp;type=3#Michel&quot;); -unity-background-scale-mode: scale-to-fit;" />
+                <ui:Label text="Michel&#10;Redmer" name="Name" style="font-size: 48px; -unity-text-align: middle-center; -unity-font-definition: url(&quot;project://database/Assets/!/Fonts/Kaushan_Script/KaushanScript-Regular.ttf?fileID=12800000&amp;guid=afdaa37ec7c5268469b5f11e58b78d7e&amp;type=3#KaushanScript-Regular&quot;);" />
+                <ui:Label text="Programador&#10; Unity" name="Role" style="-unity-text-align: middle-center; font-size: 24px;" />
+            </ui:VisualElement>
+            <ui:VisualElement name="Member" style="flex-grow: 1;">
+                <ui:VisualElement name="Picture" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/!/UI/Assets/Luan.png?fileID=2800000&amp;guid=ae786ec6fff9fe440a765f1d8de71536&amp;type=3#Luan&quot;); -unity-background-scale-mode: scale-to-fit;" />
+                <ui:Label text="Luan&#10;Costa" name="Name" style="font-size: 48px; -unity-text-align: middle-center; -unity-font-definition: url(&quot;project://database/Assets/!/Fonts/Kaushan_Script/KaushanScript-Regular.ttf?fileID=12800000&amp;guid=afdaa37ec7c5268469b5f11e58b78d7e&amp;type=3#KaushanScript-Regular&quot;);" />
+                <ui:Label text="Artista 3D Level Designer" name="Role" style="-unity-text-align: middle-center; font-size: 24px;" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>

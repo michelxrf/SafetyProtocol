@@ -26,6 +26,10 @@ public class TitleScreen : MonoBehaviour
         ui.rootVisualElement.Q<Button>("Tutorial").clicked += ShowTutorial;
         ui.rootVisualElement.Q<Button>("Tutorial").RegisterCallback<MouseEnterEvent>(evt =>
             AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.HOVER, transform));
+
+        ui.rootVisualElement.Q<Button>("Quit").clicked += OnQuitClicked;
+        ui.rootVisualElement.Q<Button>("Tutorial").RegisterCallback<MouseEnterEvent>(evt =>
+            AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.HOVER, transform));
     }
 
     private void Start()
@@ -66,5 +70,10 @@ public class TitleScreen : MonoBehaviour
     public void Hide()
     {
         ui.rootVisualElement.style.display = DisplayStyle.None;
+    }
+
+    private void OnQuitClicked()
+    {
+        Application.Quit();
     }
 }
