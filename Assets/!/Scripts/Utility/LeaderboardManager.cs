@@ -86,13 +86,27 @@ public class LeaderboardManager : MonoBehaviour
     }
 
     /// <summary>
+    /// generates a custom ID, better than using device unique Id for WebGL
+    /// </summary>
+    /// <returns></returns>
+    private string GetCustomId()
+    {
+        if (!PlayerPrefs.HasKey("CustomId"))
+        {
+            string newId = System.Guid.NewGuid().ToString();
+            PlayerPrefs.SetString("CustomId", newId);
+        }
+        return PlayerPrefs.GetString("CustomId");
+    }
+
+    /// <summary>
     /// Does the user auth and login, required to identify the player in the backend, it uses device id as unique.
     /// </summary>
     private void AuthAsGuest()
     {
         var request = new LoginWithCustomIDRequest()
         {
-            CustomId = SystemInfo.deviceUniqueIdentifier,
+            CustomId = GetCustomId(),
             CreateAccount = true,
             InfoRequestParameters = new GetPlayerCombinedInfoRequestParams
             {
@@ -110,7 +124,6 @@ public class LeaderboardManager : MonoBehaviour
     /// <param name="result">Contains all user login data like id.</param>
     private void OnAuthSuccess(LoginResult result)
     {
-        // Updates conection flags and counters
         playerID = result.PlayFabId;
 
         if(!result.NewlyCreated)

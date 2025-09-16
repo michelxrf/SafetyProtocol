@@ -35,6 +35,23 @@ public class AccidentAlert : MonoBehaviour
     private void Update()
     {
         UpdateAlert();
+        UpdateSFX();
+    }
+
+    /// <summary>
+    /// toggles on and off the alert sfx
+    /// </summary>
+    void UpdateSFX()
+    {
+        if(!WorkerManager.Instance.isCountingDown || WorkerManager.Instance.isGamePaused)
+        {
+            audioSource.Stop();
+        }
+        else
+        {
+            if(!audioSource.isPlaying)
+                audioSource.Play();
+        }
     }
 
     /// <summary>
@@ -47,14 +64,10 @@ public class AccidentAlert : MonoBehaviour
             // updates timer ui
             timer.text = (WorkerManager.Instance.accidentRemainingTime).ToString($"#0" + "s");
             uiDocument.rootVisualElement.style.display = DisplayStyle.Flex;
-
-            if(!audioSource.isPlaying)
-                audioSource.Play();
         }
         else
         {
             uiDocument.rootVisualElement.style.display = DisplayStyle.None;
-            audioSource.Stop();
         }
     }
 

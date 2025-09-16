@@ -16,7 +16,7 @@ public class WorkerManager : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] int gerenateRandomPoints = 100;
-    private bool isGamePaused = false;
+    [HideInInspector] public bool isGamePaused = false;
     [SerializeField] int solveAccidentScore = 100;
     [SerializeField] int solveHazzardScore = 50;
     [SerializeField] int perSecondScore = 3;
