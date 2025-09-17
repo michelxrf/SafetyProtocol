@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Oculos_Acidente
   m_EditorClassIdentifier: 
   dontDestroyOnRandomization: 0
-  accidentImage: {fileID: 2800000, guid: d341788410f12d74ab3085637a241146, type: 3}
+  accidentImage: {fileID: 2800000, guid: c3f00b010b9124548ab0afed8e0994db, type: 3}
   accidentTitle: Um Acidente Aconteceu!
   accidentDescription: "O risco imediato \xE9 a <b>les\xE3o ocular grave, al\xE9m
     de escoria\xE7\xF5es e queimaduras leves por fagulhas</b>. A perda auditiva n\xE3o

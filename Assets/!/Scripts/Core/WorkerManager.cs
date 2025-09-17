@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -39,6 +40,9 @@ public class WorkerManager : MonoBehaviour
     [HideInInspector] public int totalAccidents = 0;
     [HideInInspector] public int solvedHazzards = 0;
     [HideInInspector] public int totalHazzards = 0;
+    public Action halftimeReached;
+    bool halftimeNoticeCalled = false;
+
     private enum ACCIDENTORDER { RANDOM, SEQUENCE };
     private int score = -1;
     private int numberOfAccidentsToTrigger = -1;
@@ -119,20 +123,20 @@ public class WorkerManager : MonoBehaviour
         {
             // facil
             case 0:
-                accidentCountdownTime = 40f;
-                numberOfAccidentsToTrigger = 7;
+                accidentCountdownTime = 150f;
+                numberOfAccidentsToTrigger = 5;
                 break;
 
             // moderado
             case 1:
-                accidentCountdownTime = 30f;
-                numberOfAccidentsToTrigger = 9;
+                accidentCountdownTime = 90f;
+                numberOfAccidentsToTrigger = 7;
                 break;
 
             // dificil
             case 2:
-                accidentCountdownTime = 22f;
-                numberOfAccidentsToTrigger = 11;
+                accidentCountdownTime = 45f;
+                numberOfAccidentsToTrigger = 9;
                 break;
 
             // just in case someone make new dificulty
@@ -156,7 +160,7 @@ public class WorkerManager : MonoBehaviour
             return;
 
         // sets the random seed using the classroom name, so every student in the class plays the same game
-        Random.InitState(SettingsKeeper.Instance.classRoomName.GetHashCode());
+        UnityEngine.Random.InitState(SettingsKeeper.Instance.classRoomName.GetHashCode());
 
         // deletes accidents from the list depending on level's dificulty
         List<AccidentEvent> nonRequiredAccidents = accidentEventsList.FindAll(a => a.accidentData.dontDestroyOnRandomization == false);
@@ -177,7 +181,7 @@ public class WorkerManager : MonoBehaviour
 
         for( int i = 0; i < numberOfAccidentsToElminate; i++ )
         {
-            AccidentEvent eliminateThis = nonRequiredAccidents[Random.Range(0, nonRequiredAccidents.Count - 1)];
+            AccidentEvent eliminateThis = nonRequiredAccidents[UnityEngine.Random.Range(0, nonRequiredAccidents.Count - 1)];
             accidentEventsList.Remove(eliminateThis);
         }
     }
@@ -225,6 +229,9 @@ public class WorkerManager : MonoBehaviour
     /// </summary>
     public void CallNextAccident()
     {
+        halftimeNoticeCalled = false;
+        halftimeReached = null;
+
         if (!(accidentEventsList.Count > 0))
         {
             currentAccidentData = null;
@@ -238,7 +245,7 @@ public class WorkerManager : MonoBehaviour
         switch (accidentOrder)
         {
             case ACCIDENTORDER.RANDOM:
-                int randIndex = Random.Range(0, accidentEventsList.Count);
+                int randIndex = UnityEngine.Random.Range(0, accidentEventsList.Count);
                 nextAccident = accidentEventsList[randIndex];
                 accidentEventsList.RemoveAt(randIndex);
                 break;
@@ -292,7 +299,7 @@ public class WorkerManager : MonoBehaviour
                 assossiatedPatrols.Add(workstation.assossiatedPatrolPoint);
             }
 
-            return assossiatedPatrols[Random.Range(0, workerAllowed.Count)];
+            return assossiatedPatrols[UnityEngine.Random.Range(0, workerAllowed.Count)];
         }
 
         else
@@ -308,7 +315,7 @@ public class WorkerManager : MonoBehaviour
     /// </summary>
     public PatrolPoint GetRandomPoint(Worker workerWhoRequested)
     {
-        if (Random.Range(0f, 1f) <= idleChance)
+        if (UnityEngine.Random.Range(0f, 1f) <= idleChance)
         {
             return GetRandomPatrolPoint();
         }
@@ -329,7 +336,7 @@ public class WorkerManager : MonoBehaviour
 
         if (freePatrolPoints.Count > 0)
         {
-            return freePatrolPoints[Random.Range(0, freePatrolPoints.Count)];
+            return freePatrolPoints[UnityEngine.Random.Range(0, freePatrolPoints.Count)];
         }
         else
         {
@@ -387,6 +394,13 @@ public class WorkerManager : MonoBehaviour
             return;
 
         accidentRemainingTime -= Time.deltaTime;
+
+        if (accidentRemainingTime < accidentCountdownTime / 2f && halftimeNoticeCalled == false)
+        {
+            halftimeNoticeCalled = true;
+            halftimeReached?.Invoke();
+        }
+
 
         if (accidentRemainingTime < 0)
         {

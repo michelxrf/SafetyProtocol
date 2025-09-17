@@ -13,10 +13,11 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private GameObject sfxObjectPrefab;
     public AudioMixer audioMixer;
 
-    public enum DEFAULT_UISFX { CLICK, HOVER }
+    public enum DEFAULT_UISFX { CLICK, HOVER, FAIL }
 
     [SerializeField] AudioClip clickSFX;
     [SerializeField] AudioClip hoverSFX;
+    [SerializeField] AudioClip failSFX;
 
     Dictionary<DEFAULT_UISFX, AudioClip> defaultUiSfxs = new Dictionary<DEFAULT_UISFX, AudioClip>();
 
@@ -35,6 +36,7 @@ public class AudioManager : MonoBehaviour
 
             defaultUiSfxs[DEFAULT_UISFX.CLICK] = clickSFX;
             defaultUiSfxs[DEFAULT_UISFX.HOVER] = hoverSFX;
+            defaultUiSfxs[DEFAULT_UISFX.FAIL] = failSFX;
         }
     }
 

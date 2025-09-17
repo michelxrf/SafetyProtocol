@@ -270,11 +270,13 @@ public class GameSetup : MonoBehaviour
         {
             usernameInput.SetValueWithoutNotify(LeaderboardManager.Instance.playerName != null ? LeaderboardManager.Instance.playerName : string.Empty);
             VerifyAndAllowGameStart();
+            AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.FAIL, transform);
             return;
         }
 
         VerifyAndAllowGameStart();
         LeaderboardManager.Instance.ChangePlayerName(newName);
+        AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.CLICK, transform);
 
         if (playerScoreEntry != null)
             playerScoreEntry.text = newName;
@@ -295,6 +297,7 @@ public class GameSetup : MonoBehaviour
         if (!IsTextSafe(newName))
         {
             leaderboardNameInput.value = string.Empty;
+            AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.FAIL, transform);
             VerifyAndAllowGameStart();
             return;
         }
@@ -311,6 +314,8 @@ public class GameSetup : MonoBehaviour
 
         if(LeaderboardManager.Instance.playerScore < 0)
             LeaderboardManager.Instance.GetPlayerScore();
+
+        AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.CLICK, transform);
     }
 
     /// <summary>

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Barulho_Acidente
   m_EditorClassIdentifier: 
   dontDestroyOnRandomization: 0
-  accidentImage: {fileID: 2800000, guid: d341788410f12d74ab3085637a241146, type: 3}
+  accidentImage: {fileID: 2800000, guid: dbfa9db9a72df93408881e8dcb0557af, type: 3}
   accidentTitle: Um Acidente Aconteceu!
   accidentDescription: "A exposi\xE7\xE3o cont\xEDnua a ru\xEDdo intenso sem protetor
     auricular pode causar perda auditiva permanente. <b>O uso de EPI \xE9 obrigat\xF3rio.</b>"
