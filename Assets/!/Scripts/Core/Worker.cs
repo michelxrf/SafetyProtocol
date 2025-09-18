@@ -11,6 +11,7 @@ public class Worker : InteractableObject
     [Header("References")]
     private AgentDestinationReachedNotifier destinationReachedNotifier;
     private Animator animator;
+    [SerializeField] Canvas tip;
 
     [Header("Navigation")]
     private NavMeshAgent navMeshAgent;
@@ -49,6 +50,7 @@ public class Worker : InteractableObject
         navMeshAgentSpeed = navMeshAgent.speed;
 
         GetComponent<InventorySystem>().FullyEquip(true);
+        tip.enabled = false;
     }
 
     private void Start()
@@ -59,6 +61,11 @@ public class Worker : InteractableObject
             MoveToRandomPoint();
             initialized = true;
         }
+    }
+
+    private void Update()
+    {
+        
     }
 
     /// <summary>
@@ -108,7 +115,24 @@ public class Worker : InteractableObject
             GetComponent<InventorySystem>().FullyEquip(false);
             GetComponent<Clickable>().isEnabled = true;
             isAccidentTarget = false;
+
+            if (SettingsKeeper.Instance.dificultyLevel == 0)
+            {
+                EnableTip();
+            }
+            else if (SettingsKeeper.Instance.dificultyLevel == 1)
+            {
+                WorkerManager.Instance.halftimeReached += EnableTip;
+            }
         }
+    }
+
+    /// <summary>
+    /// makes the accident indicator visible, called by WorkerManager to when half the time has passed
+    /// </summary>
+    public void EnableTip()
+    {
+        tip.enabled = true;
     }
 
     /// <summary>
@@ -222,6 +246,7 @@ public class Worker : InteractableObject
     {
         base.Solve();
 
+        tip.enabled = false;
         GetComponent<InventorySystem>().FullyEquip(true);
         WorkerManager.Instance.AccidentSolved();
         StartCoroutine(WaitForSeconds(minWorkTime, maxWorkTime));
@@ -254,5 +279,10 @@ public class Worker : InteractableObject
     {
         animator.speed = 1f;
         navMeshAgent.speed = navMeshAgentSpeed;
+    }
+
+    private void OnDestroy()
+    {
+        WorkerManager.Instance.halftimeReached -= EnableTip;
     }
 }

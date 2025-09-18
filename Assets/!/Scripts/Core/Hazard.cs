@@ -7,6 +7,7 @@ using UnityEngine;
 public class Hazard : InteractableObject
 {
     [SerializeField] AudioClip failSFX;
+    [SerializeField] Canvas tip;
 
     private void Awake()
     {
@@ -19,6 +20,8 @@ public class Hazard : InteractableObject
         WorkerManager.Instance.hazards.Add(this);
         WorkerManager.Instance.totalHazzards++;
         WorkerManager.Instance.ForceHudUpdate();
+
+        tip.enabled = SettingsKeeper.Instance.dificultyLevel == 0;
     }
 
     /// <summary>
@@ -50,5 +53,6 @@ public class Hazard : InteractableObject
     public void DisableInteraction()
     {
         Destroy(GetComponent<Clickable>());
+        tip.enabled = false;
     }
 }

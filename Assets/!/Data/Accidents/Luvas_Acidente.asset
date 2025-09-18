@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Luvas_Acidente
   m_EditorClassIdentifier: 
   dontDestroyOnRandomization: 0
-  accidentImage: {fileID: 2800000, guid: d341788410f12d74ab3085637a241146, type: 3}
+  accidentImage: {fileID: 2800000, guid: 24c92392f3f479e4ca3e2ad7360736f7, type: 3}
   accidentTitle: Um Acidente Aconteceu!
   accidentDescription: "O manuseio de materiais pesados e cortantes exige <b>luvas
     adequadas para prevenir cortes, perfura\xE7\xF5es e atrito</b>. Al\xE9m disso,

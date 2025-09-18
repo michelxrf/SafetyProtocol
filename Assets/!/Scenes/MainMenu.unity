@@ -218,7 +218,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: fbd647dfaeb00c043a484f2f4706c9da, type: 3}
   m_Resource: {fileID: 8300000, guid: fbd647dfaeb00c043a484f2f4706c9da, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1053,6 +1053,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3582618747187431680, guid: 77b1e7d532dce2f4a90f99e15b44fb3f, type: 3}
+      propertyPath: failSFX
+      value: 
+      objectReference: {fileID: 8300000, guid: 1340ba1fa579f674ab71453241682a8a, type: 3}
     - target: {fileID: 3582618747187431680, guid: 77b1e7d532dce2f4a90f99e15b44fb3f, type: 3}
       propertyPath: clickSFX
       value: 
