@@ -189,6 +189,7 @@ public class GameSetup : MonoBehaviour
     /// </summary>
     private void PopulateLeaderboard(GetLeaderboardResult playfabData)
     {
+        ClearLeaderboard();
         Debug.Log("Should update leadeboard...");
 
         VisualElement leaderboardParent = uiDocument.rootVisualElement.Q<VisualElement>("Leaderboard");
