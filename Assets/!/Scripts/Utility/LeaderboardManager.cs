@@ -14,7 +14,7 @@ public class LeaderboardManager : MonoBehaviour
 
     // Inits all player and leaderboard info as an unitialized state
     public string playerID { get; private set; }
-    public string playerName { get; private set; } = String.Empty;
+    private string playerName = String.Empty;
     public int playerScore { get; private set; } = -1;
     public string leaderboardName { get; private set; } = null; 
 

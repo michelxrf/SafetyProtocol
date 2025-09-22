@@ -113,9 +113,9 @@ public class GameSetup : MonoBehaviour
             LeaderboardManager.Instance.GetPlayerScore();
         }
 
-        if(LeaderboardManager.Instance.playerName != null)
+        if(LeaderboardManager.Instance.GetPlayerName() != null)
         {
-            usernameInput.SetValueWithoutNotify(LeaderboardManager.Instance.playerName);
+            usernameInput.SetValueWithoutNotify(LeaderboardManager.Instance.GetPlayerName());
         }
 
         VerifyAndAllowGameStart();
@@ -140,7 +140,7 @@ public class GameSetup : MonoBehaviour
     /// </summary>
     private void NameReceived()
     {
-        usernameInput.SetValueWithoutNotify(LeaderboardManager.Instance.playerName);
+        usernameInput.SetValueWithoutNotify(LeaderboardManager.Instance.GetPlayerName());
     }
 
     public void Show()
@@ -269,7 +269,7 @@ public class GameSetup : MonoBehaviour
     {
         if (!IsTextSafe(newName))
         {
-            usernameInput.SetValueWithoutNotify(LeaderboardManager.Instance.playerName != null ? LeaderboardManager.Instance.playerName : string.Empty);
+            usernameInput.SetValueWithoutNotify(LeaderboardManager.Instance.GetPlayerName() != null ? LeaderboardManager.Instance.GetPlayerName() : string.Empty);
             VerifyAndAllowGameStart();
             AudioManager.Instance.PlaySFX(AudioManager.DEFAULT_UISFX.FAIL, transform);
             return;
